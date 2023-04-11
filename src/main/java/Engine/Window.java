@@ -2,6 +2,7 @@ package Engine;
 
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
+import org.lwjgl.opengl.GL;
 import org.lwjgl.system.MemoryStack;
 
 import java.nio.IntBuffer;
@@ -18,6 +19,7 @@ public class Window {
     private boolean open=  true;
     private int width, height;
     private String title;
+
     private MouseInput mouseInput;
 
 
@@ -100,12 +102,14 @@ public class Window {
         glfwShowWindow(window);
 
         mouseInput = new MouseInput(window);
+
+        GL.createCapabilities();
+        glEnable(GL_DEPTH_TEST);
     }
 
     public void update(){
 
         // Set the clear color
-
 
         glfwSwapBuffers(window); // swap the color buffers
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
@@ -115,6 +119,7 @@ public class Window {
             open = false;
 
         mouseInput.input();
+
     }
 
     public void cleanup(){
@@ -130,6 +135,4 @@ public class Window {
     public MouseInput getMouseInput() {
         return mouseInput;
     }
-
-
 }

@@ -6,37 +6,64 @@ import org.joml.Vector4f;
 import java.util.List;
 
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 
 public class Circle extends Object {
-    Vector3f center, radius;
 
-    public Circle(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color, Vector3f center, Vector3f radius) {
+    Float radiusX;
+    Float radiusY;
+    public Circle(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color, List<Float> centerPoint, Float radiusX,Float radiusY) {
         super(shaderModuleDataList, vertices, color);
-        this.center = center;
-        this.radius = radius;
-
+        this.centerPoint = centerPoint;
+        this.radiusX = radiusX;
+        this.radiusY = radiusY;
         createCircle();
         setupVAOVBO();
     }
-
-    public void createCircle() {
-        //vertices -> clear
-        vertices.clear();
-        for (float angle = 0; angle < 360; angle += 0.1) {
-            float x = (float) (radius.x * Math.cos(Math.toRadians(angle)) + center.x);
-            float y = (float) (radius.y * Math.sin(Math.toRadians(angle)) + center.y);
-            vertices.add(new Vector3f(x, y, 0.0f));
-
-        }
-
+    public double degToRad(float degree){
+        return (degree * Math.PI / (float) 180);
     }
-
-//    public void draw() {
+    public void createCircle(){
+        vertices.clear();
+        for(float i = 0;i<360;i+=0.1){
+            double rad = degToRad(i);
+            Float x = (float) (centerPoint.get(0)+Math.cos(rad)*radiusX);
+            Float y = (float) (centerPoint.get(1)+Math.sin(rad)*radiusY);
+            Float z = 0.0f;
+            vertices.add(new Vector3f(x,y,z));
+        }
+    }
+    public void createRectangle(){
+        vertices.clear();
+        int degree = 45;
+        for(float i = 0;i<4;i++){
+            double rad = degToRad(degree);
+            Float x = (float) (centerPoint.get(0)+Math.cos(rad)*radiusX);
+            Float y = (float) (centerPoint.get(1)+Math.sin(rad)*radiusY);
+            Float z = 0.0f;
+            vertices.add(new Vector3f(x,y,z));
+            degree+=90;
+        }
+    }
+    public void createTriangle(){
+        vertices.clear();
+        int degree = 90;
+        for(float i = 0;i<3;i++){
+            double rad = degToRad(degree);
+            Float x = (float) (centerPoint.get(0)+Math.cos(rad)*radiusX);
+            Float y = (float) (centerPoint.get(1)+Math.sin(rad)*radiusY);
+            Float z = 0.0f;
+            vertices.add(new Vector3f(x,y,z));
+            if(degree == 90){
+                degree += 135;
+            }
+            else{
+                degree += 90;
+            }
+        }
+    }
+//    public void draw(){
 //        drawSetup();
-//        // draw the vertices
-//        glLineWidth(1);
-//        glPointSize(0);
 //        glDrawArrays(GL_TRIANGLE_FAN, 0, vertices.size());
 //    }
-
 }

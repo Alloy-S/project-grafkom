@@ -53,23 +53,29 @@ public class Main {
         if (window.isKeyPressed(GLFW_KEY_A)){
             camera.moveLeft(0.05f);
         }
-        if (window.isKeyPressed(GLFW_KEY_W)) {
+        if (window.isKeyPressed(GLFW_KEY_SPACE)) {
             camera.moveUp(0.05f);
         }
-        if (window.isKeyPressed(GLFW_KEY_S)){
+        if (window.isKeyPressed(GLFW_KEY_LEFT_SHIFT)){
             camera.moveDown(0.05f);
         }
+        if (window.isKeyPressed(GLFW_KEY_W)) {
+            camera.moveForward(0.05f);
+        }
+        if (window.isKeyPressed(GLFW_KEY_S)){
+            camera.moveBackwards(0.05f);
+        }
         if (window.isKeyPressed(GLFW_KEY_RIGHT)) {
-            camera.addRotation(0.0f,0.01f);
+            camera.addRotation(0.0f,0.02f);
         }
         if (window.isKeyPressed(GLFW_KEY_LEFT)){
-            camera.addRotation(0.0f,-0.01f);
+            camera.addRotation(0.0f,-0.02f);
         }
-        if (window.isKeyPressed(GLFW_KEY_DOWN)) {
-            camera.addRotation(-0.01f,0.0f);
+        if (window.isKeyPressed(GLFW_KEY_UP)) {
+            camera.addRotation(-0.02f,0.0f);
         }
-        if (window.isKeyPressed(GLFW_KEY_UP)){
-            camera.addRotation(0.01f,0.0f);
+        if (window.isKeyPressed(GLFW_KEY_DOWN)){
+            camera.addRotation(0.02f,0.0f);
         }
     }
     public void loop(){

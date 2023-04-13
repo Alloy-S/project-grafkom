@@ -31,8 +31,8 @@ public class DartMonkey extends Object{
         vertices.clear();
         float pi = (float)Math.PI;
 
-        float sectorStep = 2 * (float)Math.PI / 20;
-        float stackStep = (float)Math.PI / 20;
+        float sectorStep = 2 * (float)Math.PI / sectorCount;
+        float stackStep = (float)Math.PI / stackCount;
         float sectorAngle, StackAngle, x, y, z;
 
         for (int i = 0; i <= stackCount; ++i)
@@ -66,6 +66,18 @@ public class DartMonkey extends Object{
                 ),
                 new ArrayList<>(),
                 new Vector4f(0.62f,0.42f,0.2f,1.0f)
+        ));
+        children.add(new DartMonkeyHead(
+                Arrays.asList(
+                        new ShaderProgram.ShaderModuleData
+                                ("resources/shaders/scene.vert"
+                                        , GL_VERTEX_SHADER),
+                        new ShaderProgram.ShaderModuleData
+                                ("resources/shaders/scene.frag"
+                                        , GL_FRAGMENT_SHADER)
+                ),
+                new ArrayList<>(),
+                new Vector4f(0.44f,0.24f,0.12f,1.0f)
         ));
         setChildObject(children);
     }

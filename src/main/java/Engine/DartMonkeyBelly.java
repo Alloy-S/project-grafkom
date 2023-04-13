@@ -14,12 +14,12 @@ public class DartMonkeyBelly extends Object{
         super(shaderModuleDataList, vertices, color);
         vertices.clear();
 
-        radiusX = 0.3f;
+        radiusX = 0.25f;
         radiusY = 0.3f;
         radiusZ = 0.1f;
         sectorCount = 80;
         stackCount = 80;
-        setCenterPoint(Arrays.asList(1.5f, 0.0f, -2.9f));
+        setCenterPoint(Arrays.asList(1.5f, 0.0f, -2.88f));
         generate();
         setupVAOVBO();
     }
@@ -28,8 +28,8 @@ public class DartMonkeyBelly extends Object{
         vertices.clear();
         float pi = (float)Math.PI;
 
-        float sectorStep = 2 * (float)Math.PI / 20;
-        float stackStep = (float)Math.PI / 20;
+        float sectorStep = 2 * (float)Math.PI / sectorCount;
+        float stackStep = (float)Math.PI / stackCount;
         float sectorAngle, StackAngle, x, y, z;
 
         for (int i = 0; i <= stackCount; ++i)

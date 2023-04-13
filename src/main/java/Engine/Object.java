@@ -87,7 +87,6 @@ public class Object extends ShaderProgram{
         glBufferData(GL_ARRAY_BUFFER,
                 Utils.listoFloat(vertices),
                 GL_STATIC_DRAW);
-        System.out.println("setup"+vertices);
     }
     public void setupVAOVBOWithVerticesColor(){
         //set vao

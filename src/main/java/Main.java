@@ -41,13 +41,35 @@ public class Main {
                 , GL_FRAGMENT_SHADER)
             ),
             new ArrayList<>(),
-            new Vector4f(0.0f,1.0f,1.0f,1.0f)
+            new Vector4f(0.44f,0.24f,0.12f,1.0f)
         ));
 
 
     }
     public void input(){
+        if (window.isKeyPressed(GLFW_KEY_D)) {
+            camera.moveRight(0.05f);
+        }
+        if (window.isKeyPressed(GLFW_KEY_A)){
+            camera.moveLeft(0.05f);
+        }
         if (window.isKeyPressed(GLFW_KEY_W)) {
+            camera.moveUp(0.05f);
+        }
+        if (window.isKeyPressed(GLFW_KEY_S)){
+            camera.moveDown(0.05f);
+        }
+        if (window.isKeyPressed(GLFW_KEY_RIGHT)) {
+            camera.addRotation(0.0f,0.01f);
+        }
+        if (window.isKeyPressed(GLFW_KEY_LEFT)){
+            camera.addRotation(0.0f,-0.01f);
+        }
+        if (window.isKeyPressed(GLFW_KEY_DOWN)) {
+            camera.addRotation(-0.01f,0.0f);
+        }
+        if (window.isKeyPressed(GLFW_KEY_UP)){
+            camera.addRotation(0.01f,0.0f);
         }
     }
     public void loop(){

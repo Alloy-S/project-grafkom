@@ -7,22 +7,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.lwjgl.opengl.GL20.GL_FRAGMENT_SHADER;
-import static org.lwjgl.opengl.GL20.GL_VERTEX_SHADER;
-
-public class DartMonkey extends Object{
+public class DartMonkeyBelly extends Object{
     float radiusX, radiusY, radiusZ;
     int sectorCount, stackCount;
-    public DartMonkey(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
+    public DartMonkeyBelly(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
         super(shaderModuleDataList, vertices, color);
         vertices.clear();
 
         radiusX = 0.3f;
-        radiusY = 0.4f;
-        radiusZ = 0.2f;
+        radiusY = 0.3f;
+        radiusZ = 0.1f;
         sectorCount = 80;
         stackCount = 80;
-        setCenterPoint(Arrays.asList(1.5f, 0.0f, -3.0f));
+        setCenterPoint(Arrays.asList(1.5f, 0.0f, -2.9f));
         generate();
         setupVAOVBO();
     }
@@ -54,20 +51,5 @@ public class DartMonkey extends Object{
         }
 
         // bikin anak di sini
-        List<Object> children = new ArrayList<>();
-        children.add(new DartMonkeyBelly(
-                Arrays.asList(
-                        new ShaderProgram.ShaderModuleData
-                                ("resources/shaders/scene.vert"
-                                        , GL_VERTEX_SHADER),
-                        new ShaderProgram.ShaderModuleData
-                                ("resources/shaders/scene.frag"
-                                        , GL_FRAGMENT_SHADER)
-                ),
-                new ArrayList<>(),
-                new Vector4f(0.62f,0.42f,0.2f,1.0f)
-        ));
-        setChildObject(children);
     }
-
 }

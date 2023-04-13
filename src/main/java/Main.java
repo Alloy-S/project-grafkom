@@ -40,8 +40,7 @@ public class Main {
                 ("resources/shaders/scene.frag"
                 , GL_FRAGMENT_SHADER)
             ),
-            new ArrayList<>(
-            ),
+            new ArrayList<>(),
             new Vector4f(0.0f,1.0f,1.0f,1.0f)
         ));
 

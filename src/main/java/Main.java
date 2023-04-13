@@ -16,7 +16,7 @@ import static org.lwjgl.opengl.GL30.*;
 public class Main {
     private Window window =
             new Window
-    (800,800,"Hello World");
+    (1200,1200,"Hello World");
     private ArrayList<Object> dartMonkey= new ArrayList<>();
     private ArrayList<Object> ninjaMonkey= new ArrayList<>();
     private ArrayList<Object> engineerMonkey= new ArrayList<>();
@@ -28,9 +28,22 @@ public class Main {
         window.init();
         GL.createCapabilities();
         mouseInput = window.getMouseInput();
-        camera.setPosition(0,0,1.7f);
-        camera.setRotation((float)Math.toRadians(0.0f),(float)Math.toRadians(30.0f));
+        camera.setPosition(0,0,1f);
+        camera.setRotation((float)Math.toRadians(0.0f),(float)Math.toRadians(0.0f));
         //code
+        dartMonkey.add(new DartMonkey(
+                Arrays.asList(
+                new ShaderProgram.ShaderModuleData
+                ("resources/shaders/scene.vert"
+                , GL_VERTEX_SHADER),
+                new ShaderProgram.ShaderModuleData
+                ("resources/shaders/scene.frag"
+                , GL_FRAGMENT_SHADER)
+            ),
+            new ArrayList<>(
+            ),
+            new Vector4f(0.0f,1.0f,1.0f,1.0f)
+        ));
 
 
     }

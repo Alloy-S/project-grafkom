@@ -1,5 +1,6 @@
 package Engine;
 
+import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
@@ -13,6 +14,7 @@ import static org.lwjgl.opengl.GL20.GL_VERTEX_SHADER;
 public class DartMonkeyHead extends Object{
     float radiusX, radiusY, radiusZ;
     int sectorCount, stackCount;
+    float offsetX, offsetY, offsetZ;
     public DartMonkeyHead(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
         super(shaderModuleDataList, vertices, color);
         vertices.clear();
@@ -24,7 +26,10 @@ public class DartMonkeyHead extends Object{
         stackCount = 80;
         generate();
         setupVAOVBO();
-        translateObject(0.0f, 1.0f, 0.0f);
+        offsetX = 0.0f;
+        offsetY = 1.0f;
+        offsetZ = 0.0f;
+        translateObject(offsetX, offsetY, offsetZ);
     }
 
     public void generate(){
@@ -68,7 +73,28 @@ public class DartMonkeyHead extends Object{
                 new ArrayList<>(),
                 new Vector4f(0.62f,0.42f,0.2f,1.0f)
         ));
+        children.add(new DartMonkeyHair(
+                Arrays.asList(
+                        new ShaderProgram.ShaderModuleData
+                                ("resources/shaders/scene.vert"
+                                        , GL_VERTEX_SHADER),
+                        new ShaderProgram.ShaderModuleData
+                                ("resources/shaders/scene.frag"
+                                        , GL_FRAGMENT_SHADER)
+                ),
+                new ArrayList<>(),
+                new Vector4f(0.44f,0.24f,0.12f,1.0f)
+        ));
         setChildObject(children);
     }
 
+    public void rotateObject(Float degree, Float x,Float y,Float z) {
+        model = new Matrix4f().rotate(degree, x, y, z).mul(new Matrix4f(model));
+        updateCenterPoint();
+        for (Object child : childObject) {
+            child.translateObject(-offsetX, -offsetY, -offsetZ);
+            child.rotateObject(degree, x, y, z);
+            child.translateObject(offsetX, offsetY, offsetZ);
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package Engine;
 
+import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
@@ -13,6 +14,7 @@ import static org.lwjgl.opengl.GL20.GL_VERTEX_SHADER;
 public class DartMonkeyEye2 extends Object{
     float radiusX, radiusY, radiusZ;
     int sectorCount, stackCount;
+    float offsetX, offsetY, offsetZ;
     public DartMonkeyEye2(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
         super(shaderModuleDataList, vertices, color);
         vertices.clear();
@@ -24,8 +26,10 @@ public class DartMonkeyEye2 extends Object{
         stackCount = 80;
         generate();
         setupVAOVBO();
-        translateObject(0.25f, 0.0f, 0.155f);
-//        rotateObject(0.1f,0.0f,1.0f,0.0f);
+        offsetX = 0.25f;
+        offsetY = 0.0f;
+        offsetZ = 0.155f;
+        translateObject(offsetX, offsetY, offsetZ);
     }
 
     public void generate(){
@@ -56,21 +60,28 @@ public class DartMonkeyEye2 extends Object{
 
         // bikin anak di sini
         List<Object> children = new ArrayList<>();
-//        children.add(new DartMonkeyPupil1(
-//                Arrays.asList(
-//                        new ShaderProgram.ShaderModuleData
-//                                ("resources/shaders/scene.vert"
-//                                        , GL_VERTEX_SHADER),
-//                        new ShaderProgram.ShaderModuleData
-//                                ("resources/shaders/scene.frag"
-//                                        , GL_FRAGMENT_SHADER)
-//                ),
-//                new ArrayList<>(),
-//                new Vector4f(0.77f,0.77f,0.77f,1.0f)
-//        ));
+        children.add(new DartMonkeyPupil2(
+                Arrays.asList(
+                        new ShaderProgram.ShaderModuleData
+                                ("resources/shaders/scene.vert"
+                                        , GL_VERTEX_SHADER),
+                        new ShaderProgram.ShaderModuleData
+                                ("resources/shaders/scene.frag"
+                                        , GL_FRAGMENT_SHADER)
+                ),
+                new ArrayList<>(),
+                new Vector4f(0.27f,0.15f,0.07f,1.0f)
+        ));
 
 
         setChildObject(children);
+    }
+    public void rotateObject(Float degree, Float x,Float y,Float z) {
+        model = new Matrix4f().rotate(degree, x, y, z).mul(new Matrix4f(model));
+        updateCenterPoint();
+        for (Object child : childObject) {
+            child.rotateObject(degree, x, y, z);
+        }
     }
 }
 

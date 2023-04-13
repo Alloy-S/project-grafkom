@@ -1,5 +1,6 @@
 package Engine;
 
+import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
@@ -10,18 +11,22 @@ import java.util.List;
 public class DartMonkeyBelly extends Object{
     float radiusX, radiusY, radiusZ;
     int sectorCount, stackCount;
+    float offsetX, offsetY, offsetZ;
     public DartMonkeyBelly(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
         super(shaderModuleDataList, vertices, color);
         vertices.clear();
 
-        radiusX = 0.25f;
-        radiusY = 0.3f;
+        radiusX = 0.3f;
+        radiusY = 0.35f;
         radiusZ = 0.1f;
         sectorCount = 80;
         stackCount = 80;
         generate();
         setupVAOVBO();
-        translateObject(0.0f, 0.0f, 0.15f);
+        this.offsetX = 0.0f;
+        this.offsetY = 0.0f;
+        this.offsetZ = 0.12f;
+        translateObject(offsetX, offsetY, offsetZ);
     }
 
     public void generate(){
@@ -51,5 +56,12 @@ public class DartMonkeyBelly extends Object{
         }
 
         // bikin anak di sini
+    }
+    public void rotateObject(Float degree, Float x,Float y,Float z) {
+        model = new Matrix4f().rotate(degree, x, y, z).mul(new Matrix4f(model));
+        updateCenterPoint();
+        for (Object child : childObject) {
+            child.rotateObject(degree, x, y, z);
+        }
     }
 }

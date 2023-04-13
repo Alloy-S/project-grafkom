@@ -1,5 +1,6 @@
 package Engine;
 
+import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
@@ -13,18 +14,22 @@ import static org.lwjgl.opengl.GL20.GL_VERTEX_SHADER;
 public class DartMonkey extends Object{
     float radiusX, radiusY, radiusZ;
     int sectorCount, stackCount;
+    float offsetX, offsetY, offsetZ;
     public DartMonkey(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
         super(shaderModuleDataList, vertices, color);
         vertices.clear();
 
-        radiusX = 0.3f;
-        radiusY = 0.4f;
+        radiusX = 0.4f;
+        radiusY = 0.5f;
         radiusZ = 0.2f;
         sectorCount = 80;
         stackCount = 80;
         generate();
         setupVAOVBO();
-        translateObject(1.5f, 0.0f, -3.0f);
+        this.offsetX = 1.5f;
+        this.offsetY = 0.0f;
+        this.offsetZ = -3.0f;
+        translateObject(offsetX, offsetY, offsetZ);
     }
 
     public void generate(){
@@ -82,4 +87,16 @@ public class DartMonkey extends Object{
         setChildObject(children);
     }
 
+    public void rotateObject(Float degree, Float x,Float y,Float z){
+        translateObject(-offsetX, -offsetY, -offsetZ);
+        model = new Matrix4f().rotate(degree,x,y,z).mul(new Matrix4f(model));
+        updateCenterPoint();
+        translateObject(offsetX, offsetY, offsetZ);
+        for(Object child:childObject){
+            child.translateObject(-offsetX, -offsetY, -offsetZ);
+            child.rotateObject(degree,x,y,z);
+            child.translateObject(offsetX, offsetY, offsetZ);
+        }
+
+    }
 }

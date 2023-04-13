@@ -45,6 +45,7 @@ public class Main {
         ));
 
 
+
     }
     public void input(){
         if (window.isKeyPressed(GLFW_KEY_D)) {
@@ -79,8 +80,7 @@ public class Main {
         }
 
         if (window.isKeyPressed(GLFW_KEY_I)){
-            dartMonkey.get(0).rotateObject((float)Math.PI,1.0f,0.0f,0.0f);
-            System.out.println(dartMonkey.get(0).getCenterPoint());
+            dartMonkey.get(0).rotateObject(0.1f,0.0f,1.0f,0.0f);
         }
     }
     public void loop(){

@@ -77,6 +77,11 @@ public class Main {
         if (window.isKeyPressed(GLFW_KEY_DOWN)){
             camera.addRotation(0.02f,0.0f);
         }
+
+        if (window.isKeyPressed(GLFW_KEY_I)){
+            dartMonkey.get(0).rotateObject((float)Math.PI,1.0f,0.0f,0.0f);
+            System.out.println(dartMonkey.get(0).getCenterPoint());
+        }
     }
     public void loop(){
         while (window.isOpen()) {

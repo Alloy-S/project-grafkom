@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.lwjgl.opengl.GL20.GL_FRAGMENT_SHADER;
+import static org.lwjgl.opengl.GL20.GL_VERTEX_SHADER;
+
 public class DartMonkeyFace extends Object{
     float radiusX, radiusY, radiusZ;
     int sectorCount, stackCount;
@@ -15,13 +18,13 @@ public class DartMonkeyFace extends Object{
         vertices.clear();
 
         radiusX = 0.6f;
-        radiusY = 0.4f;
+        radiusY = 0.42f;
         radiusZ = 0.2f;
         sectorCount = 80;
         stackCount = 80;
-        setCenterPoint(Arrays.asList(1.5f, 1.0f, -2.58f));
         generate();
         setupVAOVBO();
+        translateObject(0.0f, 0.0f, 0.415f);
     }
 
     public void generate(){
@@ -46,10 +49,39 @@ public class DartMonkeyFace extends Object{
                 temp_vector.x = centerPoint.get(0) + x * (float)Math.cos(sectorAngle);
                 temp_vector.y = centerPoint.get(1) + y * (float)Math.sin(sectorAngle);
                 temp_vector.z = centerPoint.get(2) + z;
-                vertices.add(temp_vector);
+                if(z>0.057f) vertices.add(temp_vector);
             }
         }
+//        vertices.clear();
 
         // bikin anak di sini
+        List<Object> children = new ArrayList<>();
+        children.add(new DartMonkeyEye1(
+                Arrays.asList(
+                        new ShaderProgram.ShaderModuleData
+                                ("resources/shaders/scene.vert"
+                                        , GL_VERTEX_SHADER),
+                        new ShaderProgram.ShaderModuleData
+                                ("resources/shaders/scene.frag"
+                                        , GL_FRAGMENT_SHADER)
+                ),
+                new ArrayList<>(),
+                new Vector4f(0.77f,0.77f,0.77f,1.0f)
+        ));
+        children.add(new DartMonkeyEye2(
+                Arrays.asList(
+                        new ShaderProgram.ShaderModuleData
+                                ("resources/shaders/scene.vert"
+                                        , GL_VERTEX_SHADER),
+                        new ShaderProgram.ShaderModuleData
+                                ("resources/shaders/scene.frag"
+                                        , GL_FRAGMENT_SHADER)
+                ),
+                new ArrayList<>(),
+                new Vector4f(0.77f,0.77f,0.77f,1.0f)
+        ));
+
+
+        setChildObject(children);
     }
 }

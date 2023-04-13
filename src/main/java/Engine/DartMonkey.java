@@ -22,9 +22,9 @@ public class DartMonkey extends Object{
         radiusZ = 0.2f;
         sectorCount = 80;
         stackCount = 80;
-        setCenterPoint(Arrays.asList(1.5f, 0.0f, -3.0f));
         generate();
         setupVAOVBO();
+        translateObject(1.5f, 0.0f, -3.0f);
     }
 
     public void generate(){

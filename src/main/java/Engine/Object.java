@@ -216,12 +216,11 @@ public class Object extends ShaderProgram{
         centerPoint.set(0,destTemp.x);
         centerPoint.set(1,destTemp.y);
         centerPoint.set(2,destTemp.z);
-        System.out.println(centerPoint.get(0) + " " + centerPoint.get(1));
     }
     public void scaleObject(Float scaleX,Float scaleY,Float scaleZ){
         model = new Matrix4f().scale(scaleX,scaleY,scaleZ).mul(new Matrix4f(model));
         for(Object child:childObject){
-            child.translateObject(scaleX,scaleY,scaleZ);
+            child.scaleObject(scaleX,scaleY,scaleZ);
         }
     }
 

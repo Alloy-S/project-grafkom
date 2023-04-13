@@ -19,9 +19,9 @@ public class DartMonkeyBelly extends Object{
         radiusZ = 0.1f;
         sectorCount = 80;
         stackCount = 80;
-        setCenterPoint(Arrays.asList(1.5f, 0.0f, -2.88f));
         generate();
         setupVAOVBO();
+        translateObject(0.0f, 0.0f, 0.15f);
     }
 
     public void generate(){
@@ -46,7 +46,7 @@ public class DartMonkeyBelly extends Object{
                 temp_vector.x = centerPoint.get(0) + x * (float)Math.cos(sectorAngle);
                 temp_vector.y = centerPoint.get(1) + y * (float)Math.sin(sectorAngle);
                 temp_vector.z = centerPoint.get(2) + z;
-                vertices.add(temp_vector);
+                if(z>0.05f) vertices.add(temp_vector);
             }
         }
 

@@ -25,7 +25,7 @@ public class DartMonkeyTail extends Object{
         setupVAOVBO();
         this.offsetX = 1.5f;
         this.offsetY = 0.0f;
-        this.offsetZ = -3.0f;
+        this.offsetZ = -1.0f;
         translateObject(offsetX, offsetY, offsetZ);
     }
 
@@ -43,6 +43,7 @@ public class DartMonkeyTail extends Object{
             vertices.add(new Vector3f(calculateBezierPoint((float) i, tempVertices)));
         }
         vertices.add(tempVertices.get(tempVertices.size()-1));
+        generate2();
     }
 
     public static Vector3f calculateBezierPoint(float t, List<Vector3f> points) {
@@ -72,13 +73,30 @@ public class DartMonkeyTail extends Object{
     }
 
 
+    public void generate2(){
+        List<Vector3f> tempVertices = new ArrayList<>();
+        for (int i=0; i<vertices.size(); i++){
+            tempVertices.add(vertices.get(i));
+        }
+        vertices.clear();
+
+        for (int i=0; i<tempVertices.size()-1; i++){
+            Vector3f p1 = tempVertices.get(i);
+            Vector3f p2 = tempVertices.get(i+1);
+            float dx = p2.x - p2.x;
+            float dy = p2.y - p1.y;
+
+        }
+    }
+
     public void draw(Camera camera, Projection projection){
         drawSetup(camera, projection);
         // Draw the vertices
         //optional
-        glLineWidth(20); //ketebalan garis
+        glLineWidth(30); //ketebalan garis
         glPointSize(60); //besar kecil vertex
-        glDrawArrays(GL_LINES,
+        glEnable(GL_LINE_SMOOTH);
+        glDrawArrays(GL_LINE_STRIP,
                 0,
                 vertices.size());
         for(Object child:childObject){

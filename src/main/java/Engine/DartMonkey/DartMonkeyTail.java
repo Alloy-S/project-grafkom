@@ -17,18 +17,23 @@ import static org.lwjgl.opengl.GL20.GL_FRAGMENT_SHADER;
 import static org.lwjgl.opengl.GL20.GL_VERTEX_SHADER;
 
 public class DartMonkeyTail extends Object {
+    float radius;
     float offsetX, offsetY, offsetZ;
+
+    List<List<Vector3f>> totalVertices = new ArrayList<>();
     public DartMonkeyTail(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
         super(shaderModuleDataList, vertices, color);
         vertices.clear();
+
+        radius = 0.05f;
         vertices.add(new Vector3f(0.0f,0.0f,0.0f));
-        vertices.add(new Vector3f(0.0f,-0.2f,-2.0f));
-        vertices.add(new Vector3f(0.4f,-0.25f,-1.6f));
+        vertices.add(new Vector3f(0.0f,-0.2f,-1.6f));
+        vertices.add(new Vector3f(0.8f,-0.3f,-1.2f));
         generate();
         setupVAOVBO();
-        this.offsetX = 1.5f;
-        this.offsetY = 0.0f;
-        this.offsetZ = -1.0f;
+        this.offsetX = 0.0f;
+        this.offsetY = -0.2f;
+        this.offsetZ = -0.0f;
         translateObject(offsetX, offsetY, offsetZ);
     }
 
@@ -38,14 +43,10 @@ public class DartMonkeyTail extends Object {
             tempVertices.add(vertices.get(i));
         }
         vertices.clear();
-        vertices.add(tempVertices.get(0));
-        int size = tempVertices.size();
         double interval = 0.05;
         for (double i=0; i<=1; i+=interval){
             vertices.add(new Vector3f(calculateBezierPoint((float) i, tempVertices)));
-            vertices.add(new Vector3f(calculateBezierPoint((float) i, tempVertices)));
         }
-        vertices.add(tempVertices.get(tempVertices.size()-1));
         generate2();
     }
 
@@ -77,6 +78,8 @@ public class DartMonkeyTail extends Object {
 
 
     public void generate2(){
+        // https://stackoverflow.com/questions/61047848/plot-a-point-in-3d-space-perpendicular-to-a-line-vector
+
         List<Vector3f> tempVertices = new ArrayList<>();
         for (int i=0; i<vertices.size(); i++){
             tempVertices.add(vertices.get(i));
@@ -84,26 +87,79 @@ public class DartMonkeyTail extends Object {
         vertices.clear();
 
         for (int i=0; i<tempVertices.size()-1; i++){
+            List<Vector3f> segmentVertices = new ArrayList<>();
+
             Vector3f p1 = tempVertices.get(i);
             Vector3f p2 = tempVertices.get(i+1);
-            float dx = p2.x - p2.x;
+            float dx = p2.x - p1.x;
             float dy = p2.y - p1.y;
+            float dz = p2.z - p1.z;
 
+            float d = (float) Math.sqrt(dx*dx + dy*dy + dz*dz);
+            if(d==0) d=1;
+
+            // normal vector
+            List<Float> p = new ArrayList<>();
+            float dxx = dx/d;
+            float dyy = dy/d;
+            float dzz = dz/d;
+            if (Math.abs(dxx) >= Math.abs(dyy) && Math.abs(dyy) >= Math.abs(dzz)){p = List.of(dyy, -dxx, 0f);} // dxx dyy dzz
+            if (Math.abs(dxx) >= Math.abs(dzz) && Math.abs(dzz) >= Math.abs(dyy)){p = List.of(dzz, 0f, -dxx);} // dxx dzz dyy
+            if (Math.abs(dyy) >= Math.abs(dxx) && Math.abs(dxx) >= Math.abs(dzz)){p = List.of(-dyy, dxx, 0f);} // dyy dxx dzz
+            if (Math.abs(dyy) >= Math.abs(dzz) && Math.abs(dzz) >= Math.abs(dxx)){p = List.of(0f, dzz, -dyy);} // dyy dzz dxx
+            if (Math.abs(dzz) >= Math.abs(dxx) && Math.abs(dxx) >= Math.abs(dyy)){p = List.of(-dzz, 0f, dxx);} // dzz dxx dyy
+            if (Math.abs(dzz) >= Math.abs(dyy) && Math.abs(dyy) >= Math.abs(dxx)){p = List.of(0f, -dzz, dyy);} // dzz dyy dxx
+
+            Vector3f pp = new Vector3f(p.get(0), p.get(1), p.get(2));
+            pp.normalize();
+
+            Vector3f v3f = new Vector3f(dx/d, dy/d, dz/d);
+            Vector3f b = new Vector3f();
+            v3f.cross(pp.x, pp.y, pp.z, b);
+
+            for(float k = 0; k<360; k+=10){
+                double theta = Math.toRadians(k);
+                float x = p1.x + radius*(float)Math.cos(theta)*pp.x + radius*(float)Math.sin(theta)*b.x;
+                float y = p1.y + radius*(float)Math.cos(theta)*pp.y + radius*(float)Math.sin(theta)*b.y;
+                float z = p1.z + radius*(float)Math.cos(theta)*pp.z + radius*(float)Math.sin(theta)*b.z;
+                segmentVertices.add(new Vector3f(x,y,z));
+            }
+            List<Vector3f> orderedSegmentVertices = new ArrayList<>();
+            int start = 0;
+            if(i>=4) start-=6;
+            if(i>=11) start-=18;
+            if(i>=15) start-=24;
+            if(i>=17) start-=12;
+
+            start += 10*segmentVertices.size();
+            start %= segmentVertices.size();
+            orderedSegmentVertices.addAll(segmentVertices.subList(start, segmentVertices.size()));
+            orderedSegmentVertices.addAll(segmentVertices.subList(0, start+1));
+
+            totalVertices.add(orderedSegmentVertices);
         }
+
+
     }
 
     public void draw(Camera camera, Projection projection){
-        drawSetup(camera, projection);
-        // Draw the vertices
-        //optional
-        glLineWidth(30); //ketebalan garis
-        glPointSize(60); //besar kecil vertex
-        glEnable(GL_LINE_SMOOTH);
-        glDrawArrays(GL_LINE_STRIP,
-                0,
-                vertices.size());
-        for(Object child:childObject){
-            child.draw(camera,projection);
+        for(int i=0; i<totalVertices.size()-1; i++){
+            vertices.clear();
+            for(int j=0; j<totalVertices.get(i).size(); j++){
+                vertices.add(totalVertices.get(i).get( j % totalVertices.get(i+1).size() ));
+                vertices.add(totalVertices.get(i+1).get( j % totalVertices.get(i+1).size() ));
+                vertices.add(totalVertices.get(i+1).get( (j+1) % totalVertices.get(i+1).size() ));
+                vertices.add(totalVertices.get(i).get( (j+1) % totalVertices.get(i+1).size() ));
+                vertices.add(totalVertices.get(i).get( j % totalVertices.get(i+1).size() ));
+            }
+            drawSegment(camera, projection);
         }
+    }
+    public void drawSegment(Camera camera, Projection projection){
+        setupVAOVBO();
+        drawSetup(camera, projection);
+        glLineWidth(10); //ketebalan garis
+        glPointSize(10); //besar kecil vertex
+        glDrawArrays(GL_POLYGON, 0, vertices.size());
     }
 }

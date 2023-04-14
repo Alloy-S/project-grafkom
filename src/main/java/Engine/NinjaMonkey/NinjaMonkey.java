@@ -1,5 +1,6 @@
-package Engine;
+package Engine.NinjaMonkey;
 
+import Engine.Object;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
@@ -11,11 +12,13 @@ import java.util.List;
 import static org.lwjgl.opengl.GL20.GL_FRAGMENT_SHADER;
 import static org.lwjgl.opengl.GL20.GL_VERTEX_SHADER;
 
-public class DartMonkey extends Object{
+public class NinjaMonkey extends Object {
     float radiusX, radiusY, radiusZ;
     int sectorCount, stackCount;
-    float offsetX, offsetY, offsetZ;
-    public DartMonkey(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
+
+    public float offsetX, offsetY, offsetZ;
+
+    public NinjaMonkey(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
         super(shaderModuleDataList, vertices, color);
         vertices.clear();
 
@@ -26,7 +29,7 @@ public class DartMonkey extends Object{
         stackCount = 80;
         generate();
         setupVAOVBO();
-        this.offsetX = 1.5f;
+        this.offsetX = -3f;
         this.offsetY = 0.0f;
         this.offsetZ = -3.0f;
         translateObject(offsetX, offsetY, offsetZ);
@@ -60,43 +63,30 @@ public class DartMonkey extends Object{
 
         // bikin anak di sini
         List<Object> children = new ArrayList<>();
-        children.add(new DartMonkeyBelly(
+        children.add(new NinjaMonkeyBelly(
                 Arrays.asList(
-                        new ShaderProgram.ShaderModuleData
+                        new ShaderModuleData
                                 ("resources/shaders/scene.vert"
                                         , GL_VERTEX_SHADER),
-                        new ShaderProgram.ShaderModuleData
+                        new ShaderModuleData
                                 ("resources/shaders/scene.frag"
                                         , GL_FRAGMENT_SHADER)
                 ),
                 new ArrayList<>(),
-                new Vector4f(0.62f,0.42f,0.2f,1.0f)
+                new Vector4f(245f,0.0f,0.0f,1.0f)
         ));
-        children.add(new DartMonkeyHead(
+        children.add(new NinjaMonkeyHead(
                 Arrays.asList(
-                        new ShaderProgram.ShaderModuleData
+                        new ShaderModuleData
                                 ("resources/shaders/scene.vert"
                                         , GL_VERTEX_SHADER),
-                        new ShaderProgram.ShaderModuleData
+                        new ShaderModuleData
                                 ("resources/shaders/scene.frag"
                                         , GL_FRAGMENT_SHADER)
                 ),
                 new ArrayList<>(),
-                new Vector4f(0.44f,0.24f,0.12f,1.0f)
+                new Vector4f(245f,0.0f,0.0f,1.0f)
         ));
-        children.add(new DartMonkeyTail(
-                Arrays.asList(
-                        new ShaderProgram.ShaderModuleData
-                                ("resources/shaders/scene.vert"
-                                        , GL_VERTEX_SHADER),
-                        new ShaderProgram.ShaderModuleData
-                                ("resources/shaders/scene.frag"
-                                        , GL_FRAGMENT_SHADER)
-                ),
-                new ArrayList<>(),
-                new Vector4f(0.44f,0.24f,0.12f,1.0f)
-        ));
-
         setChildObject(children);
     }
 

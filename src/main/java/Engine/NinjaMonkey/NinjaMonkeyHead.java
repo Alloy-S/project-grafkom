@@ -1,5 +1,9 @@
-package Engine;
+package Engine.NinjaMonkey;
 
+import Engine.DartMonkeyHair1;
+import Engine.DartMonkeyHair2;
+import Engine.DartMonkeyHair3;
+import Engine.Object;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
@@ -11,24 +15,24 @@ import java.util.List;
 import static org.lwjgl.opengl.GL20.GL_FRAGMENT_SHADER;
 import static org.lwjgl.opengl.GL20.GL_VERTEX_SHADER;
 
-public class DartMonkey extends Object{
+public class NinjaMonkeyHead extends Object {
     float radiusX, radiusY, radiusZ;
     int sectorCount, stackCount;
-    float offsetX, offsetY, offsetZ;
-    public DartMonkey(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
+    public float offsetX, offsetY, offsetZ;
+    public NinjaMonkeyHead(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
         super(shaderModuleDataList, vertices, color);
         vertices.clear();
 
-        radiusX = 0.4f;
-        radiusY = 0.5f;
-        radiusZ = 0.2f;
+        radiusX = 0.75f;
+        radiusY = 0.64f;
+        radiusZ = 0.6f;
         sectorCount = 80;
         stackCount = 80;
         generate();
         setupVAOVBO();
-        this.offsetX = 1.5f;
-        this.offsetY = 0.0f;
-        this.offsetZ = -3.0f;
+        offsetX = 0.0f;
+        offsetY = 1.0f;
+        offsetZ = 0.0f;
         translateObject(offsetX, offsetY, offsetZ);
     }
 
@@ -57,59 +61,44 @@ public class DartMonkey extends Object{
                 vertices.add(temp_vector);
             }
         }
+//        vertices.clear();
 
         // bikin anak di sini
         List<Object> children = new ArrayList<>();
-        children.add(new DartMonkeyBelly(
+        children.add(new NinjaMonkeyFace(
                 Arrays.asList(
-                        new ShaderProgram.ShaderModuleData
+                        new ShaderModuleData
                                 ("resources/shaders/scene.vert"
                                         , GL_VERTEX_SHADER),
-                        new ShaderProgram.ShaderModuleData
+                        new ShaderModuleData
                                 ("resources/shaders/scene.frag"
                                         , GL_FRAGMENT_SHADER)
                 ),
                 new ArrayList<>(),
                 new Vector4f(0.62f,0.42f,0.2f,1.0f)
         ));
-        children.add(new DartMonkeyHead(
+        children.add(new NinjaMonkeyFace2(
                 Arrays.asList(
-                        new ShaderProgram.ShaderModuleData
+                        new ShaderModuleData
                                 ("resources/shaders/scene.vert"
                                         , GL_VERTEX_SHADER),
-                        new ShaderProgram.ShaderModuleData
+                        new ShaderModuleData
                                 ("resources/shaders/scene.frag"
                                         , GL_FRAGMENT_SHADER)
                 ),
                 new ArrayList<>(),
-                new Vector4f(0.44f,0.24f,0.12f,1.0f)
+                new Vector4f(245f,0.0f,0.0f,1.0f)
         ));
-        children.add(new DartMonkeyTail(
-                Arrays.asList(
-                        new ShaderProgram.ShaderModuleData
-                                ("resources/shaders/scene.vert"
-                                        , GL_VERTEX_SHADER),
-                        new ShaderProgram.ShaderModuleData
-                                ("resources/shaders/scene.frag"
-                                        , GL_FRAGMENT_SHADER)
-                ),
-                new ArrayList<>(),
-                new Vector4f(0.44f,0.24f,0.12f,1.0f)
-        ));
-
         setChildObject(children);
     }
 
-    public void rotateObject(Float degree, Float x,Float y,Float z){
-        translateObject(-offsetX, -offsetY, -offsetZ);
-        model = new Matrix4f().rotate(degree,x,y,z).mul(new Matrix4f(model));
+    public void rotateObject(Float degree, Float x,Float y,Float z) {
+        model = new Matrix4f().rotate(degree, x, y, z).mul(new Matrix4f(model));
         updateCenterPoint();
-        translateObject(offsetX, offsetY, offsetZ);
-        for(Object child:childObject){
+        for (Object child : childObject) {
             child.translateObject(-offsetX, -offsetY, -offsetZ);
-            child.rotateObject(degree,x,y,z);
+            child.rotateObject(degree, x, y, z);
             child.translateObject(offsetX, offsetY, offsetZ);
         }
-
     }
 }

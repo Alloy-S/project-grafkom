@@ -3,6 +3,7 @@ import Engine.EngineerMonkey.EngineerMonkey;
 import Engine.EngineerMonkey.EngineerMonkeyHead;
 import Engine.Object;
 import org.joml.Vector3f;
+
 import org.joml.Vector4f;
 import org.lwjgl.opengl.GL;
 
@@ -29,7 +30,7 @@ public class Main {
         window.init();
         GL.createCapabilities();
         mouseInput = window.getMouseInput();
-        camera.setPosition(0,0,1f);
+        camera.setPosition(-1f,0,3f);
         camera.setRotation((float)Math.toRadians(0.0f),(float)Math.toRadians(0.0f));
         //code
         dartMonkey.add(new DartMonkey(
@@ -45,6 +46,19 @@ public class Main {
             new Vector4f(0.44f,0.24f,0.12f,1.0f)
         ));
 
+        ninjaMonkey.add(new NinjaMonkey(
+                Arrays.asList(
+                        new ShaderProgram.ShaderModuleData
+                                ("resources/shaders/scene.vert"
+                                        , GL_VERTEX_SHADER),
+                        new ShaderProgram.ShaderModuleData
+                                ("resources/shaders/scene.frag"
+                                        , GL_FRAGMENT_SHADER)
+                ),
+                new ArrayList<>(),
+                new Vector4f(245f,0.0f,0.0f,1.0f)
+        ));
+
         engineerMonkey.add(new EngineerMonkey(
                 Arrays.asList(
                         new ShaderProgram.ShaderModuleData
@@ -57,7 +71,6 @@ public class Main {
                 new ArrayList<>(),
                 new Vector4f(0.44f,0.24f,0.12f,1.0f)
         ));
-
 
 
     }
@@ -101,6 +114,7 @@ public class Main {
             engineerMonkey.get(0).rotateObject(0.1f,0.0f,1.0f,0.0f);
         }
 
+
         if (window.isKeyPressed(GLFW_KEY_H)){
 //            engineerMonkey.get(0).getChildObject().get(1).rotateObject(0.1f,0.0f,1.0f,0.0f);
             EngineerMonkeyHead head = (EngineerMonkeyHead) engineerMonkey.get(0).getChildObject().get(1);
@@ -110,6 +124,12 @@ public class Main {
             head.rotateObject((float) Math.toRadians(1), 0f, 1f, 0f);
             head.translateObject(tmpCenterPoint.get(0), tmpCenterPoint.get(1), tmpCenterPoint.get(2));
         }
+
+        if (window.isKeyPressed(GLFW_KEY_O)){
+            ninjaMonkey.get(0).rotateObject(0.1f,0.0f,1.0f,0.0f);
+        }
+
+
     }
     public void loop(){
         while (window.isOpen()) {
@@ -126,6 +146,10 @@ public class Main {
             }
 
             for(Object object: engineerMonkey){
+                object.draw(camera,projection);
+            }
+
+            for(Object object: ninjaMonkey){
                 object.draw(camera,projection);
             }
 

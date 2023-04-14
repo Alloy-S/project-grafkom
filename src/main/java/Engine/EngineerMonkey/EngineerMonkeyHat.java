@@ -2,7 +2,7 @@ package Engine.EngineerMonkey;
 
 import Engine.Object;
 import Engine.ShaderProgram;
-import Engine.Silinder;
+import Engine.Pipe;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
@@ -78,7 +78,7 @@ public class EngineerMonkeyHat extends Object {
 //
         ));
 
-        getChildObject().add(new Silinder(
+        getChildObject().add(new Pipe(
                 Arrays.asList(
                         new ShaderProgram.ShaderModuleData
                                 ("resources/shaders/scene.vert"
@@ -97,7 +97,7 @@ public class EngineerMonkeyHat extends Object {
         getChildObject().get(1).rotateObject((float) Math.toRadians(-30), 1f, 0f, 0f);
         getChildObject().get(1).translateObject(0f, 0.15f, 0f);
 
-        getChildObject().add(new Silinder(
+        getChildObject().add(new Pipe(
                 Arrays.asList(
                         new ShaderProgram.ShaderModuleData
                                 ("resources/shaders/scene.vert"

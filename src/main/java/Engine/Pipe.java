@@ -7,12 +7,12 @@ import java.util.List;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public class Silinder extends Object{
+public class Pipe extends Object{
     Vector3f center, radius;
     float height;
     float lineWidth;
 
-    public Silinder(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color, Vector3f center, Vector3f radius, float height, float lineWidth) {
+    public Pipe(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color, Vector3f center, Vector3f radius, float height, float lineWidth) {
         super(shaderModuleDataList, vertices, color);
         this.center = center;
         this.radius = radius;

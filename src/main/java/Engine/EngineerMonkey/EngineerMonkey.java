@@ -155,6 +155,29 @@ public class EngineerMonkey extends Object{
                 new ArrayList<>(),
                 new Vector4f(0.44f,0.24f,0.12f,1.0f)
         ));
+
+        getChildObject().add(new Pipe(
+                Arrays.asList(
+                        new ShaderProgram.ShaderModuleData
+                                ("resources/shaders/scene.vert"
+                                        , GL_VERTEX_SHADER),
+                        new ShaderProgram.ShaderModuleData
+                                ("resources/shaders/scene.frag"
+                                        , GL_FRAGMENT_SHADER)
+                ),
+                new ArrayList<>(),
+                new Vector4f(0.44f,0.24f,0.12f,1.0f),
+                new Vector3f(0f,0f,0f),
+                new Vector3f(0.2f, 0.2f, 0.2f),
+                0.6f,
+                0.1f,
+                360f
+        ));
+
+        getChildObject().get(4).scaleObject(0.4f, 0.4f, 0.4f);
+        getChildObject().get(4).rotateObject((float) Math.toRadians(90), 1f, 0f, 0f);
+        getChildObject().get(4).rotateObject((float) Math.toRadians(30), 0f, 0f, 1f);
+        getChildObject().get(4).translateObject(0.5f, 0.1f, 0f);
     }
 
     public void rotateObject(Float degree, Float x,Float y,Float z){

@@ -20,8 +20,8 @@ public class NinjaMonkeyFace extends Object {
         super(shaderModuleDataList, vertices, color);
         vertices.clear();
 
-        radiusX = 0.595f;
-        radiusY = 0.395f;
+        radiusX = 0.467f;
+        radiusY = 0.31f;
         radiusZ = 0.2f;
         sectorCount = 80;
         stackCount = 80;

@@ -20,8 +20,8 @@ public class NinjaMonkeyHead extends Object {
         super(shaderModuleDataList, vertices, color);
         vertices.clear();
 
-        radiusX = 0.75f;
-        radiusY = 0.64f;
+        radiusX = 0.7f;
+        radiusY = 0.6f;
         radiusZ = 0.6f;
         sectorCount = 80;
         stackCount = 80;
@@ -30,6 +30,7 @@ public class NinjaMonkeyHead extends Object {
         offsetX = 0.0f;
         offsetY = 1.0f;
         offsetZ = 0.0f;
+        scaleObject(0.9f,0.9f,0.9f);
         translateObject(offsetX, offsetY, offsetZ);
     }
 
@@ -74,18 +75,18 @@ public class NinjaMonkeyHead extends Object {
                 new ArrayList<>(),
                 new Vector4f(0.62f,0.42f,0.2f,1.0f)
         ));
-        children.add(new NinjaMonkeyFace2(
-                Arrays.asList(
-                        new ShaderModuleData
-                                ("resources/shaders/scene.vert"
-                                        , GL_VERTEX_SHADER),
-                        new ShaderModuleData
-                                ("resources/shaders/scene.frag"
-                                        , GL_FRAGMENT_SHADER)
-                ),
-                new ArrayList<>(),
-                new Vector4f(245f,0.0f,0.0f,1.0f)
-        ));
+//        children.add(new NinjaMonkeyFace2(
+//                Arrays.asList(
+//                        new ShaderModuleData
+//                                ("resources/shaders/scene.vert"
+//                                        , GL_VERTEX_SHADER),
+//                        new ShaderModuleData
+//                                ("resources/shaders/scene.frag"
+//                                        , GL_FRAGMENT_SHADER)
+//                ),
+//                new ArrayList<>(),
+//                new Vector4f(245f,0.0f,0.0f,1.0f)
+//        ));
         setChildObject(children);
     }
 

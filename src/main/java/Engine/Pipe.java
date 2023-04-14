@@ -7,17 +7,19 @@ import java.util.List;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public class Silinder extends Object{
+public class Pipe extends Object{
     Vector3f center, radius;
     float height;
     float lineWidth;
+    float putaran;
 
-    public Silinder(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color, Vector3f center, Vector3f radius, float height, float lineWidth) {
+    public Pipe(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color, Vector3f center, Vector3f radius, float height, float lineWidth, float putaran) {
         super(shaderModuleDataList, vertices, color);
         this.center = center;
         this.radius = radius;
         this.height = height;
         this.lineWidth = lineWidth;
+        this.putaran = putaran;
         createSilinder();
         setupVAOVBO();
 
@@ -26,7 +28,7 @@ public class Silinder extends Object{
     private void createSilinder() {
         vertices.clear();
 
-            for (float angle = 0; angle < 180; angle += 0.1) {
+            for (float angle = 0; angle < putaran; angle += 0.1) {
 //                for (float h = 0; h < height; h += 0.1f) {
                 float x1 = (float) (radius.x * Math.cos(Math.toRadians(angle)) + center.x);
                 float y1 = (float) (radius.y * Math.sin(Math.toRadians(angle)) + center.y);
@@ -49,5 +51,8 @@ public class Silinder extends Object{
         glLineWidth(1);
         glPointSize(0);
         glDrawArrays(GL_LINE_LOOP, 0, vertices.size());
+        for(Object child:childObject){
+            child.draw(camera,projection);
+        }
     }
 }

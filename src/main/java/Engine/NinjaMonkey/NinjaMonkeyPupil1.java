@@ -23,9 +23,10 @@ public class NinjaMonkeyPupil1 extends Object {
         stackCount = 80;
         generate();
         setupVAOVBO();
-        offsetX = 0.015f;
-        offsetY = -0.03f;
+        offsetX = 0.03f;
+        offsetY = -0.02f;
         offsetZ = 0.04f;
+        scaleObject(0.9f,0.9f,0.9f);
         translateObject(offsetX, offsetY, offsetZ);
     }
 

@@ -9,6 +9,7 @@ import org.lwjgl.opengl.GL;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.glClearColor;
@@ -78,6 +79,27 @@ public class Main {
         if (window.isKeyPressed(GLFW_KEY_D)) {
             camera.moveRight(cameraSpeed);
         }
+
+        if (window.isKeyPressed(GLFW_KEY_1)) {
+            camera.moveRight(cameraSpeed);
+            camera.addRotation(0.0f,-0.01f);
+        }
+
+        if (window.isKeyPressed(GLFW_KEY_2)) {
+            camera.moveLeft(cameraSpeed);
+            camera.addRotation(0.0f,0.01f);
+        }
+
+        if (window.isKeyPressed(GLFW_KEY_3)) {
+            camera.moveForward(cameraSpeed);
+            camera.addRotation(0.01f,0.0f);
+        }
+
+        if (window.isKeyPressed(GLFW_KEY_4)) {
+            camera.moveBackwards(cameraSpeed);
+            camera.addRotation(-0.01f,0.0f);
+        }
+
         if (window.isKeyPressed(GLFW_KEY_A)){
             camera.moveLeft(cameraSpeed);
         }
@@ -116,13 +138,13 @@ public class Main {
 
 
         if (window.isKeyPressed(GLFW_KEY_H)){
-            engineerMonkey.get(0).getChildObject().get(1).rotateObject(0.1f,0.0f,1.0f,0.0f);
-//            EngineerMonkeyHead head = (EngineerMonkeyHead) engineerMonkey.get(0).getChildObject().get(1);
-//            List<Float> tmpCenterPoint = head.getCenterPoint();
-//
-//            head.translateObject(tmpCenterPoint.get(0) * -1, tmpCenterPoint.get(1) * -1, tmpCenterPoint.get(2) * -1);
-//            head.rotateObject((float) Math.toRadians(1), 0f, 1f, 0f);
-//            head.translateObject(tmpCenterPoint.get(0), tmpCenterPoint.get(1), tmpCenterPoint.get(2));
+//            engineerMonkey.get(0).getChildObject().get(1).rotateObject(0.1f,0.0f,1.0f,0.0f);
+            EngineerMonkeyHead head = (EngineerMonkeyHead) engineerMonkey.get(0).getChildObject().get(1);
+            List<Float> tmpCenterPoint = head.getCenterPoint();
+
+            head.translateObject(tmpCenterPoint.get(0) * -1, tmpCenterPoint.get(1) * -1, tmpCenterPoint.get(2) * -1);
+            head.rotateObject((float) Math.toRadians(1), 0f, 1f, 0f);
+            head.translateObject(tmpCenterPoint.get(0), tmpCenterPoint.get(1), tmpCenterPoint.get(2));
         }
 
         if (window.isKeyPressed(GLFW_KEY_O)){

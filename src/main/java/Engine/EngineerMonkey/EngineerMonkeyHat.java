@@ -92,7 +92,8 @@ public class EngineerMonkeyHat extends Object {
                 new Vector3f(0f,0f,0f),
                 new Vector3f(0.71f, 0.7f, 0.7f),
                 0.05f,
-                0.05f
+                0.05f,
+                180f
         ));
         getChildObject().get(1).rotateObject((float) Math.toRadians(-30), 1f, 0f, 0f);
         getChildObject().get(1).translateObject(0f, 0.15f, 0f);
@@ -111,7 +112,8 @@ public class EngineerMonkeyHat extends Object {
                 new Vector3f(0f,0f,0f),
                 new Vector3f(0.7f, 0.7f, 0.7f),
                 0.15f,
-                0.02f
+                0.02f,
+                180f
         ));
         getChildObject().get(2).rotateObject((float) Math.toRadians(90), 1f, 0f, 0f);
         getChildObject().get(2).rotateObject((float) Math.toRadians(90), 0f, 0f, 1f);

@@ -56,7 +56,7 @@ public class EngineerMonkeyHat extends Object {
                 temp_vector.x = centerPoint.get(0) + x * (float) Math.cos(sectorAngle);
                 temp_vector.y = centerPoint.get(1) + y * (float) Math.sin(sectorAngle);
                 temp_vector.z = centerPoint.get(2) + z;
-                System.out.println(y + " -- " + z);
+//                System.out.println(y + " -- " + z);
                 if (z > -0.1f ) {
                     vertices.add(temp_vector);
                 }

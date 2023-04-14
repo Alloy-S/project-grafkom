@@ -1,7 +1,7 @@
 import Engine.*;
 import Engine.EngineerMonkey.EngineerMonkey;
+import Engine.EngineerMonkey.EngineerMonkeyHead;
 import Engine.Object;
-import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 import org.lwjgl.opengl.GL;
@@ -99,6 +99,16 @@ public class Main {
 
         if (window.isKeyPressed(GLFW_KEY_U)){
             engineerMonkey.get(0).rotateObject(0.1f,0.0f,1.0f,0.0f);
+        }
+
+        if (window.isKeyPressed(GLFW_KEY_H)){
+//            engineerMonkey.get(0).getChildObject().get(1).rotateObject(0.1f,0.0f,1.0f,0.0f);
+            EngineerMonkeyHead head = (EngineerMonkeyHead) engineerMonkey.get(0).getChildObject().get(1);
+            List<Float> tmpCenterPoint = head.getCenterPoint();
+
+            head.translateObject(tmpCenterPoint.get(0) * -1, tmpCenterPoint.get(1) * -1, tmpCenterPoint.get(2) * -1);
+            head.rotateObject((float) Math.toRadians(1), 0f, 1f, 0f);
+            head.translateObject(tmpCenterPoint.get(0), tmpCenterPoint.get(1), tmpCenterPoint.get(2));
         }
     }
     public void loop(){

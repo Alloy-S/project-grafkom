@@ -32,6 +32,7 @@ public class EngineerMonkeyHead extends Object {
         this.offsetX = 0f;
         this.offsetY = 0.95f;
         this.offsetZ = 0.f;
+        rotateObject((float) Math.toRadians(70), 1f, 0f, 0f);
         translateObject(offsetX, offsetY, offsetZ);
     }
 
@@ -58,7 +59,9 @@ public class EngineerMonkeyHead extends Object {
                 temp_vector.x = centerPoint.get(0) + x * (float) Math.cos(sectorAngle);
                 temp_vector.y = centerPoint.get(1) + y * (float) Math.sin(sectorAngle);
                 temp_vector.z = centerPoint.get(2) + z;
-                vertices.add(temp_vector);
+                if (z > -0.35) {
+                    vertices.add(temp_vector);
+                }
             }
         }
 

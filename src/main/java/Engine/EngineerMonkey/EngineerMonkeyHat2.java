@@ -1,37 +1,31 @@
 package Engine.EngineerMonkey;
 
 import Engine.Object;
-import Engine.ShaderProgram;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import static org.lwjgl.opengl.GL20.GL_FRAGMENT_SHADER;
-import static org.lwjgl.opengl.GL20.GL_VERTEX_SHADER;
-
-public class EngineerMonkeyHat extends Object {
+public class EngineerMonkeyHat2 extends Object {
     float radiusX, radiusY, radiusZ;
     int sectorCount, stackCount;
     float offsetX, offsetY, offsetZ;
 
-    public EngineerMonkeyHat(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
+    public EngineerMonkeyHat2(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
         super(shaderModuleDataList, vertices, color);
         vertices.clear();
 
         radiusX = 0.72f;
         radiusY = 0.67f;
-        radiusZ = 0.67f;
-        sectorCount = 110;
-        stackCount = 180;
+        radiusZ = 0.3f;
+        sectorCount = 80;
+        stackCount = 80;
         generate();
         setupVAOVBO();
         this.offsetX = 0f;
-        this.offsetY = 0.05f;
-        this.offsetZ = -0.3f;
-        rotateObject((float) Math.toRadians(-180), 1f, 0f, 0f);
+        this.offsetY = -0.22f;
+        this.offsetZ = 1f;
+        rotateObject((float) Math.toRadians(0), 1f, 0f, 0f);
         translateObject(offsetX, offsetY, offsetZ);
     }
 
@@ -55,25 +49,12 @@ public class EngineerMonkeyHat extends Object {
                 temp_vector.x = centerPoint.get(0) + x * (float) Math.cos(sectorAngle);
                 temp_vector.y = centerPoint.get(1) + y * (float) Math.sin(sectorAngle);
                 temp_vector.z = centerPoint.get(2) + z;
-                System.out.println(y + " -- " + z);
-                if (z > -0.1f ) {
+                System.out.println(temp_vector.x + " -- " + y + " -- " + z);
+                if ((x > -0.5f && x < 0.5f) && z > 0f) {
                     vertices.add(temp_vector);
                 }
             }
         }
-
-        getChildObject().add(new EngineerMonkeyHat2(
-                Arrays.asList(
-                        new ShaderProgram.ShaderModuleData
-                                ("resources/shaders/scene.vert"
-                                        , GL_VERTEX_SHADER),
-                        new ShaderProgram.ShaderModuleData
-                                ("resources/shaders/scene.frag"
-                                        , GL_FRAGMENT_SHADER)
-                ),
-                new ArrayList<>(),
-                new Vector4f(0.920f, 0.652f, 0.0276f,1.0f)
-        ));
 
     }
 

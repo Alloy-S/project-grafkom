@@ -1,5 +1,6 @@
-package Engine;
+package Engine.DartMonkey;
 
+import Engine.Object;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
@@ -11,7 +12,7 @@ import java.util.List;
 import static org.lwjgl.opengl.GL20.GL_FRAGMENT_SHADER;
 import static org.lwjgl.opengl.GL20.GL_VERTEX_SHADER;
 
-public class DartMonkeyEye1 extends Object{
+public class DartMonkeyEye1 extends Object {
 
     float radiusX, radiusY, radiusZ;
     int sectorCount, stackCount;
@@ -63,10 +64,10 @@ public class DartMonkeyEye1 extends Object{
         List<Object> children = new ArrayList<>();
         children.add(new DartMonkeyPupil1(
                 Arrays.asList(
-                        new ShaderProgram.ShaderModuleData
+                        new ShaderModuleData
                                 ("resources/shaders/scene.vert"
                                         , GL_VERTEX_SHADER),
-                        new ShaderProgram.ShaderModuleData
+                        new ShaderModuleData
                                 ("resources/shaders/scene.frag"
                                         , GL_FRAGMENT_SHADER)
                 ),

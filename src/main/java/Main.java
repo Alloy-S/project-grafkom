@@ -1,15 +1,14 @@
 import Engine.*;
-import Engine.EngineerMonkey.EngineerMonkey;
-import Engine.EngineerMonkey.EngineerMonkeyHead;
+import Engine.DartMonkey.*;
+import Engine.EngineerMonkey.*;
+import Engine.NinjaMonkey.*;
 import Engine.Object;
-import org.joml.Vector3f;
 
 import org.joml.Vector4f;
 import org.lwjgl.opengl.GL;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.glClearColor;
@@ -75,23 +74,24 @@ public class Main {
 
     }
     public void input(){
+        float cameraSpeed = 0.04f;
         if (window.isKeyPressed(GLFW_KEY_D)) {
-            camera.moveRight(0.02f);
+            camera.moveRight(cameraSpeed);
         }
         if (window.isKeyPressed(GLFW_KEY_A)){
-            camera.moveLeft(0.02f);
+            camera.moveLeft(cameraSpeed);
         }
         if (window.isKeyPressed(GLFW_KEY_SPACE)) {
-            camera.moveUp(0.02f);
+            camera.moveUp(cameraSpeed);
         }
         if (window.isKeyPressed(GLFW_KEY_LEFT_SHIFT)){
-            camera.moveDown(0.02f);
+            camera.moveDown(cameraSpeed);
         }
         if (window.isKeyPressed(GLFW_KEY_W)) {
-            camera.moveForward(0.02f);
+            camera.moveForward(cameraSpeed);
         }
         if (window.isKeyPressed(GLFW_KEY_S)){
-            camera.moveBackwards(0.02f);
+            camera.moveBackwards(cameraSpeed);
         }
         if (window.isKeyPressed(GLFW_KEY_RIGHT)) {
             camera.addRotation(0.0f,0.01f);
@@ -116,13 +116,13 @@ public class Main {
 
 
         if (window.isKeyPressed(GLFW_KEY_H)){
-//            engineerMonkey.get(0).getChildObject().get(1).rotateObject(0.1f,0.0f,1.0f,0.0f);
-            EngineerMonkeyHead head = (EngineerMonkeyHead) engineerMonkey.get(0).getChildObject().get(1);
-            List<Float> tmpCenterPoint = head.getCenterPoint();
-
-            head.translateObject(tmpCenterPoint.get(0) * -1, tmpCenterPoint.get(1) * -1, tmpCenterPoint.get(2) * -1);
-            head.rotateObject((float) Math.toRadians(1), 0f, 1f, 0f);
-            head.translateObject(tmpCenterPoint.get(0), tmpCenterPoint.get(1), tmpCenterPoint.get(2));
+            engineerMonkey.get(0).getChildObject().get(1).rotateObject(0.1f,0.0f,1.0f,0.0f);
+//            EngineerMonkeyHead head = (EngineerMonkeyHead) engineerMonkey.get(0).getChildObject().get(1);
+//            List<Float> tmpCenterPoint = head.getCenterPoint();
+//
+//            head.translateObject(tmpCenterPoint.get(0) * -1, tmpCenterPoint.get(1) * -1, tmpCenterPoint.get(2) * -1);
+//            head.rotateObject((float) Math.toRadians(1), 0f, 1f, 0f);
+//            head.translateObject(tmpCenterPoint.get(0), tmpCenterPoint.get(1), tmpCenterPoint.get(2));
         }
 
         if (window.isKeyPressed(GLFW_KEY_O)){

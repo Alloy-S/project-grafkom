@@ -1,5 +1,8 @@
-package Engine;
+package Engine.DartMonkey;
 
+import Engine.Camera;
+import Engine.Object;
+import Engine.Projection;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
@@ -13,7 +16,7 @@ import static org.lwjgl.opengl.GL11.GL_POLYGON;
 import static org.lwjgl.opengl.GL20.GL_FRAGMENT_SHADER;
 import static org.lwjgl.opengl.GL20.GL_VERTEX_SHADER;
 
-public class DartMonkeyTail extends Object{
+public class DartMonkeyTail extends Object {
     float offsetX, offsetY, offsetZ;
     public DartMonkeyTail(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
         super(shaderModuleDataList, vertices, color);

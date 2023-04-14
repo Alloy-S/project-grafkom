@@ -1,8 +1,5 @@
 package Engine.NinjaMonkey;
 
-import Engine.DartMonkeyHair1;
-import Engine.DartMonkeyHair2;
-import Engine.DartMonkeyHair3;
 import Engine.Object;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;

@@ -1,5 +1,6 @@
-package Engine;
+package Engine.DartMonkey;
 
+import Engine.Object;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
@@ -8,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class DartMonkeyBelly extends Object{
+public class DartMonkeyBelly extends Object {
     float radiusX, radiusY, radiusZ;
     int sectorCount, stackCount;
     float offsetX, offsetY, offsetZ;

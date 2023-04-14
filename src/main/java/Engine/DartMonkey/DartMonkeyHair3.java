@@ -1,11 +1,12 @@
-package Engine;
+package Engine.DartMonkey;
 
+import Engine.Object;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
 import java.util.List;
 
-public class DartMonkeyHair3 extends Object{
+public class DartMonkeyHair3 extends Object {
     float offsetX, offsetY, offsetZ;
     public DartMonkeyHair3(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
         super(shaderModuleDataList, vertices, color);

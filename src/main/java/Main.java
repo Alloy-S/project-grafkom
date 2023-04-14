@@ -1,4 +1,5 @@
 import Engine.*;
+import Engine.EngineerMonkey.EngineerMonkey;
 import Engine.Object;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
@@ -44,6 +45,19 @@ public class Main {
             new Vector4f(0.44f,0.24f,0.12f,1.0f)
         ));
 
+        engineerMonkey.add(new EngineerMonkey(
+                Arrays.asList(
+                        new ShaderProgram.ShaderModuleData
+                                ("resources/shaders/scene.vert"
+                                        , GL_VERTEX_SHADER),
+                        new ShaderProgram.ShaderModuleData
+                                ("resources/shaders/scene.frag"
+                                        , GL_FRAGMENT_SHADER)
+                ),
+                new ArrayList<>(),
+                new Vector4f(0.44f,0.24f,0.12f,1.0f)
+        ));
+
 
 
     }
@@ -82,6 +96,10 @@ public class Main {
         if (window.isKeyPressed(GLFW_KEY_I)){
             dartMonkey.get(0).rotateObject(0.1f,0.0f,1.0f,0.0f);
         }
+
+        if (window.isKeyPressed(GLFW_KEY_U)){
+            engineerMonkey.get(0).rotateObject(0.1f,0.0f,1.0f,0.0f);
+        }
     }
     public void loop(){
         while (window.isOpen()) {
@@ -94,6 +112,10 @@ public class Main {
 
             //code
             for(Object object: dartMonkey){
+                object.draw(camera,projection);
+            }
+
+            for(Object object: engineerMonkey){
                 object.draw(camera,projection);
             }
 

@@ -17,18 +17,18 @@ import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 
 public class Object extends ShaderProgram{
 
-    List<Vector3f> vertices;
-    int vao;
-    int vbo;
-    UniformsMap uniformsMap;
-    Vector4f color;
+    public List<Vector3f> vertices;
+    public int vao;
+    public int vbo;
+    public UniformsMap uniformsMap;
+    public Vector4f color;
 
-    Matrix4f model;
+    public Matrix4f model;
 
-    int vboColor;
+    public int vboColor;
 
-    List<Object> childObject;
-    List<Float> centerPoint;
+    public List<Object> childObject;
+    public List<Float> centerPoint;
 
     public List<Object> getChildObject() {
         return childObject;

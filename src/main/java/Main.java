@@ -167,13 +167,13 @@ public class Main {
                 object.draw(camera,projection);
             }
 
-//            for(Object object: engineerMonkey){
-//                object.draw(camera,projection);
-//            }
-//
-//            for(Object object: ninjaMonkey){
-//                object.draw(camera,projection);
-//            }
+            for(Object object: engineerMonkey){
+                object.draw(camera,projection);
+            }
+
+            for(Object object: ninjaMonkey){
+                object.draw(camera,projection);
+            }
 
             // Restore state
             glDisableVertexAttribArray(0);

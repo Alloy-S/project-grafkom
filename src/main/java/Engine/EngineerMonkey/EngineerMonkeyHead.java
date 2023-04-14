@@ -1,10 +1,17 @@
 package Engine.EngineerMonkey;
 
 import Engine.Object;
+import Engine.ShaderProgram;
+import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import static org.lwjgl.opengl.GL20.GL_FRAGMENT_SHADER;
+import static org.lwjgl.opengl.GL20.GL_VERTEX_SHADER;
 
 public class EngineerMonkeyHead extends Object {
     float radiusX, radiusY, radiusZ;
@@ -15,8 +22,8 @@ public class EngineerMonkeyHead extends Object {
         super(shaderModuleDataList, vertices, color);
         vertices.clear();
 
-        radiusX = 0.7f;
-        radiusY = 0.5f;
+        radiusX = 0.65f;
+        radiusY = 0.6f;
         radiusZ = 0.6f;
         sectorCount = 80;
         stackCount = 80;
@@ -54,5 +61,51 @@ public class EngineerMonkeyHead extends Object {
                 vertices.add(temp_vector);
             }
         }
+
+//        getChildObject().add(new EngineerMonkeyFace(
+//                Arrays.asList(
+//                        new ShaderProgram.ShaderModuleData
+//                                ("resources/shaders/scene.vert"
+//                                        , GL_VERTEX_SHADER),
+//                        new ShaderProgram.ShaderModuleData
+//                                ("resources/shaders/scene.frag"
+//                                        , GL_FRAGMENT_SHADER)
+//                ),
+//                new ArrayList<>(),
+//                new Vector4f(0.890f, 0.743f, 0.400f,1.0f)
+//        ));
+//
+//        getChildObject().add(new EngineerMonkeyFace(
+//                Arrays.asList(
+//                        new ShaderProgram.ShaderModuleData
+//                                ("resources/shaders/scene.vert"
+//                                        , GL_VERTEX_SHADER),
+//                        new ShaderProgram.ShaderModuleData
+//                                ("resources/shaders/scene.frag"
+//                                        , GL_FRAGMENT_SHADER)
+//                ),
+//                new ArrayList<>(),
+//                new Vector4f(0.890f, 0.743f, 0.400f,1.0f)
+//        ));
+//
+//        getChildObject().get(0).rotateObject(0.09f, 1f, 0f, 0f);
+//        getChildObject().get(1).rotateObject(0.09f, 1f, 0f, 0f);
+//        getChildObject().get(0).translateObject(-0.2f, -0.05f, 0.51f);
+//        getChildObject().get(1).translateObject(0.2f, -0.05f, 0.51f);
+
+        getChildObject().add(new EngineerMonkeyHat(
+                Arrays.asList(
+                        new ShaderProgram.ShaderModuleData
+                                ("resources/shaders/scene.vert"
+                                        , GL_VERTEX_SHADER),
+                        new ShaderProgram.ShaderModuleData
+                                ("resources/shaders/scene.frag"
+                                        , GL_FRAGMENT_SHADER)
+                ),
+                new ArrayList<>(),
+                new Vector4f(0.930f, 0.797f, 0.0465f,1.0f)
+        ));
     }
+
+
 }

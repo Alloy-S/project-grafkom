@@ -63,34 +63,34 @@ public class Main {
     }
     public void input(){
         if (window.isKeyPressed(GLFW_KEY_D)) {
-            camera.moveRight(0.05f);
+            camera.moveRight(0.02f);
         }
         if (window.isKeyPressed(GLFW_KEY_A)){
-            camera.moveLeft(0.05f);
+            camera.moveLeft(0.02f);
         }
         if (window.isKeyPressed(GLFW_KEY_SPACE)) {
-            camera.moveUp(0.05f);
+            camera.moveUp(0.02f);
         }
         if (window.isKeyPressed(GLFW_KEY_LEFT_SHIFT)){
-            camera.moveDown(0.05f);
+            camera.moveDown(0.02f);
         }
         if (window.isKeyPressed(GLFW_KEY_W)) {
-            camera.moveForward(0.05f);
+            camera.moveForward(0.02f);
         }
         if (window.isKeyPressed(GLFW_KEY_S)){
-            camera.moveBackwards(0.05f);
+            camera.moveBackwards(0.02f);
         }
         if (window.isKeyPressed(GLFW_KEY_RIGHT)) {
-            camera.addRotation(0.0f,0.02f);
+            camera.addRotation(0.0f,0.01f);
         }
         if (window.isKeyPressed(GLFW_KEY_LEFT)){
-            camera.addRotation(0.0f,-0.02f);
+            camera.addRotation(0.0f,-0.01f);
         }
         if (window.isKeyPressed(GLFW_KEY_UP)) {
-            camera.addRotation(-0.02f,0.0f);
+            camera.addRotation(-0.01f,0.0f);
         }
         if (window.isKeyPressed(GLFW_KEY_DOWN)){
-            camera.addRotation(0.02f,0.0f);
+            camera.addRotation(0.01f,0.0f);
         }
 
         if (window.isKeyPressed(GLFW_KEY_I)){

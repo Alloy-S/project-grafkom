@@ -23,8 +23,8 @@ public class EngineerMonkeyHat2 extends Object {
         generate();
         setupVAOVBO();
         this.offsetX = 0f;
-        this.offsetY = -0.22f;
-        this.offsetZ = 1f;
+        this.offsetY = -0.2f;
+        this.offsetZ = -0.13f;
         rotateObject((float) Math.toRadians(0), 1f, 0f, 0f);
         translateObject(offsetX, offsetY, offsetZ);
     }
@@ -50,7 +50,7 @@ public class EngineerMonkeyHat2 extends Object {
                 temp_vector.y = centerPoint.get(1) + y * (float) Math.sin(sectorAngle);
                 temp_vector.z = centerPoint.get(2) + z;
                 System.out.println(temp_vector.x + " -- " + y + " -- " + z);
-                if ((x > -0.5f && x < 0.5f) && z > 0f) {
+                if (z > 0f ) {
                     vertices.add(temp_vector);
                 }
             }

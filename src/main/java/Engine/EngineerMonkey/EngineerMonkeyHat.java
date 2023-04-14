@@ -2,6 +2,7 @@ package Engine.EngineerMonkey;
 
 import Engine.Object;
 import Engine.ShaderProgram;
+import Engine.Silinder;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
@@ -74,8 +75,47 @@ public class EngineerMonkeyHat extends Object {
                 new ArrayList<>(),
                 new Vector4f(0.930f, 0.797f, 0.0465f,1.0f)
 //                0.930f, 0.797f, 0.0465f
+//
         ));
 
+        getChildObject().add(new Silinder(
+                Arrays.asList(
+                        new ShaderProgram.ShaderModuleData
+                                ("resources/shaders/scene.vert"
+                                        , GL_VERTEX_SHADER),
+                        new ShaderProgram.ShaderModuleData
+                                ("resources/shaders/scene.frag"
+                                        , GL_FRAGMENT_SHADER)
+                ),
+                new ArrayList<>(),
+                new Vector4f(0.400f, 0.398f, 0.392f,1.0f),
+                new Vector3f(0f,0f,0f),
+                new Vector3f(0.71f, 0.7f, 0.7f),
+                0.05f,
+                0.05f
+        ));
+        getChildObject().get(1).rotateObject((float) Math.toRadians(-30), 1f, 0f, 0f);
+        getChildObject().get(1).translateObject(0f, 0.15f, 0f);
+
+        getChildObject().add(new Silinder(
+                Arrays.asList(
+                        new ShaderProgram.ShaderModuleData
+                                ("resources/shaders/scene.vert"
+                                        , GL_VERTEX_SHADER),
+                        new ShaderProgram.ShaderModuleData
+                                ("resources/shaders/scene.frag"
+                                        , GL_FRAGMENT_SHADER)
+                ),
+                new ArrayList<>(),
+                new Vector4f(0.860f, 0.610f, 0.0258f,1.0f),
+                new Vector3f(0f,0f,0f),
+                new Vector3f(0.7f, 0.7f, 0.7f),
+                0.15f,
+                0.02f
+        ));
+        getChildObject().get(2).rotateObject((float) Math.toRadians(90), 1f, 0f, 0f);
+        getChildObject().get(2).rotateObject((float) Math.toRadians(90), 0f, 0f, 1f);
+        getChildObject().get(2).translateObject(0f, -0.001f, 0f);
     }
 
 

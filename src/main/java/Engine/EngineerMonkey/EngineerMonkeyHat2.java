@@ -24,8 +24,8 @@ public class EngineerMonkeyHat2 extends Object {
         setupVAOVBO();
         this.offsetX = 0f;
         this.offsetY = -0.2f;
-        this.offsetZ = -0.11f;
-        rotateObject((float) Math.toRadians(0), 1f, 0f, 0f);
+        this.offsetZ = -0.1f;
+        rotateObject((float) Math.toRadians(10), 1f, 0f, 0f);
         translateObject(offsetX, offsetY, offsetZ);
     }
 
@@ -33,7 +33,7 @@ public class EngineerMonkeyHat2 extends Object {
         vertices.clear();
         float pi = (float) Math.PI;
 
-        float sectorStep = 2 * (float) Math.PI / sectorCount;
+        float sectorStep = -1f * (float) Math.PI / sectorCount;
         float stackStep = (float) Math.PI / stackCount;
         float sectorAngle, StackAngle, x, y, z;
 

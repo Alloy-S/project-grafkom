@@ -31,6 +31,7 @@ public class NinjaMonkeyEye1 extends Object {
         offsetX = -0.25f;
         offsetY = 0.0f;
         offsetZ = 0.155f;
+        scaleObject(0.9f,0.9f,0.9f);
         translateObject(offsetX, offsetY, offsetZ);
     }
 

@@ -15,7 +15,6 @@ import static org.lwjgl.opengl.GL20.GL_VERTEX_SHADER;
 public class NinjaMonkey extends Object {
     float radiusX, radiusY, radiusZ;
     int sectorCount, stackCount;
-
     public float offsetX, offsetY, offsetZ;
 
     public NinjaMonkey(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {

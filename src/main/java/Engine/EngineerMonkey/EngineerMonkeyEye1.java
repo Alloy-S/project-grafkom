@@ -61,8 +61,7 @@ public class EngineerMonkeyEye1 extends Object {
         }
 
         // bikin anak di sini
-        List<Object> children = new ArrayList<>();
-        children.add(new EngineerMonkeyPupil1(
+        getChildObject().add(new EngineerMonkeyPupil1(
                 Arrays.asList(
                         new ShaderModuleData
                                 ("resources/shaders/scene.vert"
@@ -75,8 +74,6 @@ public class EngineerMonkeyEye1 extends Object {
                 new Vector4f(0.27f,0.15f,0.07f,1.0f)
         ));
 
-
-        setChildObject(children);
     }
     public void rotateObject(Float degree, Float x,Float y,Float z) {
         model = new Matrix4f().rotate(degree, x, y, z).mul(new Matrix4f(model));

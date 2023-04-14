@@ -65,18 +65,18 @@ public class EngineerMonkeyHead extends Object {
             }
         }
 
-//        getChildObject().add(new EngineerMonkeyFace(
-//                Arrays.asList(
-//                        new ShaderProgram.ShaderModuleData
-//                                ("resources/shaders/scene.vert"
-//                                        , GL_VERTEX_SHADER),
-//                        new ShaderProgram.ShaderModuleData
-//                                ("resources/shaders/scene.frag"
-//                                        , GL_FRAGMENT_SHADER)
-//                ),
-//                new ArrayList<>(),
-//                new Vector4f(0.890f, 0.743f, 0.400f,1.0f)
-//        ));
+        getChildObject().add(new EngineerMonkeyFace(
+                Arrays.asList(
+                        new ShaderProgram.ShaderModuleData
+                                ("resources/shaders/scene.vert"
+                                        , GL_VERTEX_SHADER),
+                        new ShaderProgram.ShaderModuleData
+                                ("resources/shaders/scene.frag"
+                                        , GL_FRAGMENT_SHADER)
+                ),
+                new ArrayList<>(),
+                new Vector4f(0.890f, 0.743f, 0.400f,1.0f)
+        ));
 //
 //        getChildObject().add(new EngineerMonkeyFace(
 //                Arrays.asList(

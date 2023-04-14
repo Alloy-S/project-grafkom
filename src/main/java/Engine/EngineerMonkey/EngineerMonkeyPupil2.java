@@ -6,26 +6,26 @@ import org.joml.Vector4f;
 
 import java.util.List;
 
-public class EngineerMonkeyHat2 extends Object {
+public class EngineerMonkeyPupil2 extends Object {
+
     float radiusX, radiusY, radiusZ;
     int sectorCount, stackCount;
     float offsetX, offsetY, offsetZ;
 
-    public EngineerMonkeyHat2(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
+    public EngineerMonkeyPupil2(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
         super(shaderModuleDataList, vertices, color);
         vertices.clear();
 
-        radiusX = 0.72f;
-        radiusY = 0.67f;
-        radiusZ = 0.3f;
+        radiusX = 0.05f;
+        radiusY = 0.09f;
+        radiusZ = 0.02f;
         sectorCount = 80;
         stackCount = 80;
         generate();
         setupVAOVBO();
-        this.offsetX = 0f;
-        this.offsetY = -0.2f;
-        this.offsetZ = -0.11f;
-        rotateObject((float) Math.toRadians(0), 1f, 0f, 0f);
+        offsetX = -0.015f;
+        offsetY = -0.03f;
+        offsetZ = 0.04f;
         translateObject(offsetX, offsetY, offsetZ);
     }
 
@@ -49,14 +49,8 @@ public class EngineerMonkeyHat2 extends Object {
                 temp_vector.x = centerPoint.get(0) + x * (float) Math.cos(sectorAngle);
                 temp_vector.y = centerPoint.get(1) + y * (float) Math.sin(sectorAngle);
                 temp_vector.z = centerPoint.get(2) + z;
-                System.out.println(temp_vector.x + " -- " + y + " -- " + z);
-                if (z > 0f ) {
-                    vertices.add(temp_vector);
-                }
+                if (z > 0.0f) vertices.add(temp_vector);
             }
         }
-
     }
-
-
 }

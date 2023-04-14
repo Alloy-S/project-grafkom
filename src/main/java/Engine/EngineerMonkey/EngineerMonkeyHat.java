@@ -72,7 +72,8 @@ public class EngineerMonkeyHat extends Object {
                                         , GL_FRAGMENT_SHADER)
                 ),
                 new ArrayList<>(),
-                new Vector4f(0.920f, 0.652f, 0.0276f,1.0f)
+                new Vector4f(0.930f, 0.797f, 0.0465f,1.0f)
+//                0.930f, 0.797f, 0.0465f
         ));
 
     }

@@ -62,6 +62,7 @@ public class EngineerMonkey extends Object{
         }
 
         // bikin anak di sini
+//        perut
         getChildObject().add(new EngineerMonkeyBelly(
                 Arrays.asList(
                         new ShaderProgram.ShaderModuleData
@@ -75,6 +76,7 @@ public class EngineerMonkey extends Object{
                 new Vector4f(0.890f, 0.743f, 0.400f,1.0f)
         ));
 
+//        kepala
         getChildObject().add(new EngineerMonkeyHead(
                 Arrays.asList(
                         new ShaderProgram.ShaderModuleData
@@ -88,6 +90,7 @@ public class EngineerMonkey extends Object{
                 new Vector4f(0.44f,0.24f,0.12f,1.0f)
         ));
 
+//        kaki
         getChildObject().add(new Pipe(
                 Arrays.asList(
                         new ShaderProgram.ShaderModuleData
@@ -156,7 +159,13 @@ public class EngineerMonkey extends Object{
                 new Vector4f(0.44f,0.24f,0.12f,1.0f)
         ));
 
-        getChildObject().add(new Pipe(
+//tangan
+
+
+
+
+
+        getChildObject().add(new EngineerMonkeyShoulder1(
                 Arrays.asList(
                         new ShaderProgram.ShaderModuleData
                                 ("resources/shaders/scene.vert"
@@ -166,18 +175,22 @@ public class EngineerMonkey extends Object{
                                         , GL_FRAGMENT_SHADER)
                 ),
                 new ArrayList<>(),
-                new Vector4f(0.44f,0.24f,0.12f,1.0f),
-                new Vector3f(0f,0f,0f),
-                new Vector3f(0.2f, 0.2f, 0.2f),
-                0.6f,
-                0.1f,
-                360f
+                new Vector4f(0.48f,0.27f,0.12f,1.0f)
         ));
 
-        getChildObject().get(4).scaleObject(0.4f, 0.4f, 0.4f);
-        getChildObject().get(4).rotateObject((float) Math.toRadians(90), 1f, 0f, 0f);
-        getChildObject().get(4).rotateObject((float) Math.toRadians(30), 0f, 0f, 1f);
-        getChildObject().get(4).translateObject(0.5f, 0.1f, 0f);
+        getChildObject().add(new EngineerMonkeyShoulder2(
+                Arrays.asList(
+                        new ShaderProgram.ShaderModuleData
+                                ("resources/shaders/scene.vert"
+                                        , GL_VERTEX_SHADER),
+                        new ShaderProgram.ShaderModuleData
+                                ("resources/shaders/scene.frag"
+                                        , GL_FRAGMENT_SHADER)
+                ),
+                new ArrayList<>(),
+                new Vector4f(0.48f,0.27f,0.12f,1.0f)
+        ));
+
     }
 
     public void rotateObject(Float degree, Float x,Float y,Float z){

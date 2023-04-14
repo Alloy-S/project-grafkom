@@ -7,7 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Monyet" />
-        <module name="project-grafkom" />
+        <module name="GrafkomA" />
       </profile>
     </annotationProcessing>
   </component>

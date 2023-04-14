@@ -1,14 +1,13 @@
 import Engine.*;
 import Engine.EngineerMonkey.EngineerMonkey;
+import Engine.NinjaMonkey.NinjaMonkey;
 import Engine.Object;
-import org.joml.Vector2f;
-import org.joml.Vector3f;
+import org.joml.Matrix4f;
 import org.joml.Vector4f;
 import org.lwjgl.opengl.GL;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.glClearColor;
@@ -29,7 +28,7 @@ public class Main {
         window.init();
         GL.createCapabilities();
         mouseInput = window.getMouseInput();
-        camera.setPosition(0,0,1f);
+        camera.setPosition(-1f,0,3f);
         camera.setRotation((float)Math.toRadians(0.0f),(float)Math.toRadians(0.0f));
         //code
         dartMonkey.add(new DartMonkey(
@@ -45,6 +44,19 @@ public class Main {
             new Vector4f(0.44f,0.24f,0.12f,1.0f)
         ));
 
+        ninjaMonkey.add(new NinjaMonkey(
+                Arrays.asList(
+                        new ShaderProgram.ShaderModuleData
+                                ("resources/shaders/scene.vert"
+                                        , GL_VERTEX_SHADER),
+                        new ShaderProgram.ShaderModuleData
+                                ("resources/shaders/scene.frag"
+                                        , GL_FRAGMENT_SHADER)
+                ),
+                new ArrayList<>(),
+                new Vector4f(245f,0.0f,0.0f,1.0f)
+        ));
+
         engineerMonkey.add(new EngineerMonkey(
                 Arrays.asList(
                         new ShaderProgram.ShaderModuleData
@@ -57,7 +69,6 @@ public class Main {
                 new ArrayList<>(),
                 new Vector4f(0.44f,0.24f,0.12f,1.0f)
         ));
-
 
 
     }
@@ -100,6 +111,25 @@ public class Main {
         if (window.isKeyPressed(GLFW_KEY_U)){
             engineerMonkey.get(0).rotateObject(0.1f,0.0f,1.0f,0.0f);
         }
+
+        if (window.isKeyPressed(GLFW_KEY_O)){
+            ninjaMonkey.get(0).rotateObject(0.1f,0.0f,1.0f,0.0f);
+        }
+
+        if (window.isKeyPressed(GLFW_KEY_P)){
+            ninjaMonkey.get(0).getChildObject().get(1).rotateObject(0.1f,0.0f,1.0f,0.0f);
+            ninjaMonkey.get(0).getChildObject().get(1).rotateObject(0.1f,0.0f,1.0f,0.0f);
+            ninjaMonkey.get(0).getChildObject().get(1).translateObject(ninjaMonkey.get(0).getChildObject().get(1).off, -offsetY, -offsetZ);
+            model = new Matrix4f().rotate(degree,x,y,z).mul(new Matrix4f(model));
+            updateCenterPoint();
+            translateObject(offsetX, offsetY, offsetZ);
+            for(Object child:childObject){
+                child.translateObject(-offsetX, -offsetY, -offsetZ);
+                child.rotateObject(degree,x,y,z);
+                child.translateObject(offsetX, offsetY, offsetZ);
+            }
+        }
+
     }
     public void loop(){
         while (window.isOpen()) {
@@ -116,6 +146,10 @@ public class Main {
             }
 
             for(Object object: engineerMonkey){
+                object.draw(camera,projection);
+            }
+
+            for(Object object: ninjaMonkey){
                 object.draw(camera,projection);
             }
 

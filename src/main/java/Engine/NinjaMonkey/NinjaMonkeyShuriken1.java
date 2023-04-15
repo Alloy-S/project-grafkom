@@ -29,9 +29,11 @@ public class NinjaMonkeyShuriken1 extends Object {
         stackCount = 80;
         generate();
         setupVAOVBO();
-        this.offsetX = -0.9f;
-        this.offsetY = 0.0f;
-        this.offsetZ = 0.12f;
+        this.offsetX = 0.0f;
+        this.offsetY = -0.2f;
+        this.offsetZ = 0.02f;
+        scaleObject(0.5f,0.5f,0.5f);
+//        rotateObject((float) Math.toRadians(90f), 0.0f, 0.0f, 1.0f);
         translateObject(offsetX, offsetY, offsetZ);
     }
 

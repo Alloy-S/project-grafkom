@@ -99,6 +99,5 @@ public class NinjaMonkeyShoulder2 extends Object {
                 new ArrayList<>(),
                 new Vector4f(0.62f,0.42f,0.2f,1.0f)
         ));
-
     }
 }

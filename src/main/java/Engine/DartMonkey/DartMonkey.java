@@ -16,6 +16,12 @@ public class DartMonkey extends Object {
     float radiusX, radiusY, radiusZ;
     int sectorCount, stackCount;
     float offsetX, offsetY, offsetZ;
+
+    public int getAnimTime() {
+        return animTime;
+    }
+
+    int animTime;
     public DartMonkey(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
         super(shaderModuleDataList, vertices, color);
         vertices.clear();
@@ -31,6 +37,8 @@ public class DartMonkey extends Object {
         this.offsetY = 0.0f;
         this.offsetZ = -3.0f;
         translateObject(offsetX, offsetY, offsetZ);
+
+        animTime = 0;
     }
 
     public void generate(){
@@ -160,5 +168,9 @@ public class DartMonkey extends Object {
             child.translateObject(offsetX, offsetY, offsetZ);
         }
 
+    }
+
+    public void dartThrow(){
+        rotateObject(0.1f,1.0f,0.0f,0.0f);
     }
 }

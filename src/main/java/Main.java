@@ -20,7 +20,7 @@ public class Main {
     private Window window =
             new Window
                     (1200, 1200, "Hello World");
-    private ArrayList<Object> dartMonkey = new ArrayList<>();
+    private ArrayList<DartMonkey> dartMonkey = new ArrayList<>();
     private ArrayList<Object> ninjaMonkey = new ArrayList<>();
     private ArrayList<Object> engineerMonkey = new ArrayList<>();
 
@@ -168,6 +168,9 @@ public class Main {
 
         if (window.isKeyPressed(GLFW_KEY_T)) {
             ninjaMonkey.get(0).rotateObject(0.1f, 0.0f, 1.0f, 0.0f);
+        }
+        if (window.isKeyPressed(GLFW_KEY_H) && dartMonkey.get(0).getAnimTime() == 0) {
+            dartMonkey.get(0).dartThrow();
         }
 
 

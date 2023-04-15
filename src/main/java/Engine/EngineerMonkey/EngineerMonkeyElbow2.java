@@ -102,4 +102,8 @@ public class EngineerMonkeyElbow2 extends Object {
         getChildObject().get(0).translateObject(-0.1f, 0.1f, -0.4f);
 
     }
+
+    public String getName() {
+        return "tangan 2";
+    }
 }

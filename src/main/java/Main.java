@@ -23,6 +23,8 @@ public class Main {
     private ArrayList<Object> ninjaMonkey = new ArrayList<>();
     private ArrayList<Object> engineerMonkey = new ArrayList<>();
 
+    private boolean leftMouseButton = false;
+
     float angleDegree;
     float currAngle = 0;
     private MouseInput mouseInput;
@@ -133,17 +135,20 @@ public class Main {
             camera.addRotation(0.01f, 0.0f);
         }
 
-        if (window.isKeyPressed(GLFW_KEY_U)) {
+        if (window.isKeyPressed(GLFW_KEY_B)) {
 
             dartMonkey.get(0).rotateObject(0.1f, 0.0f, 1.0f, 0.0f);
         }
 
+//      ======================= key for engineer Monkey =============================
+
+//        bikin eror
         if (window.isKeyPressed(GLFW_KEY_Y)) {
             Object monkey = engineerMonkey.get(0);
             Vector3f monkeyCenter = new Vector3f(monkey.model.transformPosition(new Vector3f(0.0f, 0f, 0.0f)));
             monkey.translateObject(-monkeyCenter.x, -monkeyCenter.y, -monkeyCenter.z);
             monkey.rotateObject(0.1f, 0.0f, 1.0f, 0.0f);
-            monkey.translateObject(monkeyCenter.x, monkeyCenter.y, monkeyCenter.z);
+            monkey.translateObject(-monkeyCenter.x, -monkeyCenter.y, -monkeyCenter.z);
         }
 
         if (window.isKeyPressed(GLFW_KEY_U)){
@@ -152,17 +157,32 @@ public class Main {
 //            System.out.println();
         }
 
+        if (window.getMouseInput().isLeftButtonPressed()){
+            if (!leftMouseButton && engineerMonkey.get(0).getArmCurrAngle() <= -45) {
+
+                engineerMonkey.get(0).reload();
+                System.out.println("reload mag");
+            }
+            leftMouseButton = true;
+        }
+
+        if (window.getMouseInput().isLeftButtonRelease()){
+            leftMouseButton = false;
+        }
+
         if (window.isKeyPressed(GLFW_KEY_I)){
             if (window.isKeyPressed(GLFW_KEY_LEFT_ALT)) {
                 engineerMonkey.get(0).aiming(false);
-                System.out.println("reverse");
+//                System.out.println("reverse");
             } else {
                 engineerMonkey.get(0).aiming(true);
-                System.out.println("normal");
+//                System.out.println("normal");
             }
 
-            System.out.println();
+//            System.out.println();
         }
+
+//        ======================= key for engineer Monkey =============================
 
 
         if (window.isKeyPressed(GLFW_KEY_H) && dartMonkey.get(0).getTotalTime() < 0) {
@@ -277,6 +297,12 @@ public class Main {
             for(Object object: engineerMonkey){
                 object.draw(camera,projection);
             }
+
+//            if (engineerMonkey.get(0).getArmCurrAngle() <= -45) {
+//                engineerMonkey.get(0).shootBullet();
+//            }
+            engineerMonkey.get(0).aiming(true);
+//
 
             for(Object object: ninjaMonkey){
                 object.draw(camera,projection);

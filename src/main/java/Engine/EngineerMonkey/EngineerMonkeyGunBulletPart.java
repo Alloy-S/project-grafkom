@@ -1,6 +1,7 @@
 package Engine.EngineerMonkey;
 
 import Engine.Object;
+import Engine.Pipe;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
@@ -11,26 +12,24 @@ import java.util.List;
 import static org.lwjgl.opengl.GL20.GL_FRAGMENT_SHADER;
 import static org.lwjgl.opengl.GL20.GL_VERTEX_SHADER;
 
-public class EngineerMonkeyGun extends Object {
+public class EngineerMonkeyGunBulletPart extends Object {
 //    float offsetX, offsetY, offsetZ;
     Vector3f center, radius;
 
-    public EngineerMonkeyGun(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color, Vector3f center, Vector3f radius) {
+    public EngineerMonkeyGunBulletPart(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color, Vector3f center, Vector3f radius) {
         super(shaderModuleDataList, vertices, color);
         this.center = center;
         this.radius = radius;
         vertices.clear();
-
-
         generate();
         setupVAOVBO();
         this.offsetX = 0f;
-        this.offsetY = 0f;
+        this.offsetY = 0.195f;
         this.offsetZ = 0f;
 //        scaleObject(0.6f, 0.6f, 0.6f);
 
-        rotateObject((float) Math.toRadians(90), 1f, 0f, 0f);
-        rotateObject((float) Math.toRadians(15), 0f, 1f, 0f);
+//        rotateObject((float) Math.toRadians(90), 1f, 0f, 0f);
+//        rotateObject((float) Math.toRadians(15), 0f, 1f, 0f);
         translateObject(offsetX, offsetY, offsetZ);
     }
 
@@ -38,10 +37,16 @@ public class EngineerMonkeyGun extends Object {
         Vector3f temp = new Vector3f();
         ArrayList<Vector3f> tempVertices = new ArrayList<>();
 
+        float reduceSizex = 0.15f;
+        float reduceSizey = 1f;
+        float reduceSizez = 0.15f;
+        Vector3f reduceRadiusSize = new Vector3f(radius.x - reduceSizex, radius.y - reduceSizey, radius.z - reduceSizez);
+
+
         //        titik 1 kiri atas belakang
-        temp.x = center.x - radius.x / 2 ;
-        temp.y = center.y +  radius.y / 2 ;
-        temp.z = center.z - radius.z / 2 ;
+        temp.x = center.x - reduceRadiusSize.x / 2 ;
+        temp.y = center.y +  reduceRadiusSize.y / 2 ;
+        temp.z = center.z - reduceRadiusSize.z / 2 ;
         tempVertices.add(temp);
         temp = new Vector3f();
 
@@ -60,17 +65,17 @@ public class EngineerMonkeyGun extends Object {
         temp = new Vector3f();
 
         //        titik 4 kanan atas belakang
-        temp.x = center.x + radius.x / 2 ;
-        temp.y = center.y +  radius.y / 2 ;
-        temp.z = center.z - radius.z / 2 ;
+        temp.x = center.x + reduceRadiusSize.x / 2 ;
+        temp.y = center.y +  reduceRadiusSize.y / 2 ;
+        temp.z = center.z - reduceRadiusSize.z / 2 ;
         tempVertices.add(temp);
         temp = new Vector3f();
 
 
         //        titik 5 kiri atas depan
-        temp.x = center.x - radius.x / 2 ;
-        temp.y = center.y +  radius.y / 2 ;
-        temp.z = center.z + radius.z / 2 ;
+        temp.x = center.x - reduceRadiusSize.x / 2 ;
+        temp.y = center.y +  reduceRadiusSize.y / 2 ;
+        temp.z = center.z + reduceRadiusSize.z / 2 ;
         tempVertices.add(temp);
         temp = new Vector3f();
 
@@ -89,9 +94,9 @@ public class EngineerMonkeyGun extends Object {
         temp = new Vector3f();
 
         //        titik 8 kanan atas depan
-        temp.x = center.x + radius.x / 2 ;
-        temp.y = center.y +  radius.y / 2 ;
-        temp.z = center.z + radius.z / 2 ;
+        temp.x = center.x + reduceRadiusSize.x / 2 ;
+        temp.y = center.y +  reduceRadiusSize.y / 2 ;
+        temp.z = center.z + reduceRadiusSize.z / 2 ;
         tempVertices.add(temp);
 
 
@@ -132,35 +137,15 @@ public class EngineerMonkeyGun extends Object {
         vertices.add(tempVertices.get(7));
 
 //        sisi depan
-        vertices.add(tempVertices.get(4));
-        vertices.add(tempVertices.get(5));
-        vertices.add(tempVertices.get(6));
-
-        vertices.add(tempVertices.get(6));
-        vertices.add(tempVertices.get(7));
-        vertices.add(tempVertices.get(4));
-
-
+//        vertices.add(tempVertices.get(4));
+//        vertices.add(tempVertices.get(5));
+//        vertices.add(tempVertices.get(6));
+//
+//        vertices.add(tempVertices.get(6));
+//        vertices.add(tempVertices.get(7));
+//        vertices.add(tempVertices.get(4));
 
 
-        getChildObject().add(new EngineerMonkeyGunPart(
-                Arrays.asList(
-                        new ShaderModuleData
-                                ("resources/shaders/scene.vert"
-                                        , GL_VERTEX_SHADER),
-                        new ShaderModuleData
-                                ("resources/shaders/scene.frag"
-                                        , GL_FRAGMENT_SHADER)
-                ),
-                new ArrayList<>(),
-                new Vector4f(0.920f, 0.644f, 0.0920f,1.0f),
-                new Vector3f(0f,0f,0f),
-                new Vector3f(0.5f, 0.2f, 0.7f)
-        ));
 
-    }
-
-    public String getName() {
-        return "gun";
     }
 }

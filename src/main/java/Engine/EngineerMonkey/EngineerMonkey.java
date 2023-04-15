@@ -17,6 +17,8 @@ import static org.lwjgl.opengl.GL20.GL_VERTEX_SHADER;
 public class EngineerMonkey extends Object{
     float radiusX, radiusY, radiusZ;
     int sectorCount, stackCount;
+    float legRotation = 0.3f;
+    float armRotation = 0.8f;
 //    public float offsetX, offsetY, offsetZ;
     public EngineerMonkey(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
         super(shaderModuleDataList, vertices, color);
@@ -104,13 +106,13 @@ public class EngineerMonkey extends Object{
                 new Vector4f(0.44f,0.24f,0.12f,1.0f),
                 new Vector3f(0f,0f,0f),
                 new Vector3f(0.2f, 0.2f, 0.2f),
-                1f,
+                0.8f,
                 0.1f,
                 360f
         ));
         getChildObject().get(2).scaleObject(0.4f, 0.4f, 0.4f);
         getChildObject().get(2).rotateObject((float) Math.toRadians(90), 1f, 0f, 0f);
-        getChildObject().get(2).translateObject(-0.2f, -0.5f, 0f);
+        getChildObject().get(2).translateObject(-0.18f, -0.6f, 0.f);
 
         getChildObject().add(new Pipe(
                 Arrays.asList(
@@ -125,13 +127,13 @@ public class EngineerMonkey extends Object{
                 new Vector4f(0.44f,0.24f,0.12f,1.0f),
                 new Vector3f(0f,0f,0f),
                 new Vector3f(0.2f, 0.2f, 0.2f),
-                1f,
+                0.8f,
                 0.1f,
                 360f
         ));
         getChildObject().get(3).scaleObject(0.4f, 0.4f, 0.4f);
         getChildObject().get(3).rotateObject((float) Math.toRadians(90), 1f, 0f, 0f);
-        getChildObject().get(3).translateObject(0.2f, -0.5f, 0f);
+        getChildObject().get(3).translateObject(0.18f, -0.6f, 0f);
 
         getChildObject().get(2).getChildObject().add(new EngineerMonkeyFeet1(
                 Arrays.asList(
@@ -203,18 +205,54 @@ public class EngineerMonkey extends Object{
             child.rotateObject(degree,x,y,z);
             child.translateObject(offsetX, offsetY, offsetZ);
         }
-
+//        System.out.println("rotate");
     }
 
-    public void moveLeg() {
+    public void walk() {
         Object leg1 = getChildObject().get(2);
         Object leg2 = getChildObject().get(3);
-        for (Object child: childObject) {
-            System.out.println(child.offsetX);
+        Object arm1 = getChildObject().get(4);
+        Object arm2 = getChildObject().get(5);
+
+        Vector3f Leg1 = new Vector3f(getChildObject().get(2).model.transformPosition(new Vector3f(0.0f, 0f, 0.0f)));
+        Vector3f Leg2= new Vector3f(getChildObject().get(3).model.transformPosition(new Vector3f(0.0f, 0f, 0.0f)));
+        Vector3f Arm1 = new Vector3f(getChildObject().get(4).model.transformPosition(new Vector3f(0.0f, 0f, 0.0f)));
+        Vector3f Arm2 = new Vector3f(getChildObject().get(5).model.transformPosition(new Vector3f(0.0f, 0f, 0.0f)));
+
+        if (leg1.currAngle <= -8) {
+
+            legRotation = 0.3f;
+        } else if (leg1.currAngle >= 8){
+
+            legRotation = -0.3f;
         }
 
+        if (arm1.currAngle <= -45) {
 
+            armRotation = 0.8f;
+        } else if (arm1.currAngle >= 45){
 
-        System.out.println("bisa");
+            armRotation = -0.8f;
+        }
+
+        leg1.translateObject(-Leg1.x, -Leg1.y, -Leg1.z);
+        leg1.rotateObject((float) Math.toRadians(legRotation), 1f, 0f, 0f);
+        leg1.translateObject(Leg1.x, Leg1.y, Leg1.z);
+
+        leg2.translateObject(-Leg2.x, -Leg2.y, -Leg2.z);
+        leg2.rotateObject((float) Math.toRadians(-legRotation), 1f, 0f, 0f);
+        leg2.translateObject(Leg2.x, Leg2.y, Leg2.z);
+        leg1.currAngle += legRotation;
+//        System.out.println(rotation + " -- " + leg1.currAngle);
+        arm1.translateObject(-Arm1.x, -Arm1.y, -Arm1.z);
+        arm1.rotateObject((float) Math.toRadians(armRotation), 1f, 0f, 0f);
+        arm1.translateObject(Arm1.x, Arm1.y, Arm1.z);
+
+        arm2.translateObject(-Arm2.x, -Arm2.y, -Arm2.z);
+        arm2.rotateObject((float) Math.toRadians(-armRotation), 1f, 0f, 0f);
+        arm2.translateObject(Arm2.x, Arm2.y, Arm2.z);
+        arm1.currAngle += armRotation;
+
+//        System.out.println("bisa");
     }
 }

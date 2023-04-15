@@ -1,5 +1,6 @@
 package Engine;
 
+import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
@@ -29,19 +30,23 @@ public class Pipe extends Object{
         vertices.clear();
 
             for (float angle = 0; angle < putaran; angle += 0.1) {
-//                for (float h = 0; h < height; h += 0.1f) {
+
+//                buat lingkaran luar
                 float x1 = (float) (radius.x * Math.cos(Math.toRadians(angle)) + center.x);
                 float y1 = (float) (radius.y * Math.sin(Math.toRadians(angle)) + center.y);
+//                buat lingkaran dalam
                 float x2 = (float) ((radius.x - lineWidth) * Math.cos(Math.toRadians(angle)) + center.x);
                 float y2 = (float) ((radius.y - lineWidth) * Math.sin(Math.toRadians(angle)) + center.y);
+//                lingkaran bawah luar
                 vertices.add(new Vector3f(x1, y1, center.z - height));
-
+//                lingkaran atas luar
                 vertices.add(new Vector3f(x1, y1, center.z + height));
+//                lingkaran bawah dalam
                 vertices.add(new Vector3f(x2, y2, center.z - height));
+//                lingkaran bawah dalam
                 vertices.add(new Vector3f(x2, y2, center.z + height));
 
 
-//            }
         }
     }
 
@@ -54,5 +59,13 @@ public class Pipe extends Object{
         for(Object child:childObject){
             child.draw(camera,projection);
         }
+    }
+
+    public void rotateObject(Float degree, Float x,Float y,Float z){
+        super.rotateObject(degree, x, y, z);
+
+//        System.out.println(centerPoint);
+
+
     }
 }

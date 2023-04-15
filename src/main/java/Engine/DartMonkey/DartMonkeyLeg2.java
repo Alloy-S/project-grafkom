@@ -3,7 +3,6 @@ package Engine.DartMonkey;
 import Engine.Camera;
 import Engine.Object;
 import Engine.Projection;
-import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
@@ -50,7 +49,7 @@ public class DartMonkeyLeg2 extends Object {
         generate2();
 
         List<Object> children = new ArrayList<>();
-        children.add(new DartMonkeyFeet2(
+        children.add(new DartMonkeyFoot2(
                 Arrays.asList(
                         new ShaderModuleData
                                 ("resources/shaders/scene.vert"

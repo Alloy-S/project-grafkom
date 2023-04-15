@@ -10,7 +10,6 @@ import org.lwjgl.opengl.GL;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.glClearColor;
@@ -20,7 +19,7 @@ public class Main {
     private Window window =
             new Window
                     (1200, 1200, "Hello World");
-    private ArrayList<Object> dartMonkey = new ArrayList<>();
+    private ArrayList<DartMonkey> dartMonkey = new ArrayList<>();
     private ArrayList<Object> ninjaMonkey = new ArrayList<>();
     private ArrayList<Object> engineerMonkey = new ArrayList<>();
 
@@ -169,6 +168,15 @@ public class Main {
         if (window.isKeyPressed(GLFW_KEY_T)) {
             ninjaMonkey.get(0).rotateObject(0.1f, 0.0f, 1.0f, 0.0f);
         }
+        if (window.isKeyPressed(GLFW_KEY_H) && dartMonkey.get(0).getTotalTime() < 0) {
+            dartMonkey.get(0).setLookTime(80);
+        }
+        if (window.isKeyPressed(GLFW_KEY_J) && dartMonkey.get(0).getTotalTime() < 0) {
+            dartMonkey.get(0).setScratchTime(80);
+        }
+        if (window.isKeyPressed(GLFW_KEY_K) && dartMonkey.get(0).getTotalTime() < 0) {
+            dartMonkey.get(0).setThrowTime(80);
+        }
 
 
 
@@ -253,10 +261,14 @@ public class Main {
             input();
 
             //code
+            dartMonkey.get(0).look();
+            dartMonkey.get(0).scratch();
+            dartMonkey.get(0).dartThrow();
+
             for(Object object: dartMonkey){
                 object.draw(camera,projection);
             }
-//
+
             for(Object object: engineerMonkey){
                 object.draw(camera,projection);
             }

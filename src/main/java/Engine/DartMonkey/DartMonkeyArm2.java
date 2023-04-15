@@ -48,6 +48,21 @@ public class DartMonkeyArm2 extends Object {
             vertices.add(new Vector3f(calculateBezierPoint((float) i, tempVertices)));
         }
         generate2();
+
+        List<Object> children = new ArrayList<>();
+        children.add(new DartMonkeyHand2(
+                Arrays.asList(
+                        new ShaderModuleData
+                                ("resources/shaders/scene.vert"
+                                        , GL_VERTEX_SHADER),
+                        new ShaderModuleData
+                                ("resources/shaders/scene.frag"
+                                        , GL_FRAGMENT_SHADER)
+                ),
+                new ArrayList<>(),
+                new Vector4f(0.62f,0.42f,0.2f,1.0f)
+        ));
+        setChildObject(children);
     }
 
     public static Vector3f calculateBezierPoint(float t, List<Vector3f> points) {
@@ -165,5 +180,17 @@ public class DartMonkeyArm2 extends Object {
         glLineWidth(10); //ketebalan garis
         glPointSize(10); //besar kecil vertex
         glDrawArrays(GL_POLYGON, 0, vertices.size());
+    }
+
+    public void rotateObject(Float degree, Float x,Float y,Float z){
+        translateObject(-offsetX, -offsetY, -offsetZ);
+        model = new Matrix4f().rotate(degree,x,y,z).mul(new Matrix4f(model));
+        updateCenterPoint();
+        translateObject(offsetX, offsetY, offsetZ);
+        for(Object child:childObject){
+//            child.translateObject(-offsetX, -offsetY, -offsetZ);
+            child.rotateObject(degree,x,y,z);
+//            child.translateObject(offsetX, offsetY, offsetZ);
+        }
     }
 }

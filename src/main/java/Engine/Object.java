@@ -23,6 +23,8 @@ public class Object extends ShaderProgram{
     public UniformsMap uniformsMap;
     public Vector4f color;
 
+
+
     public Matrix4f model;
 
     public int vboColor;
@@ -181,8 +183,8 @@ public class Object extends ShaderProgram{
                 0,
                 vertices.size());
     }
-//    public void drawLine(){
-//        drawSetup();
+//    public void drawLine(Camera camera, Projection projection){
+//        drawSetup(camera, projection);
 //        // Draw the vertices
 //        //optional
 //        glLineWidth(1); //ketebalan garis
@@ -191,10 +193,20 @@ public class Object extends ShaderProgram{
 //                0,
 //                vertices.size());
 //    }
+
     public void addVertices(Vector3f newVertices){
         vertices.add(newVertices);
         setupVAOVBO();
     }
+
+    public List<Vector3f> getVertices() {
+        return vertices;
+    }
+
+    public int getVerticesSize() {
+        return vertices.size();
+    }
+
     public void translateObject(Float offsetX,Float offsetY,Float offsetZ){
         model = new Matrix4f().translate(offsetX,offsetY,offsetZ).mul(new Matrix4f(model));
         updateCenterPoint();

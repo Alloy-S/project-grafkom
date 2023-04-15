@@ -21,7 +21,7 @@ public class EngineerMonkeyFace extends Object {
         vertices.clear();
 
         radiusX = 0.5f;
-        radiusY = 0.42f;
+        radiusY = 0.45f;
         radiusZ = 0.2f;
         sectorCount = 80;
         stackCount = 80;
@@ -30,6 +30,7 @@ public class EngineerMonkeyFace extends Object {
         offsetX = 0.0f;
         offsetY = 0.4f;
         offsetZ = 0.15f;
+        scaleObject(0.95f, 0.95f, 0.95f);
         rotateObject((float) Math.toRadians(-70), 1f, 0f, 0f);
         translateObject(offsetX, offsetY, offsetZ);
     }
@@ -87,7 +88,18 @@ public class EngineerMonkeyFace extends Object {
                 new Vector4f(0.77f,0.77f,0.77f,1.0f)
         ));
 
-
+    getChildObject().add(new EngineerMonkeyMouth(
+            Arrays.asList(
+                    new ShaderModuleData
+                            ("resources/shaders/scene.vert"
+                                    , GL_VERTEX_SHADER),
+                    new ShaderModuleData
+                            ("resources/shaders/scene.frag"
+                                    , GL_FRAGMENT_SHADER)
+            ),
+            new ArrayList<>(),
+            new Vector4f(0.44f,0.24f,0.12f,1.0f)
+    ));
 
     }
     public void rotateObject(Float degree, Float x,Float y,Float z) {

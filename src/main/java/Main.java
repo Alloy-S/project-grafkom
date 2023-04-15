@@ -231,11 +231,6 @@ public class Main {
             input();
 
             //code
-<<<<<<< HEAD
-=======
-
-
->>>>>>> f2208669c4d4ce367961fb945f9cb5f5a20ee23a
             for(Object object: dartMonkey){
                 object.draw(camera,projection);
             }
@@ -247,11 +242,6 @@ public class Main {
             for(Object object: ninjaMonkey){
                 object.draw(camera,projection);
             }
-<<<<<<< HEAD
-=======
-
-            ninjaMonkey.get(0).getChildObject().get(3).getChildObject().get(0).getChildObject().get(0).rotateShuriken();
->>>>>>> f2208669c4d4ce367961fb945f9cb5f5a20ee23a
 
             // Restore state
             glDisableVertexAttribArray(0);

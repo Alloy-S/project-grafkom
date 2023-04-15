@@ -231,7 +231,6 @@ public class Main {
         }
     }
 
-
     public void loop(){
         while (window.isOpen()) {
             window.update();
@@ -242,13 +241,13 @@ public class Main {
             input();
 
             //code
-            for(Object object: dartMonkey){
-                object.draw(camera,projection);
-            }
-
-            for(Object object: engineerMonkey){
-                object.draw(camera,projection);
-            }
+//            for(Object object: dartMonkey){
+//                object.draw(camera,projection);
+//            }
+//
+//            for(Object object: engineerMonkey){
+//                object.draw(camera,projection);
+//            }
 
             for(Object object: ninjaMonkey){
                 object.draw(camera,projection);

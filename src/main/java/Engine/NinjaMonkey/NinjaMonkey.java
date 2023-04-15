@@ -1,6 +1,9 @@
 package Engine.NinjaMonkey;
 
+import Engine.EngineerMonkey.EngineerMonkeyShoulder1;
+import Engine.EngineerMonkey.EngineerMonkeyShoulder2;
 import Engine.Object;
+import Engine.ShaderProgram;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
@@ -86,6 +89,33 @@ public class NinjaMonkey extends Object {
                 new ArrayList<>(),
                 new Vector4f(245f,0.0f,0.0f,1.0f)
         ));
+
+        children.add(new NinjaMonkeyShoulder1(
+                Arrays.asList(
+                        new ShaderProgram.ShaderModuleData
+                                ("resources/shaders/scene.vert"
+                                        , GL_VERTEX_SHADER),
+                        new ShaderProgram.ShaderModuleData
+                                ("resources/shaders/scene.frag"
+                                        , GL_FRAGMENT_SHADER)
+                ),
+                new ArrayList<>(),
+                new Vector4f(245f,0.0f,0.0f,1.0f)
+        ));
+
+        children.add(new NinjaMonkeyShoulder2(
+                Arrays.asList(
+                        new ShaderProgram.ShaderModuleData
+                                ("resources/shaders/scene.vert"
+                                        , GL_VERTEX_SHADER),
+                        new ShaderProgram.ShaderModuleData
+                                ("resources/shaders/scene.frag"
+                                        , GL_FRAGMENT_SHADER)
+                ),
+                new ArrayList<>(),
+                new Vector4f(245f,0.0f,0.0f,1.0f)
+        ));
+
         setChildObject(children);
     }
 

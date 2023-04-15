@@ -75,18 +75,6 @@ public class NinjaMonkeyHead extends Object {
                 new ArrayList<>(),
                 new Vector4f(0.62f,0.42f,0.2f,1.0f)
         ));
-//        children.add(new NinjaMonkeyFace2(
-//                Arrays.asList(
-//                        new ShaderModuleData
-//                                ("resources/shaders/scene.vert"
-//                                        , GL_VERTEX_SHADER),
-//                        new ShaderModuleData
-//                                ("resources/shaders/scene.frag"
-//                                        , GL_FRAGMENT_SHADER)
-//                ),
-//                new ArrayList<>(),
-//                new Vector4f(245f,0.0f,0.0f,1.0f)
-//        ));
         setChildObject(children);
     }
 

@@ -50,6 +50,6 @@ public class Belt extends Object{
         // draw the vertices
         glLineWidth(1);
         glPointSize(0);
-        glDrawArrays(GL_LINE_LOOP, 0, vertices.size());
+        glDrawArrays(GL_POLYGON, 0, vertices.size());
     }
 }

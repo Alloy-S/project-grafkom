@@ -71,6 +71,17 @@ public class Object extends ShaderProgram{
         childObject = new ArrayList<>();
         centerPoint = Arrays.asList(0f,0f,0f);
     }
+
+    public float getRotationAngle(Matrix4f matrix, Vector3f axis) {
+        float angle = (float) Math.toDegrees((float) Math.acos(matrix.m00()));
+        if (angle < 0) {
+            angle += 360;
+        }
+        if (axis.y < 0) {
+            angle = 360 - angle;
+        }
+        return angle;
+    }
     public Object(List<ShaderModuleData> shaderModuleDataList,
                   List<Vector3f> vertices,
                   List<Vector3f> verticesColor) {

@@ -133,12 +133,16 @@ public class Main {
             camera.addRotation(0.01f, 0.0f);
         }
 
-        if (window.isKeyPressed(GLFW_KEY_I)) {
+        if (window.isKeyPressed(GLFW_KEY_U)) {
             dartMonkey.get(0).rotateObject(0.1f, 0.0f, 1.0f, 0.0f);
         }
 
-        if (window.isKeyPressed(GLFW_KEY_U)) {
+        if (window.isKeyPressed(GLFW_KEY_Y)) {
             engineerMonkey.get(0).rotateObject(0.1f, 0.0f, 1.0f, 0.0f);
+        }
+
+        if (window.isKeyPressed(GLFW_KEY_T)) {
+            ninjaMonkey.get(0).rotateObject(0.1f, 0.0f, 1.0f, 0.0f);
         }
 
 
@@ -238,10 +242,10 @@ public class Main {
             for(Object object: dartMonkey){
                 object.draw(camera,projection);
             }
-//
-//            for(Object object: engineerMonkey){
-//                object.draw(camera,projection);
-//            }
+
+            for(Object object: engineerMonkey){
+                object.draw(camera,projection);
+            }
 
             for(Object object: ninjaMonkey){
                 object.draw(camera,projection);

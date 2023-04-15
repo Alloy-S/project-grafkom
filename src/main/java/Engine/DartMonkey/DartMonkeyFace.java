@@ -86,6 +86,30 @@ public class DartMonkeyFace extends Object {
                 new ArrayList<>(),
                 new Vector4f(0.77f,0.77f,0.77f,1.0f)
         ));
+        children.add(new DartMonkeyEyebrow1(
+                Arrays.asList(
+                        new ShaderModuleData
+                                ("resources/shaders/scene.vert"
+                                        , GL_VERTEX_SHADER),
+                        new ShaderModuleData
+                                ("resources/shaders/scene.frag"
+                                        , GL_FRAGMENT_SHADER)
+                ),
+                new ArrayList<>(),
+                new Vector4f(0.3f,0.15f,0.08f,1.0f)
+        ));
+        children.add(new DartMonkeyEyebrow2(
+                Arrays.asList(
+                        new ShaderModuleData
+                                ("resources/shaders/scene.vert"
+                                        , GL_VERTEX_SHADER),
+                        new ShaderModuleData
+                                ("resources/shaders/scene.frag"
+                                        , GL_FRAGMENT_SHADER)
+                ),
+                new ArrayList<>(),
+                new Vector4f(0.3f,0.15f,0.08f,1.0f)
+        ));
 
 
         setChildObject(children);

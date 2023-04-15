@@ -234,31 +234,17 @@ public class Main {
             input();
 
             //code
-<<<<<<< HEAD
             for(Object object: dartMonkey){
                 object.draw(camera,projection);
             }
 
-//            for(Object object: engineerMonkey){
-//                object.draw(camera,projection);
-//            }
-//
-//            for(Object object: ninjaMonkey){
-//                object.draw(camera,projection);
-//            }
-=======
-//            for(Object object: dartMonkey){
-//                object.draw(camera,projection);
-//            }
-//
-//            for(Object object: engineerMonkey){
-//                object.draw(camera,projection);
-//            }
+            for(Object object: engineerMonkey){
+                object.draw(camera,projection);
+            }
 
             for(Object object: ninjaMonkey){
                 object.draw(camera,projection);
             }
->>>>>>> 4e821cd8af2c6e10421529e280c47d4e390d40db
 
             // Restore state
             glDisableVertexAttribArray(0);

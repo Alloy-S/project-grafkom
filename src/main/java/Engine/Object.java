@@ -22,7 +22,8 @@ public class Object extends ShaderProgram{
     public int vbo;
     public UniformsMap uniformsMap;
     public Vector4f color;
-
+    public float offsetX, offsetY, offsetZ;
+    public float currAngle;
 
 
     public Matrix4f model;
@@ -69,6 +70,17 @@ public class Object extends ShaderProgram{
         model = new Matrix4f().identity();
         childObject = new ArrayList<>();
         centerPoint = Arrays.asList(0f,0f,0f);
+    }
+
+    public float getRotationAngle(Matrix4f matrix, Vector3f axis) {
+        float angle = (float) Math.toDegrees((float) Math.acos(matrix.m00()));
+        if (angle < 0) {
+            angle += 360;
+        }
+        if (axis.y < 0) {
+            angle = 360 - angle;
+        }
+        return angle;
     }
     public Object(List<ShaderModuleData> shaderModuleDataList,
                   List<Vector3f> vertices,
@@ -207,6 +219,10 @@ public class Object extends ShaderProgram{
         return vertices.size();
     }
 
+    public void walk() {
+
+    }
+
     public void translateObject(Float offsetX,Float offsetY,Float offsetZ){
         model = new Matrix4f().translate(offsetX,offsetY,offsetZ).mul(new Matrix4f(model));
         updateCenterPoint();
@@ -222,7 +238,20 @@ public class Object extends ShaderProgram{
         }
 
     }
-    public void updateCenterPoint(){
+//    public void rotateObject(Float degree, Float x,Float y,Float z) {
+//        translateObject(-offsetX, -offsetY, -offsetZ);
+//        model = new Matrix4f().rotate(degree, x, y, z).mul(new Matrix4f(model));
+//        updateCenterPoint();
+//        translateObject(offsetX, offsetY, offsetZ);
+//        for (Object child : childObject) {
+//            child.translateObject(-offsetX, -offsetY, -offsetZ);
+//            child.rotateObject(degree, x, y, z);
+//            child.translateObject(offsetX, offsetY, offsetZ);
+//        }
+//    }
+
+
+    public void updateCenterPoint() {
         Vector3f destTemp = new Vector3f();
         model.transformPosition(0.0f,0.0f,0.0f,destTemp);
         centerPoint.set(0,destTemp.x);

@@ -15,7 +15,7 @@ import static org.lwjgl.opengl.GL20.GL_VERTEX_SHADER;
 public class EngineerMonkeyFace extends Object {
     float radiusX, radiusY, radiusZ;
     int sectorCount, stackCount;
-    float offsetX, offsetY, offsetZ;
+//    float offsetX, offsetY, offsetZ;
     public EngineerMonkeyFace(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
         super(shaderModuleDataList, vertices, color);
         vertices.clear();
@@ -75,6 +75,7 @@ public class EngineerMonkeyFace extends Object {
                 new ArrayList<>(),
                 new Vector4f(0.77f,0.77f,0.77f,1.0f)
         ));
+
         getChildObject().add(new EnginneerMonkeyEye2(
                 Arrays.asList(
                         new ShaderModuleData

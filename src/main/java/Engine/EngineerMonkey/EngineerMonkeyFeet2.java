@@ -9,7 +9,7 @@ import java.util.List;
 public class EngineerMonkeyFeet2 extends Object {
     float radiusX, radiusY, radiusZ;
     int sectorCount, stackCount;
-    float offsetX, offsetY, offsetZ;
+//    float offsetX, offsetY, offsetZ;
 
     public EngineerMonkeyFeet2(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
         super(shaderModuleDataList, vertices, color);

@@ -10,7 +10,7 @@ public class EngineerMonkeyPupil2 extends Object {
 
     float radiusX, radiusY, radiusZ;
     int sectorCount, stackCount;
-    float offsetX, offsetY, offsetZ;
+//    float offsetX, offsetY, offsetZ;
 
     public EngineerMonkeyPupil2(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
         super(shaderModuleDataList, vertices, color);

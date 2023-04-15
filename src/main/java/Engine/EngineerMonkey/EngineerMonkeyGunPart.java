@@ -268,10 +268,11 @@ public class EngineerMonkeyGunPart extends Object {
         bullet.translateObject(-monkeyCenter.x, -monkeyCenter.y, -monkeyCenter.z);
         bullet.getChildObject().get(0).translateObject(0f, 0.f, 0.35f);
 
-//        bullet.scaleObject(0.35f, 0.35f, 0.35f);
+        bullet.scaleObject(0.35f, 0.35f, 0.35f);
 //        bullet.rotateObject((float) Math.toRadians(10), 0f, 1f, 0f);
-        bullet.translateObject(0f, 0f, -5f);
+        bullet.translateObject(-1.75f, 0.19f, -3f);
         System.out.println("reloaded");
+        setupVAOVBO();
     }
 
     public String getName() {

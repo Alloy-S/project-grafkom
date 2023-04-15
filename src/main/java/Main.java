@@ -146,9 +146,10 @@ public class Main {
         if (window.isKeyPressed(GLFW_KEY_Y)) {
             Object monkey = engineerMonkey.get(0);
             Vector3f monkeyCenter = new Vector3f(monkey.model.transformPosition(new Vector3f(0.0f, 0f, 0.0f)));
+            System.out.println(monkeyCenter);
             monkey.translateObject(-monkeyCenter.x, -monkeyCenter.y, -monkeyCenter.z);
             monkey.rotateObject(0.1f, 0.0f, 1.0f, 0.0f);
-            monkey.translateObject(-monkeyCenter.x, -monkeyCenter.y, -monkeyCenter.z);
+            monkey.translateObject(monkeyCenter.x, monkeyCenter.y, monkeyCenter.z);
         }
 
         if (window.isKeyPressed(GLFW_KEY_U)){
@@ -298,9 +299,9 @@ public class Main {
                 object.draw(camera,projection);
             }
 
-//            if (engineerMonkey.get(0).getArmCurrAngle() <= -45) {
-//                engineerMonkey.get(0).shootBullet();
-//            }
+            if (engineerMonkey.get(0).getArmCurrAngle() <= -45) {
+                engineerMonkey.get(0).shootBullet();
+            }
             engineerMonkey.get(0).aiming(true);
 //
 

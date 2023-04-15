@@ -1,7 +1,6 @@
 package Engine.NinjaMonkey;
 
 import Engine.Object;
-import Engine.Pipe;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
@@ -12,28 +11,27 @@ import java.util.List;
 import static org.lwjgl.opengl.GL20.GL_FRAGMENT_SHADER;
 import static org.lwjgl.opengl.GL20.GL_VERTEX_SHADER;
 
-public class NinjaMonkeyShoulder1 extends Object {
+public class NinjaMonkeyPalm2 extends Object {
     float radiusX, radiusY, radiusZ;
     int sectorCount, stackCount;
 //    float offsetX, offsetY, offsetZ;
 
-    public NinjaMonkeyShoulder1(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
+    public NinjaMonkeyPalm2(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
         super(shaderModuleDataList, vertices, color);
         vertices.clear();
 
-        radiusX = 0.2f;
+        radiusX = 0.3f;
         radiusY = 0.2f;
         radiusZ = 0.2f;
         sectorCount = 80;
         stackCount = 80;
         generate();
         setupVAOVBO();
-        this.offsetX = 0.38f;
-        this.offsetY = 0.22f;
-        this.offsetZ = 0f;
-        scaleObject(0.8f, 0.8f, 0.8f);
-        rotateObject((float) Math.toRadians(-90), 1f, 0f, 0f);
-        rotateObject((float) Math.toRadians(-15), 0f, 0f, 1f);
+        this.offsetX = -0.2f;
+        this.offsetY = 0.15f;
+        this.offsetZ = 0.71f;
+        rotateObject((float) Math.toRadians(-10), 0f,1f,0f);
+        scaleObject(0.6f, 0.6f, 0.6f);
         translateObject(offsetX, offsetY, offsetZ);
     }
 
@@ -57,11 +55,11 @@ public class NinjaMonkeyShoulder1 extends Object {
                 temp_vector.x = centerPoint.get(0) + x * (float) Math.cos(sectorAngle);
                 temp_vector.y = centerPoint.get(1) + y * (float) Math.sin(sectorAngle);
                 temp_vector.z = centerPoint.get(2) + z;
-                if (z > 0.0f)vertices.add(temp_vector);
+                vertices.add(temp_vector);
             }
         }
 
-        getChildObject().add(new Pipe(
+        getChildObject().add(new NinjaMonkeyShuriken1(
                 Arrays.asList(
                         new ShaderModuleData
                                 ("resources/shaders/scene.vert"
@@ -71,32 +69,17 @@ public class NinjaMonkeyShoulder1 extends Object {
                                         , GL_FRAGMENT_SHADER)
                 ),
                 new ArrayList<>(),
-                new Vector4f(245f,0.0f,0.0f,1.0f),
-                new Vector3f(0f,0f,0f),
-                new Vector3f(0.2f, 0.2f, 0.2f),
-                0.65f,
-                0.1f,
-                360f
+                new Vector4f(0.400f, 0.356f, 0.356f,1.0f)
         ));
+    }
 
-        getChildObject().get(0).scaleObject(0.45f, 0.45f, 0.45f);
-//        getChildObject().get(0).rotateObject((float) Math.toRadians(0), 1f, 0f, 0f);
-        getChildObject().get(0).rotateObject((float) Math.toRadians(-35), 0f, 1f, 0f);
-//        getChildObject().get(0).rotateObject((float) Math.toRadians(15), 0f, 0f, 1f);
-        getChildObject().get(0).translateObject(0.19f, 0f, -0.15f);
+    public void rotateShuriken() {
+        Object shurken1 = getChildObject().get(0);
 
-        getChildObject().get(0).getChildObject().add(new NinjaMonkeyElbow1(
-                Arrays.asList(
-                        new ShaderModuleData
-                                ("resources/shaders/scene.vert"
-                                        , GL_VERTEX_SHADER),
-                        new ShaderModuleData
-                                ("resources/shaders/scene.frag"
-                                        , GL_FRAGMENT_SHADER)
-                ),
-                new ArrayList<>(),
-                new Vector4f(0.62f,0.42f,0.2f,1.0f)
-        ));
+        Vector3f shuriken = new Vector3f(getChildObject().get(0).model.transformPosition(new Vector3f(0.0f, 0f, 0.0f)));
+        shurken1.translateObject(-shuriken.x, -shuriken.y, -shuriken.z);
+        shurken1.rotateObject((float) Math.toRadians(5f), 0.0f, 1.0f, 0.0f);
+        shurken1.translateObject(shuriken.x, shuriken.y, shuriken.z);
 
     }
 }

@@ -1,36 +1,30 @@
 package Engine.NinjaMonkey;
 
 import Engine.Object;
-import Engine.Pipe;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import static org.lwjgl.opengl.GL20.GL_FRAGMENT_SHADER;
-import static org.lwjgl.opengl.GL20.GL_VERTEX_SHADER;
-
-public class NinjaMonkeyElbow2 extends Object {
+public class NinjaMonkeyPalm1 extends Object {
     float radiusX, radiusY, radiusZ;
     int sectorCount, stackCount;
 //    float offsetX, offsetY, offsetZ;
 
-    public NinjaMonkeyElbow2(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
+    public NinjaMonkeyPalm1(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
         super(shaderModuleDataList, vertices, color);
         vertices.clear();
 
         radiusX = 0.2f;
-        radiusY = 0.2f;
+        radiusY = 0.3f;
         radiusZ = 0.2f;
         sectorCount = 80;
         stackCount = 80;
         generate();
         setupVAOVBO();
-        this.offsetX = -0.36f;
-        this.offsetY = 0f;
-        this.offsetZ = -0.4f;
+        this.offsetX = 0.68f;
+        this.offsetY = -0.55f;
+        this.offsetZ =-0.1f;
         scaleObject(0.6f, 0.6f, 0.6f);
         translateObject(offsetX, offsetY, offsetZ);
     }
@@ -58,29 +52,5 @@ public class NinjaMonkeyElbow2 extends Object {
                 vertices.add(temp_vector);
             }
         }
-
-        getChildObject().add(new NinjaMonkeyShuriken1(
-                Arrays.asList(
-                        new ShaderModuleData
-                                ("resources/shaders/scene.vert"
-                                        , GL_VERTEX_SHADER),
-                        new ShaderModuleData
-                                ("resources/shaders/scene.frag"
-                                        , GL_FRAGMENT_SHADER)
-                ),
-                new ArrayList<>(),
-                new Vector4f(0.400f, 0.356f, 0.356f,1.0f)
-        ));
-    }
-
-    public void rotateShuriken() {
-        Object shurken1 = getChildObject().get(0);
-
-        Vector3f shuriken = new Vector3f(getChildObject().get(0).model.transformPosition(new Vector3f(0.0f, 0f, 0.0f)));
-
-        shurken1.translateObject(-shuriken.x, -shuriken.y, -shuriken.z);
-        shurken1.rotateObject((float) Math.toRadians(5f), 0.0f, 0.0f, 1.0f);
-        shurken1.translateObject(shuriken.x, shuriken.y, shuriken.z);
-
     }
 }

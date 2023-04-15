@@ -93,7 +93,7 @@ public class NinjaMonkeyBelly extends Object {
                                         , GL_FRAGMENT_SHADER)
                 ),
                 new ArrayList<>(),
-                new Vector4f(0.62f,0.42f,0.2f,1.0f)
+                new Vector4f(0.740f, 0.562f, 0.562f,1.0f)
         ));
         getChildObject().add(new NinjaMonkeyBeltEdge2(
                 Arrays.asList(
@@ -105,7 +105,7 @@ public class NinjaMonkeyBelly extends Object {
                                         , GL_FRAGMENT_SHADER)
                 ),
                 new ArrayList<>(),
-                new Vector4f(0.62f,0.42f,0.2f,1.0f)
+                new Vector4f(0.740f, 0.562f, 0.562f,1.0f)
         ));
     }
     public void rotateObject(Float degree, Float x,Float y,Float z) {

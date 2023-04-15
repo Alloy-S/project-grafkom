@@ -165,9 +165,6 @@ public class Main {
         }
 
 
-        if (window.isKeyPressed(GLFW_KEY_T)) {
-            ninjaMonkey.get(0).rotateObject(0.1f, 0.0f, 1.0f, 0.0f);
-        }
         if (window.isKeyPressed(GLFW_KEY_H) && dartMonkey.get(0).getTotalTime() < 0) {
             dartMonkey.get(0).setLookTime(80);
         }
@@ -176,6 +173,14 @@ public class Main {
         }
         if (window.isKeyPressed(GLFW_KEY_K) && dartMonkey.get(0).getTotalTime() < 0) {
             dartMonkey.get(0).setThrowTime(80);
+        }
+
+        if (window.isKeyPressed(GLFW_KEY_5)) {
+            ninjaMonkey.get(0).rotateObject(0.1f, 0.0f, 1.0f, 0.0f);
+        }
+
+        if (window.isKeyPressed(GLFW_KEY_6)) {
+            ninjaMonkey.get(0).getChildObject().get(3).getChildObject().get(0).rotateShuriken();
         }
 
 
@@ -276,8 +281,6 @@ public class Main {
             for(Object object: ninjaMonkey){
                 object.draw(camera,projection);
             }
-
-            ninjaMonkey.get(0).getChildObject().get(3).getChildObject().get(0).getChildObject().get(0).rotateShuriken();
 
             // Restore state
             glDisableVertexAttribArray(0);

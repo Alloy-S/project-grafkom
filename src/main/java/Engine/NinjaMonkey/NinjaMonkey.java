@@ -1,8 +1,13 @@
 package Engine.NinjaMonkey;
 
+import Engine.DartMonkey.DartMonkeyArm1;
+import Engine.DartMonkey.DartMonkeyArm2;
+import Engine.EngineerMonkey.EngineerMonkeyFeet1;
+import Engine.EngineerMonkey.EngineerMonkeyFeet2;
 import Engine.EngineerMonkey.EngineerMonkeyShoulder1;
 import Engine.EngineerMonkey.EngineerMonkeyShoulder2;
 import Engine.Object;
+import Engine.Pipe;
 import Engine.ShaderProgram;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
@@ -64,8 +69,7 @@ public class NinjaMonkey extends Object {
         }
 
         // bikin anak di sini
-        List<Object> children = new ArrayList<>();
-        children.add(new NinjaMonkeyBelly(
+        getChildObject().add(new NinjaMonkeyBelly(
                 Arrays.asList(
                         new ShaderModuleData
                                 ("resources/shaders/scene.vert"
@@ -77,7 +81,7 @@ public class NinjaMonkey extends Object {
                 new ArrayList<>(),
                 new Vector4f(245f,0.0f,0.0f,1.0f)
         ));
-        children.add(new NinjaMonkeyHead(
+        getChildObject().add(new NinjaMonkeyHead(
                 Arrays.asList(
                         new ShaderModuleData
                                 ("resources/shaders/scene.vert"
@@ -90,7 +94,33 @@ public class NinjaMonkey extends Object {
                 new Vector4f(245f,0.0f,0.0f,1.0f)
         ));
 
-        children.add(new NinjaMonkeyShoulder1(
+        getChildObject().add(new NinjaMonkeyArm1(
+                Arrays.asList(
+                        new ShaderModuleData
+                                ("resources/shaders/scene.vert"
+                                        , GL_VERTEX_SHADER),
+                        new ShaderModuleData
+                                ("resources/shaders/scene.frag"
+                                        , GL_FRAGMENT_SHADER)
+                ),
+                new ArrayList<>(),
+                new Vector4f(0.710f, 0.0213f, 0.0213f,1.0f)
+        ));
+        getChildObject().add(new NinjaMonkeyArm2(
+                Arrays.asList(
+                        new ShaderModuleData
+                                ("resources/shaders/scene.vert"
+                                        , GL_VERTEX_SHADER),
+                        new ShaderModuleData
+                                ("resources/shaders/scene.frag"
+                                        , GL_FRAGMENT_SHADER)
+                ),
+                new ArrayList<>(),
+                new Vector4f(0.710f, 0.0213f, 0.0213f,1.0f)
+        ));
+
+        //        kaki
+        getChildObject().add(new Pipe(
                 Arrays.asList(
                         new ShaderProgram.ShaderModuleData
                                 ("resources/shaders/scene.vert"
@@ -100,10 +130,18 @@ public class NinjaMonkey extends Object {
                                         , GL_FRAGMENT_SHADER)
                 ),
                 new ArrayList<>(),
-                new Vector4f(245f,0.0f,0.0f,1.0f)
+                new Vector4f(245f,0.0f,0.0f,1.0f),
+                new Vector3f(0f,0f,0f),
+                new Vector3f(0.2f, 0.2f, 0.2f),
+                0.8f,
+                0.1f,
+                360f
         ));
+        getChildObject().get(4).scaleObject(0.4f, 0.4f, 0.4f);
+        getChildObject().get(4).rotateObject((float) Math.toRadians(90), 1f, 0f, 0f);
+        getChildObject().get(4).translateObject(-0.18f, -0.6f, 0.f);
 
-        children.add(new NinjaMonkeyShoulder2(
+        getChildObject().add(new Pipe(
                 Arrays.asList(
                         new ShaderProgram.ShaderModuleData
                                 ("resources/shaders/scene.vert"
@@ -113,10 +151,42 @@ public class NinjaMonkey extends Object {
                                         , GL_FRAGMENT_SHADER)
                 ),
                 new ArrayList<>(),
-                new Vector4f(245f,0.0f,0.0f,1.0f)
+                new Vector4f(245f,0.0f,0.0f,1.0f),
+                new Vector3f(0f,0f,0f),
+                new Vector3f(0.2f, 0.2f, 0.2f),
+                0.8f,
+                0.1f,
+                360f
+        ));
+        getChildObject().get(5).scaleObject(0.4f, 0.4f, 0.4f);
+        getChildObject().get(5).rotateObject((float) Math.toRadians(90), 1f, 0f, 0f);
+        getChildObject().get(5).translateObject(0.18f, -0.6f, 0f);
+
+        getChildObject().get(0).getChildObject().add(new NinjaMonkeyFeet1(
+                Arrays.asList(
+                        new ShaderProgram.ShaderModuleData
+                                ("resources/shaders/scene.vert"
+                                        , GL_VERTEX_SHADER),
+                        new ShaderProgram.ShaderModuleData
+                                ("resources/shaders/scene.frag"
+                                        , GL_FRAGMENT_SHADER)
+                ),
+                new ArrayList<>(),
+                new Vector4f(0.62f,0.42f,0.2f,1.0f)
         ));
 
-        setChildObject(children);
+        getChildObject().get(1).getChildObject().add(new NinjaMonkeyFeet2(
+                Arrays.asList(
+                        new ShaderProgram.ShaderModuleData
+                                ("resources/shaders/scene.vert"
+                                        , GL_VERTEX_SHADER),
+                        new ShaderProgram.ShaderModuleData
+                                ("resources/shaders/scene.frag"
+                                        , GL_FRAGMENT_SHADER)
+                ),
+                new ArrayList<>(),
+                new Vector4f(0.62f,0.42f,0.2f,1.0f)
+        ));
     }
 
     public void rotateObject(Float degree, Float x,Float y,Float z){

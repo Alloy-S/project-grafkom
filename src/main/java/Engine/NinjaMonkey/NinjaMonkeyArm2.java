@@ -14,26 +14,24 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL20.GL_FRAGMENT_SHADER;
 import static org.lwjgl.opengl.GL20.GL_VERTEX_SHADER;
 
-public class NinjaMonkeyArm1 extends Object {
+public class NinjaMonkeyArm2 extends Object {
     float radius;
     float offsetX, offsetY, offsetZ;
 
     List<List<Vector3f>> totalVertices = new ArrayList<>();
-    public NinjaMonkeyArm1(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
+    public NinjaMonkeyArm2(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
         super(shaderModuleDataList, vertices, color);
         vertices.clear();
 
         radius = 0.08f;
-        vertices.add(new Vector3f(-0.2f,0.13f,0.0f));
-        vertices.add(new Vector3f(-1.1f,0.0f,0.3f));
-        vertices.add(new Vector3f(-0.4f,0.0f,0.7f));
-        vertices.add(new Vector3f(0.03f,0.0f,0.75f));
+        vertices.add(new Vector3f(-0.2f,0.1f,0.0f));
+        vertices.add(new Vector3f(0.7f,0.36f,0.0f));
+        vertices.add(new Vector3f(0.7f,-0.7f,0.0f));
         generate();
         setupVAOVBO();
         this.offsetX = 0.0f;
         this.offsetY = 0.2f;
         this.offsetZ = 0.0f;
-        rotateObject(-0.2f,1.0f,0.0f,0.0f);
         translateObject(offsetX, offsetY, offsetZ);
     }
 
@@ -49,7 +47,7 @@ public class NinjaMonkeyArm1 extends Object {
         }
         generate2();
 
-        getChildObject().add(new NinjaMonkeyPalm1(
+        getChildObject().add(new NinjaMonkeyPalm2(
                 Arrays.asList(
                         new ShaderModuleData
                                 ("resources/shaders/scene.vert"
@@ -140,10 +138,7 @@ public class NinjaMonkeyArm1 extends Object {
             List<Vector3f> orderedSegmentVertices = new ArrayList<>();
             //change this shit kalo ngebug
             int start = 0;
-            if(i>=4) start-=18;
-            if(i>=6) start-=12;
-            if(i>=8) start-=24;
-            if(i>=11) start-=18;
+            if(i>=10) start-=19;
 
             start += 10*segmentVertices.size();
             start %= segmentVertices.size();
@@ -151,7 +146,7 @@ public class NinjaMonkeyArm1 extends Object {
             orderedSegmentVertices.addAll(segmentVertices.subList(0, start+1));
 
             //change this shit buat debug
-//            if(7 <= i && i <= 8)
+//            if(7 <= i && i <= 10)
             totalVertices.add(orderedSegmentVertices);
         }
 

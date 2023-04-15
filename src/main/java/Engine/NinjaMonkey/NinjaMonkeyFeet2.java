@@ -6,26 +6,28 @@ import org.joml.Vector4f;
 
 import java.util.List;
 
-public class NinjaMonkeyElbow1 extends Object {
+public class NinjaMonkeyFeet2 extends Object {
     float radiusX, radiusY, radiusZ;
     int sectorCount, stackCount;
 //    float offsetX, offsetY, offsetZ;
 
-    public NinjaMonkeyElbow1(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
+    public NinjaMonkeyFeet2(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
         super(shaderModuleDataList, vertices, color);
         vertices.clear();
 
-        radiusX = 0.2f;
+        radiusX = 0.35f;
         radiusY = 0.2f;
         radiusZ = 0.2f;
         sectorCount = 80;
         stackCount = 80;
         generate();
         setupVAOVBO();
-        this.offsetX = 0.36f;
-        this.offsetY = 0f;
-        this.offsetZ = -0.4f;
-        scaleObject(0.6f, 0.6f, 0.6f);
+        this.offsetX = 0.2f;
+        this.offsetY = -1f;
+        this.offsetZ = 0.1f;
+        scaleObject(0.8f, 0.8f, 0.8f);
+        rotateObject((float) Math.toRadians(-90), 1f, 0f, 0f);
+        rotateObject((float) Math.toRadians(-90), 0f, 1f, 0f);
         translateObject(offsetX, offsetY, offsetZ);
     }
 
@@ -49,7 +51,7 @@ public class NinjaMonkeyElbow1 extends Object {
                 temp_vector.x = centerPoint.get(0) + x * (float) Math.cos(sectorAngle);
                 temp_vector.y = centerPoint.get(1) + y * (float) Math.sin(sectorAngle);
                 temp_vector.z = centerPoint.get(2) + z;
-                vertices.add(temp_vector);
+                if (z > 0.05f)vertices.add(temp_vector);
             }
         }
     }

@@ -17,7 +17,7 @@ import static org.lwjgl.opengl.GL20.GL_FRAGMENT_SHADER;
 import static org.lwjgl.opengl.GL20.GL_VERTEX_SHADER;
 
 public class EngineerMonkeyMouth extends Object {
-    float offsetX, offsetY, offsetZ;
+//    float offsetX, offsetY, offsetZ;
     List<Vector3f> line1 = new ArrayList<>();
     List<Vector3f> line2 = new ArrayList<>();
 

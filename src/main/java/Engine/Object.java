@@ -22,6 +22,7 @@ public class Object extends ShaderProgram{
     public int vbo;
     public UniformsMap uniformsMap;
     public Vector4f color;
+    public float offsetX, offsetY, offsetZ;
 
 
 
@@ -205,6 +206,10 @@ public class Object extends ShaderProgram{
 
     public int getVerticesSize() {
         return vertices.size();
+    }
+
+    public void moveLeg() {
+
     }
 
     public void translateObject(Float offsetX,Float offsetY,Float offsetZ){

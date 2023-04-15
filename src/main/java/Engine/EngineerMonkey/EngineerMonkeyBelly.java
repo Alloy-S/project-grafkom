@@ -15,7 +15,7 @@ import static org.lwjgl.opengl.GL20.GL_VERTEX_SHADER;
 public class EngineerMonkeyBelly extends Object {
     float radiusX, radiusY, radiusZ;
     int sectorCount, stackCount;
-    float offsetX, offsetY, offsetZ;
+//    float offsetX, offsetY, offsetZ;
 
     public EngineerMonkeyBelly(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
         super(shaderModuleDataList, vertices, color);

@@ -17,7 +17,7 @@ import static org.lwjgl.opengl.GL20.GL_VERTEX_SHADER;
 public class EngineerMonkey extends Object{
     float radiusX, radiusY, radiusZ;
     int sectorCount, stackCount;
-    public float offsetX, offsetY, offsetZ;
+//    public float offsetX, offsetY, offsetZ;
     public EngineerMonkey(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
         super(shaderModuleDataList, vertices, color);
         vertices.clear();
@@ -204,5 +204,17 @@ public class EngineerMonkey extends Object{
             child.translateObject(offsetX, offsetY, offsetZ);
         }
 
+    }
+
+    public void moveLeg() {
+        Object leg1 = getChildObject().get(2);
+        Object leg2 = getChildObject().get(3);
+        for (Object child: childObject) {
+            System.out.println(child.offsetX);
+        }
+
+
+
+        System.out.println("bisa");
     }
 }

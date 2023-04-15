@@ -120,7 +120,7 @@ public class DartMonkeyHead extends Object {
                                         , GL_FRAGMENT_SHADER)
                 ),
                 new ArrayList<>(),
-                new Vector4f(0.44f,0.24f,1.12f,1.0f)
+                new Vector4f(0.44f,0.24f,0.12f,1.0f)
         ));
         children.add(new DartMonkeyEar2(
                 Arrays.asList(

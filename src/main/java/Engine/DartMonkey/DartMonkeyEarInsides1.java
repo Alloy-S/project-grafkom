@@ -20,7 +20,7 @@ public class DartMonkeyEarInsides1 extends Object {
     float radius;
     float offsetX, offsetY, offsetZ;
 
-    List<List<Vector3f>> totalVertices = new ArrayList<>();
+    List<Vector3f> buildCurve1, buildCurve2;
 
     public DartMonkeyEarInsides1(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
         super(shaderModuleDataList, vertices, color);
@@ -29,16 +29,16 @@ public class DartMonkeyEarInsides1 extends Object {
         radius = 0.05f;
         generate();
         setupVAOVBO();
-        System.out.println(vertices);
-        this.offsetX = -0.4f;
+        this.offsetX = -0.1f;
         this.offsetY = 0.0f;
         this.offsetZ = 0.1f;
-        scaleObject(0.5f,0.5f,1.0f);
+        scaleObject(0.5f,0.5f,1f);
         translateObject(offsetX, offsetY, offsetZ);
     }
 
     public void generate() {
-        List<Vector3f> buildCurve1 = new ArrayList<>(), buildCurve2 = new ArrayList<>();
+        buildCurve1 = new ArrayList<>();
+        buildCurve2 = new ArrayList<>();
         buildCurve1.add(new Vector3f(0.0f,2.0f,-0.5f));
         buildCurve1.add(new Vector3f(-2.0f,2.0f,-0.5f));
         buildCurve1.add(new Vector3f(-1.0f,-2.0f,-0.5f));
@@ -47,29 +47,6 @@ public class DartMonkeyEarInsides1 extends Object {
         buildCurve2.add(new Vector3f(-2.0f,2.0f,0.5f));
         buildCurve2.add(new Vector3f(-1.0f,-2.0f,0.5f));
         buildCurve2.add(new Vector3f(0.0f,-2.0f,0.5f));
-
-        vertices.clear();
-
-        double interval = 0.05;
-        for (double i = 0; i <= 1; i += interval) {
-            vertices.add(new Vector3f(calculateBezierPoint((float) i, buildCurve1)));
-        }
-        vertices.add(new Vector3f(calculateBezierPoint((float) 0, buildCurve1)));
-        for (double i = 0; i <= 1; i += interval) {
-            vertices.add(new Vector3f(calculateBezierPoint((float) i, buildCurve2)));
-            vertices.add(new Vector3f(calculateBezierPoint((float) (i+interval), buildCurve2)));
-            vertices.add(new Vector3f(calculateBezierPoint((float) (i+interval), buildCurve1)));
-            vertices.add(new Vector3f(calculateBezierPoint((float) i, buildCurve1)));
-
-        }
-        for (double i = 0; i <= 1; i += interval) {
-            vertices.add(new Vector3f(calculateBezierPoint((float) i, buildCurve2)));
-        }
-        vertices.add(new Vector3f(calculateBezierPoint((float) 0, buildCurve1)));
-        vertices.add(new Vector3f(calculateBezierPoint((float) 0, buildCurve2)));
-        vertices.add(new Vector3f(calculateBezierPoint((float) 1, buildCurve2)));
-        vertices.add(new Vector3f(calculateBezierPoint((float) 1, buildCurve1)));
-        vertices.add(new Vector3f(calculateBezierPoint((float) 0, buildCurve1)));
 
     }
 
@@ -98,5 +75,36 @@ public class DartMonkeyEarInsides1 extends Object {
             return binomialCoefficient(n - 1, k - 1) + binomialCoefficient(n - 1, k);
         }
     }
+    public void draw(Camera camera, Projection projection){
+        double interval = 0.05;
 
+        vertices.clear();
+        for (double i = 0; i <= 1; i += interval) {
+            vertices.add(new Vector3f(calculateBezierPoint((float) i, buildCurve1)));
+        }
+        drawSegment(camera, projection);
+
+        vertices.clear();
+        for (double i = 0; i <= 0.95; i += interval) {
+            vertices.add(new Vector3f(calculateBezierPoint((float) i, buildCurve1)));
+            vertices.add(new Vector3f(calculateBezierPoint((float) i, buildCurve2)));
+            vertices.add(new Vector3f(calculateBezierPoint((float) (i+interval), buildCurve2)));
+            vertices.add(new Vector3f(calculateBezierPoint((float) (i+interval), buildCurve1)));
+            vertices.add(new Vector3f(calculateBezierPoint((float) i, buildCurve1)));
+        }
+        drawSegment(camera, projection);
+
+        vertices.clear();
+        for (double i = 0; i <= 1; i += interval) {
+            vertices.add(new Vector3f(calculateBezierPoint((float) i, buildCurve2)));
+        }
+        drawSegment(camera, projection);
+    }
+    public void drawSegment(Camera camera, Projection projection){
+        setupVAOVBO();
+        drawSetup(camera, projection);
+        glLineWidth(10); //ketebalan garis
+        glPointSize(10); //besar kecil vertex
+        glDrawArrays(GL_POLYGON, 0, vertices.size());
+    }
 }

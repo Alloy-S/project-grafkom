@@ -16,23 +16,23 @@ import static org.lwjgl.opengl.GL11.GL_POLYGON;
 import static org.lwjgl.opengl.GL20.GL_FRAGMENT_SHADER;
 import static org.lwjgl.opengl.GL20.GL_VERTEX_SHADER;
 
-public class DartMonkeyEar1 extends Object {
+public class DartMonkeyEarInsides2 extends Object {
     float radius;
     float offsetX, offsetY, offsetZ;
 
     List<Vector3f> buildCurve1, buildCurve2;
 
-    public DartMonkeyEar1(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
+    public DartMonkeyEarInsides2(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
         super(shaderModuleDataList, vertices, color);
         vertices.clear();
 
         radius = 0.05f;
         generate();
         setupVAOVBO();
-        this.offsetX = -0.7f;
+        this.offsetX = 0.1f;
         this.offsetY = 0.0f;
-        this.offsetZ = 0.0f;
-        scaleObject(0.15f,0.08f,0.1f);
+        this.offsetZ = 0.1f;
+        scaleObject(0.5f,0.5f,1f);
         translateObject(offsetX, offsetY, offsetZ);
     }
 
@@ -40,30 +40,13 @@ public class DartMonkeyEar1 extends Object {
         buildCurve1 = new ArrayList<>();
         buildCurve2 = new ArrayList<>();
         buildCurve1.add(new Vector3f(0.0f,2.0f,-0.5f));
-        buildCurve1.add(new Vector3f(-2.0f,2.0f,-0.5f));
-        buildCurve1.add(new Vector3f(-1.0f,-2.0f,-0.5f));
+        buildCurve1.add(new Vector3f(2.0f,2.0f,-0.5f));
+        buildCurve1.add(new Vector3f(1.0f,-2.0f,-0.5f));
         buildCurve1.add(new Vector3f(0.0f,-2.0f,-0.5f));
         buildCurve2.add(new Vector3f(0.0f,2.0f,0.5f));
-        buildCurve2.add(new Vector3f(-2.0f,2.0f,0.5f));
-        buildCurve2.add(new Vector3f(-1.0f,-2.0f,0.5f));
+        buildCurve2.add(new Vector3f(2.0f,2.0f,0.5f));
+        buildCurve2.add(new Vector3f(1.0f,-2.0f,0.5f));
         buildCurve2.add(new Vector3f(0.0f,-2.0f,0.5f));
-
-
-        // bikin anak di sini
-        List<Object> children = new ArrayList<>();
-        children.add(new DartMonkeyEarInsides1(
-                Arrays.asList(
-                        new ShaderModuleData
-                                ("resources/shaders/scene.vert"
-                                        , GL_VERTEX_SHADER),
-                        new ShaderModuleData
-                                ("resources/shaders/scene.frag"
-                                        , GL_FRAGMENT_SHADER)
-                ),
-                new ArrayList<>(),
-                new Vector4f(0.62f,0.42f,0.2f,1.0f)
-        ));
-        setChildObject(children);
 
     }
 
@@ -116,10 +99,6 @@ public class DartMonkeyEar1 extends Object {
             vertices.add(new Vector3f(calculateBezierPoint((float) i, buildCurve2)));
         }
         drawSegment(camera, projection);
-
-        for(Object child:childObject){
-            child.draw(camera,projection);
-        }
     }
     public void drawSegment(Camera camera, Projection projection){
         setupVAOVBO();

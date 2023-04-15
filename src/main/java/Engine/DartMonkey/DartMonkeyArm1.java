@@ -27,15 +27,15 @@ public class DartMonkeyArm1 extends Object {
 
         radius = 0.1f;
         vertices.add(new Vector3f(0.0f,0.0f,0.0f));
-        vertices.add(new Vector3f(-1.3f,0.25f,0.0f));
-        vertices.add(new Vector3f(-0.6f,0.2f,0.0f));
-        vertices.add(new Vector3f(-1.0f,1.0f,0.0f));
+        vertices.add(new Vector3f(-1.4f,0.25f,0.0f));
+        vertices.add(new Vector3f(-0.7f,0.2f,0.0f));
+        vertices.add(new Vector3f(-1.1f,1.0f,0.0f));
         generate();
         setupVAOVBO();
         this.offsetX = 0.0f;
         this.offsetY = 0.2f;
         this.offsetZ = 0.0f;
-        rotateObject(-0.2f,1.0f,0.0f,0.0f);
+//        rotateObject(-0.2f,1.0f,0.0f,0.0f);
         translateObject(offsetX, offsetY, offsetZ);
     }
 
@@ -50,6 +50,21 @@ public class DartMonkeyArm1 extends Object {
             vertices.add(new Vector3f(calculateBezierPoint((float) i, tempVertices)));
         }
         generate2();
+
+        List<Object> children = new ArrayList<>();
+        children.add(new DartMonkeyHand1(
+                Arrays.asList(
+                        new ShaderModuleData
+                                ("resources/shaders/scene.vert"
+                                        , GL_VERTEX_SHADER),
+                        new ShaderModuleData
+                                ("resources/shaders/scene.frag"
+                                        , GL_FRAGMENT_SHADER)
+                ),
+                new ArrayList<>(),
+                new Vector4f(0.62f,0.42f,0.2f,1.0f)
+        ));
+        setChildObject(children);
     }
 
     public static Vector3f calculateBezierPoint(float t, List<Vector3f> points) {
@@ -137,7 +152,7 @@ public class DartMonkeyArm1 extends Object {
             orderedSegmentVertices.addAll(segmentVertices.subList(0, start+1));
 
             //change this shit buat debug
-//            if(6 <= i && i <= 8)
+//            if(7 <= i && i <= 8)
             totalVertices.add(orderedSegmentVertices);
         }
 
@@ -167,5 +182,17 @@ public class DartMonkeyArm1 extends Object {
         glLineWidth(10); //ketebalan garis
         glPointSize(10); //besar kecil vertex
         glDrawArrays(GL_POLYGON, 0, vertices.size());
+    }
+
+    public void rotateObject(Float degree, Float x,Float y,Float z){
+        translateObject(-offsetX, -offsetY, -offsetZ);
+        model = new Matrix4f().rotate(degree,x,y,z).mul(new Matrix4f(model));
+        updateCenterPoint();
+        translateObject(offsetX, offsetY, offsetZ);
+        for(Object child:childObject){
+//            child.translateObject(-offsetX, -offsetY, -offsetZ);
+            child.rotateObject(degree,x,y,z);
+//            child.translateObject(offsetX, offsetY, offsetZ);
+        }
     }
 }

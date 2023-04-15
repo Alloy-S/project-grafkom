@@ -1,27 +1,17 @@
 package Engine.DartMonkey;
 
-import Engine.Camera;
 import Engine.Object;
-import Engine.Projection;
-import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL11.GL_POLYGON;
-import static org.lwjgl.opengl.GL20.GL_FRAGMENT_SHADER;
-import static org.lwjgl.opengl.GL20.GL_VERTEX_SHADER;
-
-public class DartMonkeyFeet1 extends Object {
+public class DartMonkeyFoot1 extends Object {
     float radiusX, radiusY, radiusZ;
     int sectorCount, stackCount;
 //    float offsetX, offsetY, offsetZ;
 
-    public DartMonkeyFeet1(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
+    public DartMonkeyFoot1(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
         super(shaderModuleDataList, vertices, color);
         vertices.clear();
 

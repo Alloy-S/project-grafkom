@@ -16,12 +16,25 @@ public class DartMonkey extends Object {
     float radiusX, radiusY, radiusZ;
     int sectorCount, stackCount;
     float offsetX, offsetY, offsetZ;
+    int lookTime, scratchTime, throwTime;
+    int animDebug;
 
-    public int getAnimTime() {
-        return animTime;
+    public void setLookTime(int lookTime) {
+        this.lookTime = lookTime;
     }
 
-    int animTime;
+    public void setScratchTime(int scratchTime) {
+        this.scratchTime = scratchTime;
+    }
+
+    public void setThrowTime(int throwTime) {
+        this.throwTime = throwTime;
+    }
+
+    public int getTotalTime() {
+        return lookTime+scratchTime+throwTime;
+    }
+
     public DartMonkey(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
         super(shaderModuleDataList, vertices, color);
         vertices.clear();
@@ -38,7 +51,10 @@ public class DartMonkey extends Object {
         this.offsetZ = -3.0f;
         translateObject(offsetX, offsetY, offsetZ);
 
-        animTime = 0;
+        lookTime = -1;
+        scratchTime = -1;
+        throwTime = -1;
+        animDebug = 0;
     }
 
     public void generate(){
@@ -162,15 +178,51 @@ public class DartMonkey extends Object {
         model = new Matrix4f().rotate(degree,x,y,z).mul(new Matrix4f(model));
         updateCenterPoint();
         translateObject(offsetX, offsetY, offsetZ);
-        for(Object child:childObject){
-            child.translateObject(-offsetX, -offsetY, -offsetZ);
-            child.rotateObject(degree,x,y,z);
-            child.translateObject(offsetX, offsetY, offsetZ);
-        }
 
+    }
+    public void look(){
+        if (lookTime <0) return;
+//        System.out.println("look"+lookTime);
+        Object head = childObject.get(1);
+
+        translateObject(-offsetX, -offsetY, -offsetZ);
+        if (lookTime > 70) {
+            head.rotateObject(0.1f,0.0f,1.0f,0.0f);
+            animDebug++;
+        }
+        else if (lookTime >= 50) ;
+        else if (lookTime >= 30) {
+            head.rotateObject(-0.1f,0.0f,1.0f,0.0f);
+            animDebug--;
+        }
+        else if (lookTime >= 10) ;
+        else {
+            head.rotateObject(0.1f, 0.0f, 1.0f, 0.0f);
+            animDebug++;
+        }
+        translateObject(offsetX, offsetY, offsetZ);
+
+        System.out.println(lookTime+" "+animDebug);
+        lookTime--;
+    }
+    public void scratch(){
+        if (scratchTime<=0) return;
+//        System.out.println("scratch"+scratchTime);
+        Object belly = childObject.get(0);
+        Object head = childObject.get(1);
+        Object arm1 = childObject.get(2);
+        Object arm2 = childObject.get(2);
+        scratchTime--;
     }
 
     public void dartThrow(){
-        rotateObject(0.1f,1.0f,0.0f,0.0f);
+        if (throwTime <= 0) return;
+//        System.out.println("throw"+throwTime);
+        Object belly = childObject.get(0);
+        Object head = childObject.get(1);
+        Object arm1 = childObject.get(2);
+        Object arm2 = childObject.get(2);
+//        rotateObject(0.1f,1.0f,0.0f,0.0f);
+        throwTime--;
     }
 }

@@ -137,15 +137,15 @@ public class Main {
         }
 
 
-        if (window.isKeyPressed(GLFW_KEY_H)){
-//            engineerMonkey.get(0).getChildObject().get(1).rotateObject(0.1f,0.0f,1.0f,0.0f);
-            EngineerMonkeyHead head = (EngineerMonkeyHead) engineerMonkey.get(0).getChildObject().get(1);
-            List<Float> tmpCenterPoint = head.getCenterPoint();
-
-            head.translateObject(tmpCenterPoint.get(0) * -1, tmpCenterPoint.get(1) * -1, tmpCenterPoint.get(2) * -1);
-            head.rotateObject((float) Math.toRadians(1), 0f, 1f, 0f);
-            head.translateObject(tmpCenterPoint.get(0), tmpCenterPoint.get(1), tmpCenterPoint.get(2));
-        }
+//        if (window.isKeyPressed(GLFW_KEY_H)){
+////            engineerMonkey.get(0).getChildObject().get(1).rotateObject(0.1f,0.0f,1.0f,0.0f);
+//            EngineerMonkeyHead head = (EngineerMonkeyHead) engineerMonkey.get(0).getChildObject().get(1);
+//            List<Float> tmpCenterPoint = head.getCenterPoint();
+//
+//            head.translateObject(tmpCenterPoint.get(0) * -1, tmpCenterPoint.get(1) * -1, tmpCenterPoint.get(2) * -1);
+//            head.rotateObject((float) Math.toRadians(1), 0f, 1f, 0f);
+//            head.translateObject(tmpCenterPoint.get(0), tmpCenterPoint.get(1), tmpCenterPoint.get(2));
+//        }
 
         if (window.isKeyPressed(GLFW_KEY_O)){
             ninjaMonkey.get(0).rotateObject(0.1f,0.0f,1.0f,0.0f);

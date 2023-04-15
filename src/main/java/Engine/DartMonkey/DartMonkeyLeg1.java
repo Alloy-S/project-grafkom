@@ -16,26 +16,24 @@ import static org.lwjgl.opengl.GL11.GL_POLYGON;
 import static org.lwjgl.opengl.GL20.GL_FRAGMENT_SHADER;
 import static org.lwjgl.opengl.GL20.GL_VERTEX_SHADER;
 
-public class DartMonkeyArm1 extends Object {
+public class DartMonkeyLeg1 extends Object {
     float radius;
     float offsetX, offsetY, offsetZ;
 
     List<List<Vector3f>> totalVertices = new ArrayList<>();
-    public DartMonkeyArm1(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
+    public DartMonkeyLeg1(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
         super(shaderModuleDataList, vertices, color);
         vertices.clear();
 
-        radius = 0.1f;
-        vertices.add(new Vector3f(0.0f,0.0f,0.0f));
-        vertices.add(new Vector3f(-1.3f,0.25f,0.0f));
-        vertices.add(new Vector3f(-0.6f,0.2f,0.0f));
-        vertices.add(new Vector3f(-1.0f,1.0f,0.0f));
+        radius = 0.08f;
+        vertices.add(new Vector3f(0.0f,0.2f,0.0f));
+        vertices.add(new Vector3f(0.0f,-0.25f,0.1f));
+        vertices.add(new Vector3f(0.0f,-0.5f,0.0f));
         generate();
         setupVAOVBO();
-        this.offsetX = 0.0f;
-        this.offsetY = 0.2f;
+        this.offsetX = -0.15f;
+        this.offsetY = -0.4f;
         this.offsetZ = 0.0f;
-        rotateObject(-0.2f,1.0f,0.0f,0.0f);
         translateObject(offsetX, offsetY, offsetZ);
     }
 
@@ -50,6 +48,21 @@ public class DartMonkeyArm1 extends Object {
             vertices.add(new Vector3f(calculateBezierPoint((float) i, tempVertices)));
         }
         generate2();
+
+        List<Object> children = new ArrayList<>();
+        children.add(new DartMonkeyFeet1(
+                Arrays.asList(
+                        new ShaderModuleData
+                                ("resources/shaders/scene.vert"
+                                        , GL_VERTEX_SHADER),
+                        new ShaderModuleData
+                                ("resources/shaders/scene.frag"
+                                        , GL_FRAGMENT_SHADER)
+                ),
+                new ArrayList<>(),
+                new Vector4f(0.62f,0.42f,0.2f,1.0f)
+        ));
+        setChildObject(children);
     }
 
     public static Vector3f calculateBezierPoint(float t, List<Vector3f> points) {
@@ -129,7 +142,7 @@ public class DartMonkeyArm1 extends Object {
             List<Vector3f> orderedSegmentVertices = new ArrayList<>();
             //change this shit kalo ngebug
             int start = 0;
-            if(i>=8) start-=18;
+//            if(i>=8) start-=18;
 
             start += 10*segmentVertices.size();
             start %= segmentVertices.size();
@@ -167,5 +180,10 @@ public class DartMonkeyArm1 extends Object {
         glLineWidth(10); //ketebalan garis
         glPointSize(10); //besar kecil vertex
         glDrawArrays(GL_POLYGON, 0, vertices.size());
+    }
+
+    @Override
+    public void rotateObject(Float degree, Float x, Float y, Float z) {
+
     }
 }

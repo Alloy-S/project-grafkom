@@ -154,6 +154,10 @@ public class DartMonkeyArm2 extends Object {
             }
             drawSegment(camera, projection);
         }
+
+        for(Object child:childObject){
+            child.draw(camera,projection);
+        }
     }
     public void drawSegment(Camera camera, Projection projection){
         setupVAOVBO();

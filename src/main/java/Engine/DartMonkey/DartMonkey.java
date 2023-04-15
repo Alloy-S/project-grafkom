@@ -167,7 +167,7 @@ public class DartMonkey extends Object {
                                         , GL_FRAGMENT_SHADER)
                 ),
                 new ArrayList<>(),
-                new Vector4f(0.44f,0.24f,0.12f,1.0f)
+                new Vector4f(0.4f,0.2f,0.08f,1.0f)
         ));
 
         setChildObject(children);

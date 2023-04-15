@@ -72,4 +72,15 @@ public class NinjaMonkeyElbow2 extends Object {
                 new Vector4f(0.400f, 0.356f, 0.356f,1.0f)
         ));
     }
+
+    public void rotateShuriken() {
+        Object shurken1 = getChildObject().get(0);
+
+        Vector3f shuriken = new Vector3f(getChildObject().get(0).model.transformPosition(new Vector3f(0.0f, 0f, 0.0f)));
+
+        shurken1.translateObject(-shuriken.x, -shuriken.y, -shuriken.z);
+        shurken1.rotateObject((float) Math.toRadians(5f), 0.0f, 0.0f, 1.0f);
+        shurken1.translateObject(shuriken.x, shuriken.y, shuriken.z);
+
+    }
 }

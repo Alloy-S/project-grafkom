@@ -25,7 +25,6 @@ public class Object extends ShaderProgram{
     public float offsetX, offsetY, offsetZ;
     public float currAngle;
 
-
     public Matrix4f model;
 
     public int vboColor;
@@ -82,6 +81,8 @@ public class Object extends ShaderProgram{
         }
         return angle;
     }
+
+
     public Object(List<ShaderModuleData> shaderModuleDataList,
                   List<Vector3f> vertices,
                   List<Vector3f> verticesColor) {
@@ -221,6 +222,9 @@ public class Object extends ShaderProgram{
 
     public void walk() {
 
+    }
+
+    public void rotateShuriken(){
     }
 
     public void translateObject(Float offsetX,Float offsetY,Float offsetZ){

@@ -110,6 +110,30 @@ public class DartMonkeyHead extends Object {
                 new ArrayList<>(),
                 new Vector4f(0.44f,0.24f,0.12f,1.0f)
         ));
+        children.add(new DartMonkeyEar1(
+                Arrays.asList(
+                        new ShaderModuleData
+                                ("resources/shaders/scene.vert"
+                                        , GL_VERTEX_SHADER),
+                        new ShaderModuleData
+                                ("resources/shaders/scene.frag"
+                                        , GL_FRAGMENT_SHADER)
+                ),
+                new ArrayList<>(),
+                new Vector4f(0.44f,0.24f,1.12f,1.0f)
+        ));
+        children.add(new DartMonkeyEar2(
+                Arrays.asList(
+                        new ShaderModuleData
+                                ("resources/shaders/scene.vert"
+                                        , GL_VERTEX_SHADER),
+                        new ShaderModuleData
+                                ("resources/shaders/scene.frag"
+                                        , GL_FRAGMENT_SHADER)
+                ),
+                new ArrayList<>(),
+                new Vector4f(0.44f,0.24f,0.12f,1.0f)
+        ));
         setChildObject(children);
     }
 

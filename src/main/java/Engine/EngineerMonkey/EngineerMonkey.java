@@ -195,18 +195,56 @@ public class EngineerMonkey extends Object{
 
     }
 
-    public void rotateObject(Float degree, Float x,Float y,Float z){
-        translateObject(-offsetX, -offsetY, -offsetZ);
+//    public void rotateObject(Float degree, Float x,Float y,Float z){
+//        Vector3f monkeyCenter = new Vector3f(model.transformPosition(new Vector3f(0.0f, 0f, 0.0f)));
+//        translateObject(-monkeyCenter.x, -monkeyCenter.y, -monkeyCenter.z);
+//        model = new Matrix4f().rotate(degree,x,y,z).mul(new Matrix4f(model));
+//        updateCenterPoint();
+//        translateObject(offsetX, offsetY, offsetZ);
+//        for(Object child:childObject){
+//            child.translateObject(-offsetX, -offsetY, -offsetZ);
+//            child.rotateObject(degree,x,y,z);
+//            child.translateObject(offsetX, offsetY, offsetZ);
+//        }
+////        System.out.println("rotate");
+//    }
+
+    public void plainRotateObject(Float degree, Float x,Float y,Float z){
         model = new Matrix4f().rotate(degree,x,y,z).mul(new Matrix4f(model));
         updateCenterPoint();
-        translateObject(offsetX, offsetY, offsetZ);
         for(Object child:childObject){
-            child.translateObject(-offsetX, -offsetY, -offsetZ);
             child.rotateObject(degree,x,y,z);
-            child.translateObject(offsetX, offsetY, offsetZ);
         }
-//        System.out.println("rotate");
     }
+
+    public void aiming(boolean reverse) {
+        Object arm2 = getChildObject().get(5);
+        Vector3f Arm2 = new Vector3f(arm2.model.transformPosition(new Vector3f(0.0f, 0f, 0.0f)));
+
+
+
+        if (reverse) {
+            armRotation = -0.8f;
+        } else {
+            armRotation = 0.8f;
+        }
+
+        if ((int)arm2.currAngle + armRotation <= -45 || (int)arm2.currAngle +armRotation >= 0 ) armRotation = 0f;
+
+        System.out.println(armRotation);
+//        if (arm2.currAngle <= 45 && arm2.currAngle >= 0 ) {
+            arm2.translateObject(-Arm2.x, -Arm2.y, -Arm2.z);
+            arm2.rotateObject((float) Math.toRadians(armRotation), 1f, 0f, 0f);
+            arm2.translateObject(Arm2.x, Arm2.y, Arm2.z);
+        arm2.currAngle += armRotation;
+//        }
+
+
+
+        System.out.println(arm2.currAngle);
+    }
+
+
 
     public void walk() {
         Object leg1 = getChildObject().get(2);
@@ -214,10 +252,10 @@ public class EngineerMonkey extends Object{
         Object arm1 = getChildObject().get(4);
         Object arm2 = getChildObject().get(5);
 
-        Vector3f Leg1 = new Vector3f(getChildObject().get(2).model.transformPosition(new Vector3f(0.0f, 0f, 0.0f)));
-        Vector3f Leg2= new Vector3f(getChildObject().get(3).model.transformPosition(new Vector3f(0.0f, 0f, 0.0f)));
-        Vector3f Arm1 = new Vector3f(getChildObject().get(4).model.transformPosition(new Vector3f(0.0f, 0f, 0.0f)));
-        Vector3f Arm2 = new Vector3f(getChildObject().get(5).model.transformPosition(new Vector3f(0.0f, 0f, 0.0f)));
+        Vector3f Leg1 = new Vector3f(leg1.model.transformPosition(new Vector3f(0.0f, 0f, 0.0f)));
+        Vector3f Leg2= new Vector3f(leg2.model.transformPosition(new Vector3f(0.0f, 0f, 0.0f)));
+        Vector3f Arm1 = new Vector3f(arm1.model.transformPosition(new Vector3f(0.0f, 0f, 0.0f)));
+        Vector3f Arm2 = new Vector3f(arm2.model.transformPosition(new Vector3f(0.0f, 0f, 0.0f)));
 
         if (leg1.currAngle <= -8) {
 

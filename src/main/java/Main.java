@@ -4,6 +4,7 @@ import Engine.EngineerMonkey.*;
 import Engine.NinjaMonkey.*;
 import Engine.Object;
 
+import org.joml.Vector3f;
 import org.joml.Vector4f;
 import org.lwjgl.opengl.GL;
 
@@ -134,18 +135,42 @@ public class Main {
         }
 
         if (window.isKeyPressed(GLFW_KEY_U)) {
+
             dartMonkey.get(0).rotateObject(0.1f, 0.0f, 1.0f, 0.0f);
         }
 
-        if (window.isKeyPressed(GLFW_KEY_Y)) {
-            engineerMonkey.get(0).rotateObject(0.1f, 0.0f, 1.0f, 0.0f);
+        if (window.isKeyPressed(GLFW_KEY_R)) {
+            Object monkey = engineerMonkey.get(0);
+            Vector3f monkeyCenter = new Vector3f(monkey.model.transformPosition(new Vector3f(0.0f, 0f, 0.0f)));
+            monkey.translateObject(-monkeyCenter.x, -monkeyCenter.y, -monkeyCenter.z);
+            monkey.rotateObject(0.1f, 0.0f, 1.0f, 0.0f);
+            monkey.translateObject(monkeyCenter.x, monkeyCenter.y, monkeyCenter.z);
         }
+
+        if (window.isKeyPressed(GLFW_KEY_T)){
+            engineerMonkey.get(0).walk();
+            engineerMonkey.get(0).translateObject(0f, 0f, 0.01f);
+//            System.out.println();
+        }
+
+        if (window.isKeyPressed(GLFW_KEY_Y)){
+            if (window.isKeyPressed(GLFW_KEY_LEFT_ALT)) {
+                engineerMonkey.get(0).aiming(false);
+                System.out.println("reverse");
+            } else {
+                engineerMonkey.get(0).aiming(true);
+                System.out.println("normal");
+            }
+
+            System.out.println();
+        }
+
 
         if (window.isKeyPressed(GLFW_KEY_T)) {
             ninjaMonkey.get(0).rotateObject(0.1f, 0.0f, 1.0f, 0.0f);
         }
 
-
+        
         if (window.isKeyPressed(GLFW_KEY_H)){
             engineerMonkey.get(0).walk();
             engineerMonkey.get(0).translateObject(0f, 0f, 0.01f);
@@ -219,6 +244,7 @@ public class Main {
 //                }
 //            }
 //        }
+
     }
 
     public void loop(){

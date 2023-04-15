@@ -220,9 +220,9 @@ public class Object extends ShaderProgram{
         return vertices.size();
     }
 
-    public void walk() {
+    public void walk() {}
 
-    }
+    public void aiming(boolean reverse) {}
 
     public void rotateShuriken(){
     }

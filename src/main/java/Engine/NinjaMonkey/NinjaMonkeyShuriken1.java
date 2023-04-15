@@ -1,6 +1,5 @@
 package Engine.NinjaMonkey;
 
-import Engine.EngineerMonkey.EngineerMonkeyGunBottom2;
 import Engine.Object;
 import Engine.Pipe;
 import Engine.ShaderProgram;

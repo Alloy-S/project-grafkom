@@ -1,6 +1,5 @@
 package Engine.NinjaMonkey;
 
-import Engine.EngineerMonkey.EngineerMonkeyGunBottom1;
 import Engine.Object;
 import Engine.Pipe;
 import org.joml.Vector3f;

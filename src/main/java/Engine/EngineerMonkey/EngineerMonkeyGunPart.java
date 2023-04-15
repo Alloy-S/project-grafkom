@@ -12,11 +12,11 @@ import java.util.List;
 import static org.lwjgl.opengl.GL20.GL_FRAGMENT_SHADER;
 import static org.lwjgl.opengl.GL20.GL_VERTEX_SHADER;
 
-public class EngineerMonkeyGunBottom2 extends Object {
+public class EngineerMonkeyGunPart extends Object {
 //    float offsetX, offsetY, offsetZ;
     Vector3f center, radius;
 
-    public EngineerMonkeyGunBottom2(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color, Vector3f center, Vector3f radius) {
+    public EngineerMonkeyGunPart(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color, Vector3f center, Vector3f radius) {
         super(shaderModuleDataList, vertices, color);
         this.center = center;
         this.radius = radius;

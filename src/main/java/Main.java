@@ -9,7 +9,6 @@ import org.lwjgl.opengl.GL;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.glClearColor;
@@ -18,7 +17,7 @@ import static org.lwjgl.opengl.GL30.*;
 public class Main {
     private Window window =
             new Window
-                    (1200, 1200, "Hello World");
+                    (1200, 1200, "Bloons TD Monkey");
     private ArrayList<Object> dartMonkey = new ArrayList<>();
     private ArrayList<Object> ninjaMonkey = new ArrayList<>();
     private ArrayList<Object> engineerMonkey = new ArrayList<>();
@@ -147,16 +146,8 @@ public class Main {
 
 
         if (window.isKeyPressed(GLFW_KEY_H)){
-            engineerMonkey.get(0).moveLeg();
-            System.out.println(engineerMonkey.get(0).offsetX);
-
-////            engineerMonkey.get(0).getChildObject().get(1).rotateObject(0.1f,0.0f,1.0f,0.0f);
-//            NinjaMonkeyHead head = (NinjaMonkeyHead) ninjaMonkey.get(0).getChildObject().get(1);
-//            List<Float> tmpCenterPoint = head.getCenterPoint();
-//
-//            head.translateObject(tmpCenterPoint.get(0) * -1, tmpCenterPoint.get(1) * -1, tmpCenterPoint.get(2) * -1);
-//              head.rotateObject((float) Math.toRadians(1), 0f, 1f, 0f);
-//            head.translateObject(tmpCenterPoint.get(0), tmpCenterPoint.get(1), tmpCenterPoint.get(2));
+            engineerMonkey.get(0).walk();
+            engineerMonkey.get(0).translateObject(0f, 0f, 0.01f);
         }
 
         if (window.isKeyPressed(GLFW_KEY_L)) {
@@ -242,17 +233,17 @@ public class Main {
             input();
 
             //code
-            for(Object object: dartMonkey){
-                object.draw(camera,projection);
-            }
+//            for(Object object: dartMonkey){
+//                object.draw(camera,projection);
+//            }
 
             for(Object object: engineerMonkey){
                 object.draw(camera,projection);
             }
 
-            for(Object object: ninjaMonkey){
-                object.draw(camera,projection);
-            }
+//            for(Object object: ninjaMonkey){
+//                object.draw(camera,projection);
+//            }
 
             // Restore state
             glDisableVertexAttribArray(0);

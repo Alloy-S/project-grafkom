@@ -23,7 +23,7 @@ public class Object extends ShaderProgram{
     public UniformsMap uniformsMap;
     public Vector4f color;
     public float offsetX, offsetY, offsetZ;
-
+    public float currAngle;
 
 
     public Matrix4f model;
@@ -219,7 +219,7 @@ public class Object extends ShaderProgram{
         return vertices.size();
     }
 
-    public void moveLeg() {
+    public void walk() {
 
     }
 
@@ -238,7 +238,20 @@ public class Object extends ShaderProgram{
         }
 
     }
-    public void updateCenterPoint(){
+//    public void rotateObject(Float degree, Float x,Float y,Float z) {
+//        translateObject(-offsetX, -offsetY, -offsetZ);
+//        model = new Matrix4f().rotate(degree, x, y, z).mul(new Matrix4f(model));
+//        updateCenterPoint();
+//        translateObject(offsetX, offsetY, offsetZ);
+//        for (Object child : childObject) {
+//            child.translateObject(-offsetX, -offsetY, -offsetZ);
+//            child.rotateObject(degree, x, y, z);
+//            child.translateObject(offsetX, offsetY, offsetZ);
+//        }
+//    }
+
+
+    public void updateCenterPoint() {
         Vector3f destTemp = new Vector3f();
         model.transformPosition(0.0f,0.0f,0.0f,destTemp);
         centerPoint.set(0,destTemp.x);

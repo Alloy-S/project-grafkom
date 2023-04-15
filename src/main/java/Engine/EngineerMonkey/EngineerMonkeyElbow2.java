@@ -82,7 +82,7 @@ public class EngineerMonkeyElbow2 extends Object {
 ////        getChildObject().get(0).rotateObject((float) Math.toRadians(15), 0f, 0f, 1f);
 //        getChildObject().get(0).translateObject(0.19f, 0f, -0.15f);
 
-        getChildObject().add(new EngineerMonkeyGunBottom1(
+        getChildObject().add(new EngineerMonkeyGun(
                 Arrays.asList(
                         new ShaderModuleData
                                 ("resources/shaders/scene.vert"
@@ -98,5 +98,8 @@ public class EngineerMonkeyElbow2 extends Object {
         ));
 
         getChildObject().get(0).scaleObject(0.7f, 0.7f, 0.7f);
+        getChildObject().get(0).rotateObject((float) Math.toRadians(45), 1f, 0f, 0f);
+        getChildObject().get(0).translateObject(-0.1f, 0.1f, -0.4f);
+
     }
 }

@@ -139,7 +139,7 @@ public class Main {
             dartMonkey.get(0).rotateObject(0.1f, 0.0f, 1.0f, 0.0f);
         }
 
-        if (window.isKeyPressed(GLFW_KEY_R)) {
+        if (window.isKeyPressed(GLFW_KEY_Y)) {
             Object monkey = engineerMonkey.get(0);
             Vector3f monkeyCenter = new Vector3f(monkey.model.transformPosition(new Vector3f(0.0f, 0f, 0.0f)));
             monkey.translateObject(-monkeyCenter.x, -monkeyCenter.y, -monkeyCenter.z);
@@ -147,13 +147,13 @@ public class Main {
             monkey.translateObject(monkeyCenter.x, monkeyCenter.y, monkeyCenter.z);
         }
 
-        if (window.isKeyPressed(GLFW_KEY_T)){
+        if (window.isKeyPressed(GLFW_KEY_U)){
             engineerMonkey.get(0).walk();
             engineerMonkey.get(0).translateObject(0f, 0f, 0.01f);
 //            System.out.println();
         }
 
-        if (window.isKeyPressed(GLFW_KEY_Y)){
+        if (window.isKeyPressed(GLFW_KEY_I)){
             if (window.isKeyPressed(GLFW_KEY_LEFT_ALT)) {
                 engineerMonkey.get(0).aiming(false);
                 System.out.println("reverse");
@@ -170,12 +170,8 @@ public class Main {
             ninjaMonkey.get(0).rotateObject(0.1f, 0.0f, 1.0f, 0.0f);
         }
 
-        
-        if (window.isKeyPressed(GLFW_KEY_H)){
-            engineerMonkey.get(0).walk();
-            engineerMonkey.get(0).translateObject(0f, 0f, 0.01f);
-            System.out.println();
-        }
+
+
 //
 //        if (window.isKeyPressed(GLFW_KEY_L)) {
 //            System.out.print(currAngle);
@@ -261,9 +257,9 @@ public class Main {
                 object.draw(camera,projection);
             }
 //
-//            for(Object object: engineerMonkey){
-//                object.draw(camera,projection);
-//            }
+            for(Object object: engineerMonkey){
+                object.draw(camera,projection);
+            }
 //
 //            for(Object object: ninjaMonkey){
 //                object.draw(camera,projection);

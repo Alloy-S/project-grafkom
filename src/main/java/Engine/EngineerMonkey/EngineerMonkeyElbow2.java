@@ -4,7 +4,12 @@ import Engine.Object;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import static org.lwjgl.opengl.GL20.GL_FRAGMENT_SHADER;
+import static org.lwjgl.opengl.GL20.GL_VERTEX_SHADER;
 
 public class EngineerMonkeyElbow2 extends Object {
     float radiusX, radiusY, radiusZ;
@@ -76,5 +81,22 @@ public class EngineerMonkeyElbow2 extends Object {
 //        getChildObject().get(0).rotateObject((float) Math.toRadians(0), 0f, 1f, 0f);
 ////        getChildObject().get(0).rotateObject((float) Math.toRadians(15), 0f, 0f, 1f);
 //        getChildObject().get(0).translateObject(0.19f, 0f, -0.15f);
+
+        getChildObject().add(new EngineerMonkeyGunBottom1(
+                Arrays.asList(
+                        new ShaderModuleData
+                                ("resources/shaders/scene.vert"
+                                        , GL_VERTEX_SHADER),
+                        new ShaderModuleData
+                                ("resources/shaders/scene.frag"
+                                        , GL_FRAGMENT_SHADER)
+                ),
+                new ArrayList<>(),
+                new Vector4f(0.400f, 0.356f, 0.356f,1.0f),
+                new Vector3f(0f,0f,0f),
+                new Vector3f(0.5f, 0.2f, 0.7f)
+        ));
+
+        getChildObject().get(0).scaleObject(0.7f, 0.7f, 0.7f);
     }
 }

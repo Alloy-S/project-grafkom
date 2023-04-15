@@ -260,10 +260,12 @@ public class Main {
             for(Object object: engineerMonkey){
                 object.draw(camera,projection);
             }
-//
-//            for(Object object: ninjaMonkey){
-//                object.draw(camera,projection);
-//            }
+
+            for(Object object: ninjaMonkey){
+                object.draw(camera,projection);
+            }
+
+            ninjaMonkey.get(0).getChildObject().get(3).getChildObject().get(0).getChildObject().get(0).rotateShuriken();
 
             // Restore state
             glDisableVertexAttribArray(0);

@@ -8,8 +8,10 @@ import org.joml.Vector3f;
 import org.joml.Vector4f;
 import org.lwjgl.opengl.GL;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.glClearColor;
@@ -25,8 +27,7 @@ public class Main {
 
     private boolean leftMouseButton = false;
 
-    float angleDegree;
-    float currAngle = 0;
+    long lastTime = 0;
     private MouseInput mouseInput;
     Projection projection = new Projection(window.getWidth(), window.getHeight());
     Camera camera = new Camera();
@@ -146,24 +147,48 @@ public class Main {
         if (window.isKeyPressed(GLFW_KEY_Y)) {
             Object monkey = engineerMonkey.get(0);
             Vector3f monkeyCenter = new Vector3f(monkey.model.transformPosition(new Vector3f(0.0f, 0f, 0.0f)));
-            System.out.println(monkeyCenter);
+//            System.out.println(monkeyCenter);
             monkey.translateObject(-monkeyCenter.x, -monkeyCenter.y, -monkeyCenter.z);
-            monkey.rotateObject(0.1f, 0.0f, 1.0f, 0.0f);
+            if (window.isKeyPressed(GLFW_KEY_LEFT_ALT)) {
+                monkey.rotateObject((float) Math.toRadians(-2), 0.0f, 1.0f, 0.0f);
+                engineerMonkey.get(0).currAngleY += -2;
+            } else {
+                monkey.rotateObject((float) Math.toRadians(2), 0.0f, 1.0f, 0.0f);
+                engineerMonkey.get(0).currAngleY += 2;
+            }
             monkey.translateObject(monkeyCenter.x, monkeyCenter.y, monkeyCenter.z);
+
+
+            if (engineerMonkey.get(0).currAngleY > 360) {
+                engineerMonkey.get(0).currAngleY -= 360;
+            } else if (engineerMonkey.get(0).currAngleY < 0) {
+                engineerMonkey.get(0).currAngleY += 360;
+            }
+
+            System.out.println(engineerMonkey.get(0).currAngleY);
         }
 
         if (window.isKeyPressed(GLFW_KEY_U)){
             engineerMonkey.get(0).walk();
             engineerMonkey.get(0).translateObject(0f, 0f, 0.01f);
-//            System.out.println();
+            System.out.println(engineerMonkey.get(0).getCenterPoint());
         }
 
         if (window.getMouseInput().isLeftButtonPressed()){
-            if (!leftMouseButton && engineerMonkey.get(0).getArmCurrAngle() >= 45) {
-                engineerMonkey.get(0).reload();
-                System.out.println("reload mag");
+//            Date date = new Date();
+            System.out.println(System.currentTimeMillis() + " -- " + lastTime);
+            if (System.currentTimeMillis() > lastTime) {
+                if (!leftMouseButton && engineerMonkey.get(0).getArmCurrAngle() >= 44) {
+                    if (engineerMonkey.get(0).currAngleY >= -2 && engineerMonkey.get(0).currAngleY <= 2) {
+                        engineerMonkey.get(0).reload();
+                        lastTime = System.currentTimeMillis() + 250;
+
+                        System.out.println("reload mag");
+                    }
+                }
             }
-            leftMouseButton = true;
+
+//            leftMouseButton = true;
         }
 
         if (window.getMouseInput().isLeftButtonRelease()){
@@ -171,6 +196,7 @@ public class Main {
         }
 
         if (window.isKeyPressed(GLFW_KEY_I)){
+
             if (window.isKeyPressed(GLFW_KEY_LEFT_ALT)) {
                 engineerMonkey.get(0).aiming(false);
 //                System.out.println("reverse");

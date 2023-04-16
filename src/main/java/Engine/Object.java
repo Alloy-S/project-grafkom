@@ -23,7 +23,7 @@ public class Object extends ShaderProgram{
     public UniformsMap uniformsMap;
     public Vector4f color;
     public float offsetX, offsetY, offsetZ;
-    public float currAngle;
+    public float currAngleX, currAngleY, currAngleZ;
 
     public Matrix4f model;
 

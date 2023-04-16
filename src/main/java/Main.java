@@ -210,12 +210,7 @@ public class Main {
 //            System.out.println();
         }
 
-<<<<<<< HEAD
 //        ======================= key for dart Monkey =============================
-=======
-//        ============================ key for engineer Monkey =============================
-
->>>>>>> 691c08c3e2ce2525a4006a69afbb32df322279d5
 
         // THIS IS FRAME BASED BUT OPENGL ISNT
         // JANGAN LEBIH DARI 2x PER RUN
@@ -329,20 +324,16 @@ public class Main {
             for(Object object: engineerMonkey){
                 object.draw(camera,projection);
             }
-<<<<<<< HEAD
 //
 //            if (engineerMonkey.get(0).getBulletList().size() > 0) {
 //                engineerMonkey.get(0).shootBullet();
 //            }
 //            engineerMonkey.get(0).aiming(true);
 //
-=======
 
             if (engineerMonkey.get(0).getBulletList().size() > 0) {
                 engineerMonkey.get(0).shootBullet();
             }
-
->>>>>>> 691c08c3e2ce2525a4006a69afbb32df322279d5
 
             for(Object object: ninjaMonkey){
                 object.draw(camera,projection);

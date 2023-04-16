@@ -203,6 +203,8 @@ public class DartMonkey extends Object {
             head.rotateObject(0.1f, 0.0f, 1.0f, 0.0f);
         }
         translateObject(offsetX, offsetY, offsetZ);
+
+        lookTime--;
     }
     public void scratch(){
         if (scratchTime<0) return;

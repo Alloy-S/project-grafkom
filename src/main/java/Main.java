@@ -141,7 +141,7 @@ public class Main {
             dartMonkey.get(0).rotateObject(0.1f, 0.0f, 1.0f, 0.0f);
         }
 
-//      ======================= key for engineer Monkey =============================
+//      ============================== key for engineer Monkey =============================
 
 //        bikin eror
         if (window.isKeyPressed(GLFW_KEY_Y)) {
@@ -169,9 +169,9 @@ public class Main {
         }
 
         if (window.isKeyPressed(GLFW_KEY_U)){
-            engineerMonkey.get(0).walk();
+            engineerMonkey.get(0).walk(false);
             engineerMonkey.get(0).translateObject(0f, 0f, 0.01f);
-            System.out.println(engineerMonkey.get(0).getCenterPoint());
+//            System.out.println(engineerMonkey.get(0).getCenterPoint());
         }
 
         if (window.getMouseInput().isLeftButtonPressed()){
@@ -208,7 +208,7 @@ public class Main {
 //            System.out.println();
         }
 
-//        ======================= key for engineer Monkey =============================
+//        ============================ key for engineer Monkey =============================
 
 
         if (window.isKeyPressed(GLFW_KEY_H) && dartMonkey.get(0).getTotalTime() < 0) {
@@ -327,8 +327,7 @@ public class Main {
             if (engineerMonkey.get(0).getBulletList().size() > 0) {
                 engineerMonkey.get(0).shootBullet();
             }
-//            engineerMonkey.get(0).aiming(true);
-//
+
 
 //            for(Object object: ninjaMonkey){
 //                object.draw(camera,projection);

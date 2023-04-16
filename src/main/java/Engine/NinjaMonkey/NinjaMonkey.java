@@ -1,12 +1,4 @@
 package Engine.NinjaMonkey;
-
-import Engine.DartMonkey.DartMonkeyArm1;
-import Engine.DartMonkey.DartMonkeyArm2;
-import Engine.DartMonkey.DartMonkeyTail;
-import Engine.EngineerMonkey.EngineerMonkeyFeet1;
-import Engine.EngineerMonkey.EngineerMonkeyFeet2;
-import Engine.EngineerMonkey.EngineerMonkeyShoulder1;
-import Engine.EngineerMonkey.EngineerMonkeyShoulder2;
 import Engine.Object;
 import Engine.Pipe;
 import Engine.ShaderProgram;
@@ -254,7 +246,7 @@ public class NinjaMonkey extends Object {
             System.out.println(shur.getCenterPoint());
         }
 
-        shuriken.removeIf(shur -> shur.getCenterPoint().get(2) >= 3);
+        shuriken.removeIf(shur -> shur.getCenterPoint().get(2) >= 2);
     }
 
     public void spawnShuriken() {

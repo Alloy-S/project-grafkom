@@ -1,5 +1,5 @@
-package Engine.NinjaMonkey;
 
+package Engine.NinjaMonkey;
 import Engine.Object;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
@@ -10,12 +10,10 @@ import java.util.List;
 
 import static org.lwjgl.opengl.GL20.GL_FRAGMENT_SHADER;
 import static org.lwjgl.opengl.GL20.GL_VERTEX_SHADER;
-
 public class NinjaMonkeyPalm2 extends Object {
     float radiusX, radiusY, radiusZ;
     int sectorCount, stackCount;
 //    float offsetX, offsetY, offsetZ;
-
     public NinjaMonkeyPalm2(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
         super(shaderModuleDataList, vertices, color);
         vertices.clear();
@@ -27,6 +25,10 @@ public class NinjaMonkeyPalm2 extends Object {
         stackCount = 80;
         generate();
         setupVAOVBO();
+        this.offsetX = -1.0f;
+        this.offsetY = 0.8f;
+        this.offsetZ = 0.0f;
+        rotateObject(0.1f,0.0f,0.0f,1.0f);
         this.offsetX = -0.2f;
         this.offsetY = 0.15f;
         this.offsetZ = 0.71f;
@@ -95,7 +97,6 @@ public class NinjaMonkeyPalm2 extends Object {
 
 
     }
-
     public void rotateShuriken() {
         for (Object shurikenList: getChildObject()) {
             Vector3f shuriken = new Vector3f(shurikenList.model.transformPosition(new Vector3f(0.0f, 0f, 0.0f)));
@@ -104,4 +105,5 @@ public class NinjaMonkeyPalm2 extends Object {
             shurikenList.translateObject(shuriken.x, shuriken.y, shuriken.z);
         }
     }
+
 }

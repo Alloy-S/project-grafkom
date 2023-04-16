@@ -22,18 +22,14 @@ public class Main {
             new Window
                     (1200, 1200, "Bloons TD Monkey");
     private ArrayList<DartMonkey> dartMonkey = new ArrayList<>();
-    private ArrayList<NinjaMonkey> ninjaMonkey = new ArrayList<>();
+    private ArrayList<Object> ninjaMonkey = new ArrayList<>();
     private ArrayList<Object> engineerMonkey = new ArrayList<>();
 
     private boolean leftMouseButton = false;
 
     float currAngle = 0;
     float angleDegree;
-
-    boolean canLookRight = true, canLookLeft = true;
     long lastTime = 0;
-
-    long lastTimeShuriken = 0;
     private MouseInput mouseInput;
     Projection projection = new Projection(window.getWidth(), window.getHeight());
     Camera camera = new Camera();
@@ -147,7 +143,7 @@ public class Main {
             dartMonkey.get(0).rotateObject(0.1f, 0.0f, 1.0f, 0.0f);
         }
 
-//      ======================= key for engineer Monkey =============================
+//      ============================== key for engineer Monkey =============================
 
 //        bikin eror
         if (window.isKeyPressed(GLFW_KEY_Y)) {
@@ -175,9 +171,9 @@ public class Main {
         }
 
         if (window.isKeyPressed(GLFW_KEY_U)){
-            engineerMonkey.get(0).walk();
+            engineerMonkey.get(0).walk(false);
             engineerMonkey.get(0).translateObject(0f, 0f, 0.01f);
-            System.out.println(engineerMonkey.get(0).getCenterPoint());
+//            System.out.println(engineerMonkey.get(0).getCenterPoint());
         }
 
         if (window.getMouseInput().isLeftButtonPressed()){
@@ -216,7 +212,8 @@ public class Main {
 
 //        ======================= key for dart Monkey =============================
 
-
+        // THIS IS FRAME BASED BUT OPENGL ISNT
+        // JANGAN LEBIH DARI 2x PER RUN
         if (window.isKeyPressed(GLFW_KEY_H) && dartMonkey.get(0).getTotalTime() < 0) {
             dartMonkey.get(0).setLookTime(80);
         }
@@ -232,32 +229,76 @@ public class Main {
             ninjaMonkey.get(0).rotateObject(0.1f, 0.0f, 1.0f, 0.0f);
         }
 
-        //Shuriken
         if (window.isKeyPressed(GLFW_KEY_6)) {
-            if (System.currentTimeMillis() > lastTimeShuriken) {
-                ninjaMonkey.get(0).spawnShuriken();
-                lastTimeShuriken = System.currentTimeMillis() + 500;
+            ninjaMonkey.get(0).getChildObject().get(3).getChildObject().get(0).rotateShuriken();
+        }
+
+        if (window.isKeyPressed(GLFW_KEY_7)) {
+            System.out.print(currAngle);
+            angleDegree = 90f;
+            while (currAngle < angleDegree) {
+                ninjaMonkey.get(0).rotateObject((float) Math.toRadians(1), 0.0f, 1.0f, 0.0f);
+                currAngle += 1f;
+                if (currAngle >= angleDegree) {
+                    System.out.print(currAngle);
+                    break;
+                }
             }
         }
-
-        //Look Right
-        if (window.isKeyPressed(GLFW_KEY_7)) {
-            ninjaMonkey.get(0).rotateObject((float) Math.toRadians(1), 0.0f, 1.0f, 0.0f);
-
-        }
-        //Look Left
         if (window.isKeyPressed(GLFW_KEY_8)) {
-            ninjaMonkey.get(0).rotateObject((float) Math.toRadians(-1), 0.0f, 1.0f, 0.0f);
+            angleDegree = -90f;
+            System.out.print(currAngle);
+            while (currAngle > angleDegree) {
+                ninjaMonkey.get(0).rotateObject((float) Math.toRadians(-1), 0.0f, 1.0f, 0.0f);
+                currAngle -= 1f;
+                if (currAngle <= angleDegree) {
+                    System.out.print(currAngle);
+                    break;
+                }
+            }
         }
-
-        //Look Right only head
         if (window.isKeyPressed(GLFW_KEY_9)) {
-            ninjaMonkey.get(0).lookRightHead();
-
+            angleDegree = 0;
+            while (currAngle < angleDegree || currAngle > angleDegree) {
+                if (currAngle > angleDegree) {
+                    ninjaMonkey.get(0).rotateObject((float) Math.toRadians(-1), 0.0f, 1.0f, 0.0f);
+                    currAngle -= 1f;
+                    if (currAngle <= angleDegree) {
+                        System.out.print(currAngle);
+                        break;
+                    }
+                }
+                else {
+                    ninjaMonkey.get(0).rotateObject((float) Math.toRadians(1), 0.0f, 1.0f, 0.0f);
+                    currAngle += 1f;
+                    if (currAngle >= angleDegree) {
+                        System.out.print(currAngle);
+                        break;
+                    }
+                }
+            }
         }
-        //Look Left only head
         if (window.isKeyPressed(GLFW_KEY_0)) {
-            ninjaMonkey.get(0).lookLeftHead();
+            angleDegree = 180;
+            System.out.print(currAngle);
+            while (currAngle < angleDegree || currAngle > angleDegree) {
+                if (currAngle > angleDegree) {
+                    ninjaMonkey.get(0).rotateObject((float) Math.toRadians(1), 0.0f, -1.0f, 0.0f);
+                    currAngle -= 1f;
+                    if (currAngle <= angleDegree) {
+                        System.out.print(currAngle);
+                        break;
+                    }
+                }
+                else {
+                    ninjaMonkey.get(0).rotateObject((float) Math.toRadians(-1), 0.0f, -1.0f, 0.0f);
+                    currAngle += 1f;
+                    if (currAngle >= angleDegree) {
+                        System.out.print(currAngle);
+                        break;
+                    }
+                }
+            }
         }
 //       ======================= key for ninja Monkey =============================
     }
@@ -283,19 +324,19 @@ public class Main {
             for(Object object: engineerMonkey){
                 object.draw(camera,projection);
             }
+//
+//            if (engineerMonkey.get(0).getBulletList().size() > 0) {
+//                engineerMonkey.get(0).shootBullet();
+//            }
+//            engineerMonkey.get(0).aiming(true);
+//
 
             if (engineerMonkey.get(0).getBulletList().size() > 0) {
                 engineerMonkey.get(0).shootBullet();
             }
-            engineerMonkey.get(0).aiming(true);
-
 
             for(Object object: ninjaMonkey){
                 object.draw(camera,projection);
-            }
-
-            if (ninjaMonkey.get(0).getShurikenList().size() > 0) {
-                ninjaMonkey.get(0).throwShuriken();
             }
 
             // Restore state

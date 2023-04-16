@@ -17,7 +17,7 @@ public class DartMonkey extends Object {
     int sectorCount, stackCount;
     float offsetX, offsetY, offsetZ;
     int lookTime, scratchTime, throwTime;
-    int animDebug;
+    float animDebug;
 
     public void setLookTime(int lookTime) {
         this.lookTime = lookTime;
@@ -53,7 +53,7 @@ public class DartMonkey extends Object {
 
         lookTime = -1;
         scratchTime = -1;
-        throwTime = -1;
+        throwTime = 0;
         animDebug = 0;
     }
 
@@ -179,50 +179,92 @@ public class DartMonkey extends Object {
         updateCenterPoint();
         translateObject(offsetX, offsetY, offsetZ);
 
+        for(Object child:childObject) {
+            child.translateObject(-offsetX, -offsetY, -offsetZ);
+            child.rotateObject(degree, x, y, z);
+            child.translateObject(offsetX, offsetY, offsetZ);
+        }
     }
     public void look(){
-        if (lookTime <0) return;
+        if (lookTime < 0) return;
 //        System.out.println("look"+lookTime);
         Object head = childObject.get(1);
 
         translateObject(-offsetX, -offsetY, -offsetZ);
         if (lookTime > 70) {
             head.rotateObject(0.1f,0.0f,1.0f,0.0f);
-            animDebug++;
         }
         else if (lookTime >= 50) ;
         else if (lookTime >= 30) {
             head.rotateObject(-0.1f,0.0f,1.0f,0.0f);
-            animDebug--;
         }
         else if (lookTime >= 10) ;
         else {
             head.rotateObject(0.1f, 0.0f, 1.0f, 0.0f);
-            animDebug++;
         }
         translateObject(offsetX, offsetY, offsetZ);
 
-        System.out.println(lookTime+" "+animDebug);
         lookTime--;
     }
     public void scratch(){
-        if (scratchTime<=0) return;
+        if (scratchTime<0) return;
 //        System.out.println("scratch"+scratchTime);
         Object belly = childObject.get(0);
         Object head = childObject.get(1);
         Object arm1 = childObject.get(2);
-        Object arm2 = childObject.get(2);
+        Object arm2 = childObject.get(3);
         scratchTime--;
     }
 
     public void dartThrow(){
-        if (throwTime <= 0) return;
+        if (throwTime < 0) return;
 //        System.out.println("throw"+throwTime);
-        Object belly = childObject.get(0);
-        Object head = childObject.get(1);
-        Object arm1 = childObject.get(2);
-        Object arm2 = childObject.get(2);
-//        rotateObject(0.1f,1.0f,0.0f,0.0f);
+        DartMonkeyHead head = (DartMonkeyHead) childObject.get(1);
+        DartMonkeyArm1 arm1 = (DartMonkeyArm1) childObject.get(2);
+        DartMonkeyHand1 hand1 = (DartMonkeyHand1) arm1.childObject.get(0);
+
+        if (throwTime > 70){
+            arm1.rotateFromBody(-0.08f,1.0f,0.0f,0.0f,offsetX,offsetY,offsetZ); // -0.8
+            rotateObject(-0.02f,1.0f,0.0f,0.0f); // -0.2
+            head.rotateFromBody(-0.02f, 1.0f, 0.0f, 0.0f,offsetX,offsetY,offsetZ);
+        }
+        else if (throwTime >= 60){}
+        else if (throwTime >= 50){
+            arm1.rotateFromBody(0.2f,1.0f,0.0f,0.0f,offsetX,offsetY,offsetZ); // 1.2
+            rotateObject(0.05f,1.0f,0.0f,0.0f); // 0.3
+            head.rotateFromBody(0.05f, 1.0f, 0.0f, 0.0f,offsetX,offsetY,offsetZ);
+
+            if (throwTime == 57){
+                DartProjectile temp= (DartProjectile) hand1.childObject.get(0);
+                temp.setSeen(0);
+                hand1.childObject.add(new DartProjectileFly(
+                        Arrays.asList(
+                                new ShaderModuleData
+                                        ("resources/shaders/scene.vert"
+                                                , GL_VERTEX_SHADER),
+                                new ShaderModuleData
+                                        ("resources/shaders/scene.frag"
+                                                , GL_FRAGMENT_SHADER)
+                        ),
+                        new ArrayList<>(),
+                        new Vector4f(0.2f,0.2f,0.2f,1.0f)
+                ));
+            }
+        }
+        else if (throwTime >= 30){
+            hand1.childObject.get(1).rotateObject(1.0f,0.0f,0.0f,0.0f);
+        }
+        else {
+            arm1.rotateFromBody(-0.04f,1.0f,0.0f,0.0f,offsetX,offsetY,offsetZ);
+            rotateObject(-0.01f,1.0f,0.0f,0.0f);
+            head.rotateFromBody(-0.01f, 1.0f, 0.0f, 0.0f,offsetX,offsetY,offsetZ);
+
+            if (throwTime == 8){
+                DartProjectile temp= (DartProjectile) hand1.childObject.get(0);
+                temp.setSeen(1);
+                hand1.childObject.remove(1);
+            }
+        }
         throwTime--;
     }
 }

@@ -18,6 +18,7 @@ public class EngineerMonkey extends Object{
     int sectorCount, stackCount;
     float legRotation = 0.3f;
     float armRotation = 0.8f;
+    Vector3f monkeySpawnPos;
 //    public float offsetX, offsetY, offsetZ;
     public EngineerMonkey(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
         super(shaderModuleDataList, vertices, color);
@@ -34,6 +35,7 @@ public class EngineerMonkey extends Object{
         this.offsetY = 0.0f;
         this.offsetZ = -3.0f;
         translateObject(offsetX, offsetY, offsetZ);
+        monkeySpawnPos = new Vector3f(model.transformPosition(new Vector3f(0.0f, 0f, 0.0f)));
     }
 
     public void generate(){
@@ -202,48 +204,41 @@ public class EngineerMonkey extends Object{
 
     }
 
-//    public void rotateObject(Float degree, Float x,Float y,Float z){
-//        Vector3f monkeyCenter = new Vector3f(model.transformPosition(new Vector3f(0.0f, 0f, 0.0f)));
-//        translateObject(-monkeyCenter.x, -monkeyCenter.y, -monkeyCenter.z);
-//        model = new Matrix4f().rotate(degree,x,y,z).mul(new Matrix4f(model));
-//        updateCenterPoint();
-//        translateObject(offsetX, offsetY, offsetZ);
-//        for(Object child:childObject){
-//            child.translateObject(-offsetX, -offsetY, -offsetZ);
-//            child.rotateObject(degree,x,y,z);
-//            child.translateObject(offsetX, offsetY, offsetZ);
-//        }
-////        System.out.println("rotate");
-//    }
-
     public float getArmCurrAngle() {
         return getChildObject().get(5).currAngleX;
     }
 
     public void aiming(boolean reverse) {
         if (currAngleY >= -2 && currAngleY <= 2) {
-            Object arm2 = getChildObject().get(5);
-            Vector3f Arm2 = new Vector3f(arm2.model.transformPosition(new Vector3f(0.0f, 0f, 0.0f)));
 
-            if (reverse) {
-                armRotation = 0.8f;
+            System.out.println(monkeySpawnPos + " -- " + getCenterPoint());
+            if (!(getCenterPoint().get(2) > monkeySpawnPos.z)) {
+                Object arm2 = getChildObject().get(5);
+                Vector3f Arm2 = new Vector3f(arm2.model.transformPosition(new Vector3f(0.0f, 0f, 0.0f)));
+
+                if (reverse) {
+                    armRotation = 0.8f;
+                } else {
+                    armRotation = -0.8f;
+                }
+
+                if (!(arm2.currAngleX + armRotation >= -45 && arm2.currAngleX + armRotation < 0)) {
+                    if (arm2.currAngleX + armRotation >= 45 || arm2.currAngleX + armRotation <= 0)
+                        armRotation = 0f;
+                }
+
+                arm2.translateObject(-Arm2.x, -Arm2.y, -Arm2.z);
+                arm2.rotateObject((float) Math.toRadians(-armRotation), 1f, 0f, 0f);
+                arm2.translateObject(Arm2.x, Arm2.y, Arm2.z);
+                arm2.currAngleX += armRotation;
+                arm2.currAngleX = checkAngle(arm2.currAngleX);
+
+
+                System.out.println("aiming - " + arm2.currAngleX);
             } else {
-                armRotation = -0.8f;
+                walk(true);
+                translateObject(0f, 0f, -0.01f);
             }
-
-            if (!(arm2.currAngleX  + armRotation >= -45 && arm2.currAngleX + armRotation < 0)) {
-                if (arm2.currAngleX + armRotation >= 45 || arm2.currAngleX + armRotation <= 0)
-                    armRotation = 0f;
-            }
-
-            arm2.translateObject(-Arm2.x, -Arm2.y, -Arm2.z);
-            arm2.rotateObject((float) Math.toRadians(-armRotation), 1f, 0f, 0f);
-            arm2.translateObject(Arm2.x, Arm2.y, Arm2.z);
-            arm2.currAngleX += armRotation;
-            arm2.currAngleX = checkAngle(arm2.currAngleX);
-
-
-            System.out.println("aiming - " + arm2.currAngleX);
         } else {
             Vector3f monkeyCenter = new Vector3f(model.transformPosition(new Vector3f(0.0f, 0f, 0.0f)));
 //            System.out.println(monkeyCenter);
@@ -258,12 +253,6 @@ public class EngineerMonkey extends Object{
             }
 
             translateObject(monkeyCenter.x, monkeyCenter.y, monkeyCenter.z);
-
-//            if (currAngleY > 360) {
-//                currAngleY -= 360;
-//            } else if (currAngleY < 0) {
-//                currAngleY += 360;
-//            }
 
             currAngleY = checkAngle(currAngleY);
             System.out.println(currAngleY);
@@ -297,7 +286,7 @@ public class EngineerMonkey extends Object{
         System.out.println("reload loading");
     }
 
-    public void walk() {
+    public void walk(boolean reverse) {
         Object leg1 = getChildObject().get(2);
         Object leg2 = getChildObject().get(3);
         Object arm1 = getChildObject().get(4);
@@ -308,19 +297,18 @@ public class EngineerMonkey extends Object{
         Vector3f Arm1 = new Vector3f(arm1.model.transformPosition(new Vector3f(0.0f, 0f, 0.0f)));
         Vector3f Arm2 = new Vector3f(arm2.model.transformPosition(new Vector3f(0.0f, 0f, 0.0f)));
 
-        if (leg1.currAngleX <= -8) {
+        if (leg1.currAngleX >= 352 && leg1.currAngleX <= 353) {
 
             legRotation = 0.3f;
-        } else if (leg1.currAngleX >= 8){
+        } else if (leg1.currAngleX >= 8 && leg1.currAngleX <= 9){
 
             legRotation = -0.3f;
         }
 
-        if (arm1.currAngleX <= -45) {
-
+        if (arm1.currAngleX >= 314.4 && arm1.currAngleX <= 315){
             armRotation = 0.8f;
-        } else if (arm1.currAngleX >= 45){
-
+        } else
+        if (arm1.currAngleX >= 45 && arm1.currAngleX <= 46 ) {
             armRotation = -0.8f;
         }
 
@@ -350,7 +338,7 @@ public class EngineerMonkey extends Object{
         arm2.currAngleX = checkAngle(arm2.currAngleX);
 
 
-        System.out.println("walk - " + arm2.currAngleX);
+//        System.out.println("walk - " + arm2.currAngleX);
     }
 
     public float checkAngle(float angle) {

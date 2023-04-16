@@ -1,6 +1,8 @@
 package Engine.DartMonkey;
 
+import Engine.Camera;
 import Engine.Object;
+import Engine.Projection;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
@@ -11,27 +13,34 @@ import java.util.List;
 import static org.lwjgl.opengl.GL20.GL_FRAGMENT_SHADER;
 import static org.lwjgl.opengl.GL20.GL_VERTEX_SHADER;
 
-public class DartMonkeyHand1 extends Object {
+public class DartProjectile extends Object {
+
+    int seen;
     float radiusX, radiusY, radiusZ;
     int sectorCount, stackCount;
 //    float offsetX, offsetY, offsetZ;
 
-    public DartMonkeyHand1(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
+    public void setSeen(int seen) {
+        this.seen = seen;
+    }
+
+    public DartProjectile(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
         super(shaderModuleDataList, vertices, color);
         vertices.clear();
 
-        radiusX = 0.12f;
-        radiusY = 0.15f;
-        radiusZ = 0.12f;
+        radiusX = 0.08f;
+        radiusY = 0.08f;
+        radiusZ = 0.3f;
         sectorCount = 80;
         stackCount = 80;
         generate();
         setupVAOVBO();
-        this.offsetX = -1.0f;
-        this.offsetY = 0.8f;
+        this.offsetX = 0.0f;
+        this.offsetY = 0.11f;
         this.offsetZ = 0.0f;
-        rotateObject(0.1f,0.0f,0.0f,1.0f);
         translateObject(offsetX, offsetY, offsetZ);
+
+        seen = 1;
     }
 
     public void generate() {
@@ -59,7 +68,7 @@ public class DartMonkeyHand1 extends Object {
         }
 
         List<Object> children = new ArrayList<>();
-        children.add(new DartProjectile(
+        children.add(new DartProjectilePoint(
                 Arrays.asList(
                         new ShaderModuleData
                                 ("resources/shaders/scene.vert"
@@ -69,8 +78,25 @@ public class DartMonkeyHand1 extends Object {
                                         , GL_FRAGMENT_SHADER)
                 ),
                 new ArrayList<>(),
-                new Vector4f(0.2f,0.2f,0.2f,1.0f)
+                new Vector4f(0.3f,0.3f,0.3f,1.0f)
+        ));
+        children.add(new DartProjectileTail(
+                Arrays.asList(
+                        new ShaderModuleData
+                                ("resources/shaders/scene.vert"
+                                        , GL_VERTEX_SHADER),
+                        new ShaderModuleData
+                                ("resources/shaders/scene.frag"
+                                        , GL_FRAGMENT_SHADER)
+                ),
+                new ArrayList<>(),
+                new Vector4f(0.82f,0.78f,0.25f,1.0f)
         ));
         setChildObject(children);
+    }
+
+    @Override
+    public void draw(Camera camera, Projection projection) {
+        if(seen==1) super.draw(camera, projection);
     }
 }

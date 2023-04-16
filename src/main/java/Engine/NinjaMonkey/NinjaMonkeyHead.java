@@ -1,6 +1,9 @@
 package Engine.NinjaMonkey;
 
+import Engine.EngineerMonkey.EngineerMonkeyEar1;
+import Engine.EngineerMonkey.EngineerMonkeyEar2;
 import Engine.Object;
+import Engine.ShaderProgram;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
@@ -21,8 +24,8 @@ public class NinjaMonkeyHead extends Object {
         vertices.clear();
 
         radiusX = 0.7f;
-        radiusY = 0.6f;
-        radiusZ = 0.6f;
+        radiusY = 0.65f;
+        radiusZ = 0.55f;
         sectorCount = 80;
         stackCount = 80;
         generate();
@@ -62,8 +65,7 @@ public class NinjaMonkeyHead extends Object {
 //        vertices.clear();
 
         // bikin anak di sini
-        List<Object> children = new ArrayList<>();
-        children.add(new NinjaMonkeyFace(
+        getChildObject().add(new NinjaMonkeyFace(
                 Arrays.asList(
                         new ShaderModuleData
                                 ("resources/shaders/scene.vert"
@@ -75,7 +77,32 @@ public class NinjaMonkeyHead extends Object {
                 new ArrayList<>(),
                 new Vector4f(0.62f,0.42f,0.2f,1.0f)
         ));
-        setChildObject(children);
+
+        getChildObject().add(new NinjaMonkeyEar1(
+                Arrays.asList(
+                        new ShaderProgram.ShaderModuleData
+                                ("resources/shaders/scene.vert"
+                                        , GL_VERTEX_SHADER),
+                        new ShaderProgram.ShaderModuleData
+                                ("resources/shaders/scene.frag"
+                                        , GL_FRAGMENT_SHADER)
+                ),
+                new ArrayList<>(),
+                new Vector4f(245f,0.0f,0.0f,1.0f)
+        ));
+
+        getChildObject().add(new NinjaMonkeyEar2(
+                Arrays.asList(
+                        new ShaderProgram.ShaderModuleData
+                                ("resources/shaders/scene.vert"
+                                        , GL_VERTEX_SHADER),
+                        new ShaderProgram.ShaderModuleData
+                                ("resources/shaders/scene.frag"
+                                        , GL_FRAGMENT_SHADER)
+                ),
+                new ArrayList<>(),
+                new Vector4f(245f,0.0f,0.0f,1.0f)
+        ));
     }
 
     public void rotateObject(Float degree, Float x,Float y,Float z) {

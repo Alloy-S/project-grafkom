@@ -2,6 +2,7 @@ package Engine.NinjaMonkey;
 
 import Engine.DartMonkey.DartMonkeyArm1;
 import Engine.DartMonkey.DartMonkeyArm2;
+import Engine.DartMonkey.DartMonkeyTail;
 import Engine.EngineerMonkey.EngineerMonkeyFeet1;
 import Engine.EngineerMonkey.EngineerMonkeyFeet2;
 import Engine.EngineerMonkey.EngineerMonkeyShoulder1;
@@ -21,7 +22,7 @@ import static org.lwjgl.opengl.GL20.GL_FRAGMENT_SHADER;
 import static org.lwjgl.opengl.GL20.GL_VERTEX_SHADER;
 
 public class NinjaMonkey extends Object {
-    float radiusX, radiusY, radiusZ;
+    float radiusX, radiusY, radiusZ, angleDegree;
     int sectorCount, stackCount;
     public float offsetX, offsetY, offsetZ;
 
@@ -94,6 +95,7 @@ public class NinjaMonkey extends Object {
                 new Vector4f(245f,0.0f,0.0f,1.0f)
         ));
 
+        //Tangan
         getChildObject().add(new NinjaMonkeyArm1(
                 Arrays.asList(
                         new ShaderModuleData
@@ -162,7 +164,7 @@ public class NinjaMonkey extends Object {
         getChildObject().get(5).rotateObject((float) Math.toRadians(90), 1f, 0f, 0f);
         getChildObject().get(5).translateObject(0.18f, -0.6f, 0f);
 
-        getChildObject().get(0).getChildObject().add(new NinjaMonkeyFeet1(
+        getChildObject().get(4).getChildObject().add(new NinjaMonkeyFeet1(
                 Arrays.asList(
                         new ShaderProgram.ShaderModuleData
                                 ("resources/shaders/scene.vert"
@@ -175,7 +177,7 @@ public class NinjaMonkey extends Object {
                 new Vector4f(0.62f,0.42f,0.2f,1.0f)
         ));
 
-        getChildObject().get(1).getChildObject().add(new NinjaMonkeyFeet2(
+        getChildObject().get(5).getChildObject().add(new NinjaMonkeyFeet2(
                 Arrays.asList(
                         new ShaderProgram.ShaderModuleData
                                 ("resources/shaders/scene.vert"
@@ -186,6 +188,19 @@ public class NinjaMonkey extends Object {
                 ),
                 new ArrayList<>(),
                 new Vector4f(0.62f,0.42f,0.2f,1.0f)
+        ));
+
+        getChildObject().add(new NinjaMonkeyTail(
+                Arrays.asList(
+                        new ShaderModuleData
+                                ("resources/shaders/scene.vert"
+                                        , GL_VERTEX_SHADER),
+                        new ShaderModuleData
+                                ("resources/shaders/scene.frag"
+                                        , GL_FRAGMENT_SHADER)
+                ),
+                new ArrayList<>(),
+                new Vector4f(245f,0.0f,0.0f,1.0f)
         ));
     }
 
@@ -200,5 +215,51 @@ public class NinjaMonkey extends Object {
             child.translateObject(offsetX, offsetY, offsetZ);
         }
 
+    }
+
+    public void lookRightHead(){
+        Object head = childObject.get(1);
+        translateObject(-offsetX, -offsetY, -offsetZ);
+        if (head.currAngleY <= 45f) {
+            head.rotateObject((float) Math.toRadians(1f), 0.0f, 1.0f, 0.0f);
+            head.currAngleY++;
+        }
+        translateObject(offsetX, offsetY, offsetZ);
+    }
+
+    public void lookLeftHead(){
+        Object head = childObject.get(1);
+        translateObject(-offsetX, -offsetY, -offsetZ);
+        if (head.currAngleY >= -45f) {
+            head.rotateObject((float) Math.toRadians(-1f), 0.0f, 1.0f, 0.0f);
+            head.currAngleY--;
+        }
+        translateObject(offsetX, offsetY, offsetZ);
+
+    }
+
+    public List<Object> getShurikenList() {
+        return getChildObject().get(3).getChildObject().get(0).getChildObject();
+    }
+
+    public Object getShuriken() {
+        return getChildObject().get(3).getChildObject().get(0);
+    }
+
+    public void throwShuriken(){
+        List<Object> shuriken = getShurikenList();
+        this.getChildObject().get(3).getChildObject().get(0).rotateShuriken();
+        for (Object shur: shuriken) {
+            shur.translateObject(0.0f, 0.0f, 0.05f);
+            System.out.println(shur.getCenterPoint());
+        }
+
+        shuriken.removeIf(shur -> shur.getCenterPoint().get(2) >= 3);
+    }
+
+    public void spawnShuriken() {
+        Object shur = getShuriken();
+        System.out.println(shur.getName());
+        shur.generateShuriken();
     }
 }

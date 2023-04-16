@@ -11,29 +11,35 @@ import java.util.List;
 import static org.lwjgl.opengl.GL20.GL_FRAGMENT_SHADER;
 import static org.lwjgl.opengl.GL20.GL_VERTEX_SHADER;
 
-public class NinjaMonkeyPalm2 extends Object {
+public class NinjaMonkeyEar1 extends Object {
     float radiusX, radiusY, radiusZ;
     int sectorCount, stackCount;
-//    float offsetX, offsetY, offsetZ;
+//    public float offsetX, offsetY, offsetZ;
 
-    public NinjaMonkeyPalm2(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
+    public NinjaMonkeyEar1(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
         super(shaderModuleDataList, vertices, color);
         vertices.clear();
 
-        radiusX = 0.3f;
-        radiusY = 0.2f;
-        radiusZ = 0.2f;
+        radiusX = 0.2f;
+        radiusY = 0.4f;
+        radiusZ = 0.4f;
         sectorCount = 80;
         stackCount = 80;
         generate();
         setupVAOVBO();
-        this.offsetX = -0.2f;
-        this.offsetY = 0.15f;
-        this.offsetZ = 0.71f;
-        rotateObject((float) Math.toRadians(-10), 0f,1f,0f);
-        scaleObject(0.6f, 0.6f, 0.6f);
+//        this.offsetX = 0.62f;
+        this.offsetX = 0.7f;
+        this.offsetY = 0.f;
+        this.offsetZ = 0.1f;
+        scaleObject(0.37f, 0.37f, 0.37f);
+        rotateObject((float) Math.toRadians(90), 0f, 1f, 0f);
+//        rotateObject((float) Math.toRadians(-80), 1f, 0f, 0f);
+//        rotateObject((float) Math.toRadians(90), 0f, 0f, 1f);
         translateObject(offsetX, offsetY, offsetZ);
     }
+
+
+
 
     public void generate() {
         vertices.clear();
@@ -55,11 +61,15 @@ public class NinjaMonkeyPalm2 extends Object {
                 temp_vector.x = centerPoint.get(0) + x * (float) Math.cos(sectorAngle);
                 temp_vector.y = centerPoint.get(1) + y * (float) Math.sin(sectorAngle);
                 temp_vector.z = centerPoint.get(2) + z;
-                vertices.add(temp_vector);
+                if (z > -0.15) {
+                    vertices.add(temp_vector);
+                }
             }
         }
 
-        getChildObject().add(new NinjaMonkeyShuriken1(
+//        children
+
+        getChildObject().add(new NinjaMonkeyEarInside1(
                 Arrays.asList(
                         new ShaderModuleData
                                 ("resources/shaders/scene.vert"
@@ -69,39 +79,10 @@ public class NinjaMonkeyPalm2 extends Object {
                                         , GL_FRAGMENT_SHADER)
                 ),
                 new ArrayList<>(),
-                new Vector4f(0.400f, 0.356f, 0.356f,1.0f)
+                new Vector4f(245f,0.0f,0.0f,1.0f)
         ));
-    }
-
-    public void generateShuriken(){
-        getChildObject().add(new NinjaMonkeyShuriken1(
-                Arrays.asList(
-                        new ShaderModuleData
-                                ("resources/shaders/scene.vert"
-                                        , GL_VERTEX_SHADER),
-                        new ShaderModuleData
-                                ("resources/shaders/scene.frag"
-                                        , GL_FRAGMENT_SHADER)
-                ),
-                new ArrayList<>(),
-                new Vector4f(0.400f, 0.356f, 0.356f,1.0f)
-        ));
-        int shurikenCount = getChildObject().size();
-        Object shuriken = getChildObject().get(shurikenCount- 1);
-
-        shuriken.rotateShuriken();
-        shuriken.scaleObject(0.5f,0.5f,-0.5f);
-        shuriken.translateObject(-3.4f,0.3f,-2.f);
-
 
     }
 
-    public void rotateShuriken() {
-        for (Object shurikenList: getChildObject()) {
-            Vector3f shuriken = new Vector3f(shurikenList.model.transformPosition(new Vector3f(0.0f, 0f, 0.0f)));
-            shurikenList.translateObject(-shuriken.x, -shuriken.y, -shuriken.z);
-            shurikenList.rotateObject((float) Math.toRadians(10f), 0.0f, 1.0f, 0.0f);
-            shurikenList.translateObject(shuriken.x, shuriken.y, shuriken.z);
-        }
-    }
+
 }

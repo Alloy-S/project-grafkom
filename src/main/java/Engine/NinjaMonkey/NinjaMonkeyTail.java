@@ -22,13 +22,14 @@ public class NinjaMonkeyTail extends Object {
 
         radius = 0.034f;
         vertices.add(new Vector3f(0.0f,0.0f,0.0f));
-        vertices.add(new Vector3f(0.0f,-0.2f,-1.6f));
-        vertices.add(new Vector3f(0.8f,-0.3f,-1.2f));
+        vertices.add(new Vector3f(0.0f,-0.1f,-1.0f));
+        vertices.add(new Vector3f(0.8f,-0.2f,-0.5f));
         generate();
         setupVAOVBO();
         this.offsetX = -0.f;
-        this.offsetY = 0.0f;
+        this.offsetY = -0.1f;
         this.offsetZ = -0.0f;
+        rotateObject((float) Math.toRadians(180f), 0.0f, 0.0f, 1.0f);
         translateObject(offsetX, offsetY, offsetZ);
     }
 
@@ -112,7 +113,7 @@ public class NinjaMonkeyTail extends Object {
             Vector3f b = new Vector3f();
             v3f.cross(pp.x, pp.y, pp.z, b);
 
-            for(float k = 0; k<360; k+=10){
+            for(float k = 0; k<360; k+=60){
                 double theta = Math.toRadians(k);
                 float x = p1.x + radius*(float)Math.cos(theta)*pp.x + radius*(float)Math.sin(theta)*b.x;
                 float y = p1.y + radius*(float)Math.cos(theta)*pp.y + radius*(float)Math.sin(theta)*b.y;
@@ -122,15 +123,16 @@ public class NinjaMonkeyTail extends Object {
             List<Vector3f> orderedSegmentVertices = new ArrayList<>();
             int start = 0;
             if(i>=4) start-=6;
-            if(i>=11) start-=18;
-            if(i>=15) start-=24;
-            if(i>=17) start-=12;
+            if(i>=9) start-=3;
+            if(i>=12) start-=5;
+            if(i>=15) start-=2;
 
             start += 10*segmentVertices.size();
             start %= segmentVertices.size();
             orderedSegmentVertices.addAll(segmentVertices.subList(start, segmentVertices.size()));
             orderedSegmentVertices.addAll(segmentVertices.subList(0, start+1));
 
+//            if(14 <= i && i <= 15)
             totalVertices.add(orderedSegmentVertices);
         }
 

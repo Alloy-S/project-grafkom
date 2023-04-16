@@ -245,7 +245,12 @@ public class Object extends ShaderProgram{
     }
 
     public void rotateShuriken(){
+        System.out.println(this.getClass().getName());
     }
+
+    public void generateShuriken() {
+    }
+
 
     public void translateObject(Float offsetX,Float offsetY,Float offsetZ){
         model = new Matrix4f().translate(offsetX,offsetY,offsetZ).mul(new Matrix4f(model));

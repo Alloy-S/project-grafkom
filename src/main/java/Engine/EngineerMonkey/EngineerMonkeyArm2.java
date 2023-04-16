@@ -11,12 +11,12 @@ import java.util.List;
 import static org.lwjgl.opengl.GL20.GL_FRAGMENT_SHADER;
 import static org.lwjgl.opengl.GL20.GL_VERTEX_SHADER;
 
-public class EngineerMonkeyElbow2 extends Object {
+public class EngineerMonkeyArm2 extends Object {
     float radiusX, radiusY, radiusZ;
     int sectorCount, stackCount;
 //    float offsetX, offsetY, offsetZ;
 
-    public EngineerMonkeyElbow2(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
+    public EngineerMonkeyArm2(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
         super(shaderModuleDataList, vertices, color);
         vertices.clear();
 

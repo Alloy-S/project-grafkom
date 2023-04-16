@@ -1,7 +1,7 @@
 package Engine.EngineerMonkey;
 
 import Engine.Object;
-import Engine.Pipe;
+import Engine.ShaderProgram;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
@@ -12,30 +12,35 @@ import java.util.List;
 import static org.lwjgl.opengl.GL20.GL_FRAGMENT_SHADER;
 import static org.lwjgl.opengl.GL20.GL_VERTEX_SHADER;
 
-public class EngineerMonkeyShoulder2 extends Object {
+public class EngineerMonkeyEar1 extends Object {
     float radiusX, radiusY, radiusZ;
     int sectorCount, stackCount;
-//    float offsetX, offsetY, offsetZ;
+//    public float offsetX, offsetY, offsetZ;
 
-    public EngineerMonkeyShoulder2(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
+    public EngineerMonkeyEar1(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
         super(shaderModuleDataList, vertices, color);
         vertices.clear();
 
         radiusX = 0.2f;
-        radiusY = 0.2f;
-        radiusZ = 0.2f;
+        radiusY = 0.4f;
+        radiusZ = 0.4f;
         sectorCount = 80;
         stackCount = 80;
         generate();
         setupVAOVBO();
-        this.offsetX = -0.38f;
-        this.offsetY = 0.22f;
-        this.offsetZ = 0f;
-        scaleObject(0.8f, 0.8f, 0.8f);
-        rotateObject((float) Math.toRadians(-90), 1f, 0f, 0f);
-        rotateObject((float) Math.toRadians(15), 0f, 0f, 1f);
+//        this.offsetX = 0.62f;
+        this.offsetX = 0.62f;
+        this.offsetY = 0.f;
+        this.offsetZ = 0.1f;
+        scaleObject(0.37f, 0.37f, 0.37f);
+        rotateObject((float) Math.toRadians(90), 0f, 1f, 0f);
+        rotateObject((float) Math.toRadians(-80), 1f, 0f, 0f);
+//        rotateObject((float) Math.toRadians(90), 0f, 0f, 1f);
         translateObject(offsetX, offsetY, offsetZ);
     }
+
+
+
 
     public void generate() {
         vertices.clear();
@@ -57,40 +62,20 @@ public class EngineerMonkeyShoulder2 extends Object {
                 temp_vector.x = centerPoint.get(0) + x * (float) Math.cos(sectorAngle);
                 temp_vector.y = centerPoint.get(1) + y * (float) Math.sin(sectorAngle);
                 temp_vector.z = centerPoint.get(2) + z;
-                if (z > 0.0f)vertices.add(temp_vector);
+                if (z > -0.15) {
+                    vertices.add(temp_vector);
+                }
             }
         }
 
-        getChildObject().add(new Pipe(
+//        children
+
+        getChildObject().add(new EngineerMonkeyEarInside1(
                 Arrays.asList(
-                        new ShaderModuleData
+                        new ShaderProgram.ShaderModuleData
                                 ("resources/shaders/scene.vert"
                                         , GL_VERTEX_SHADER),
-                        new ShaderModuleData
-                                ("resources/shaders/scene.frag"
-                                        , GL_FRAGMENT_SHADER)
-                ),
-                new ArrayList<>(),
-                new Vector4f(0.44f,0.24f,0.12f,1.0f),
-                new Vector3f(0f,0f,0f),
-                new Vector3f(0.2f, 0.2f, 0.2f),
-                0.65f,
-                0.1f,
-                360f
-        ));
-
-        getChildObject().get(0).scaleObject(0.45f, 0.45f, 0.45f);
-//        getChildObject().get(0).rotateObject((float) Math.toRadians(0), 1f, 0f, 0f);
-        getChildObject().get(0).rotateObject((float) Math.toRadians(35), 0f, 1f, 0f);
-//        getChildObject().get(0).rotateObject((float) Math.toRadians(15), 0f, 0f, 1f);
-        getChildObject().get(0).translateObject(-0.19f, 0f, -0.15f);
-
-        getChildObject().get(0).getChildObject().add(new EngineerMonkeyArm2(
-                Arrays.asList(
-                        new ShaderModuleData
-                                ("resources/shaders/scene.vert"
-                                        , GL_VERTEX_SHADER),
-                        new ShaderModuleData
+                        new ShaderProgram.ShaderModuleData
                                 ("resources/shaders/scene.frag"
                                         , GL_FRAGMENT_SHADER)
                 ),
@@ -99,4 +84,6 @@ public class EngineerMonkeyShoulder2 extends Object {
         ));
 
     }
+
+
 }

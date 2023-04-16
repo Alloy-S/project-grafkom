@@ -145,7 +145,7 @@ public class EngineerMonkey extends Object{
                                         , GL_FRAGMENT_SHADER)
                 ),
                 new ArrayList<>(),
-                new Vector4f(0.44f,0.24f,0.12f,1.0f)
+                new Vector4f(0.890f, 0.743f, 0.400f,1.0f)
         ));
 
         getChildObject().get(3).getChildObject().add(new EngineerMonkeyFeet2(
@@ -158,15 +158,10 @@ public class EngineerMonkey extends Object{
                                         , GL_FRAGMENT_SHADER)
                 ),
                 new ArrayList<>(),
-                new Vector4f(0.44f,0.24f,0.12f,1.0f)
+                new Vector4f(0.890f, 0.743f, 0.400f,1.0f)
         ));
 
 //tangan
-
-
-
-
-
         getChildObject().add(new EngineerMonkeyShoulder1(
                 Arrays.asList(
                         new ShaderProgram.ShaderModuleData
@@ -191,6 +186,19 @@ public class EngineerMonkey extends Object{
                 ),
                 new ArrayList<>(),
                 new Vector4f(0.48f,0.27f,0.12f,1.0f)
+        ));
+
+        getChildObject().add(new EngineerMonkeyTail(
+                Arrays.asList(
+                        new ShaderModuleData
+                                ("resources/shaders/scene.vert"
+                                        , GL_VERTEX_SHADER),
+                        new ShaderModuleData
+                                ("resources/shaders/scene.frag"
+                                        , GL_FRAGMENT_SHADER)
+                ),
+                new ArrayList<>(),
+                new Vector4f(0.4f,0.2f,0.08f,1.0f)
         ));
 
     }

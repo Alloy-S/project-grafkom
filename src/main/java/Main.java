@@ -290,9 +290,9 @@ public class Main {
             dartMonkey.get(0).scratch();
             dartMonkey.get(0).dartThrow();
 
-            for(Object object: dartMonkey){
-                object.draw(camera,projection);
-            }
+//            for(Object object: dartMonkey){
+//                object.draw(camera,projection);
+//            }
 
             for(Object object: engineerMonkey){
                 object.draw(camera,projection);
@@ -304,9 +304,9 @@ public class Main {
 //            engineerMonkey.get(0).aiming(true);
 //
 
-            for(Object object: ninjaMonkey){
-                object.draw(camera,projection);
-            }
+//            for(Object object: ninjaMonkey){
+//                object.draw(camera,projection);
+//            }
 
             // Restore state
             glDisableVertexAttribArray(0);

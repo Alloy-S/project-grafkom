@@ -1,5 +1,7 @@
 package Engine.NinjaMonkey;
+import Engine.Balloon;
 import Engine.DartMonkey.*;
+import Engine.EngineerMonkey.EngineerMonkeyBalloonList;
 import Engine.Object;
 import Engine.Pipe;
 import Engine.ShaderProgram;
@@ -15,7 +17,7 @@ import static org.lwjgl.opengl.GL20.GL_FRAGMENT_SHADER;
 import static org.lwjgl.opengl.GL20.GL_VERTEX_SHADER;
 
 public class NinjaMonkey extends Object {
-    float radiusX, radiusY, radiusZ, angleDegree;
+    float radiusX, radiusY, radiusZ;
     int sectorCount, stackCount, animTime;
     public float offsetX, offsetY, offsetZ;
 
@@ -203,6 +205,20 @@ public class NinjaMonkey extends Object {
                 new ArrayList<>(),
                 new Vector4f(245f,0.0f,0.0f,1.0f)
         ));
+
+        getChildObject().add(new NinjaMonkeyBalloon(
+                Arrays.asList(
+                        new ShaderModuleData
+                                ("resources/shaders/scene.vert"
+                                        , GL_VERTEX_SHADER),
+                        new ShaderModuleData
+                                ("resources/shaders/scene.frag"
+                                        , GL_FRAGMENT_SHADER)
+                ),
+                new ArrayList<>(),
+                new Vector4f(0.84f,0.2f,0.15f,1.0f)
+        ));
+
     }
 
     public void rotateObject(Float degree, Float x,Float y,Float z){
@@ -216,6 +232,64 @@ public class NinjaMonkey extends Object {
             child.translateObject(offsetX, offsetY, offsetZ);
         }
 
+    }
+
+    public void spawnBalloon() {
+        getChildObject().get(7).getChildObject().add(new Balloon(
+                Arrays.asList(
+                        new ShaderModuleData
+                                ("resources/shaders/scene.vert"
+                                        , GL_VERTEX_SHADER),
+                        new ShaderModuleData
+                                ("resources/shaders/scene.frag"
+                                        , GL_FRAGMENT_SHADER)
+                ),
+                new ArrayList<>(),
+                new Vector4f(0.84f,0.2f,0.15f,1.0f)
+        ));
+
+        int ballonCount = getChildObject().get(7).getChildObject().size();
+        Vector3f ballonCenter = new Vector3f(getChildObject().get(7).getChildObject().get(ballonCount - 1).model.transformPosition(new Vector3f(0.0f, 0f, 0.0f)));
+        System.out.println(ballonCenter);
+        Object ballon = getChildObject().get(7).getChildObject().get(ballonCount - 1);
+
+        ballon.scaleObject(0.6f, 0.6f, 0.6f);
+        ballon.translateObject(-3.4f, -0.2f, 0f);
+
+
+    }
+
+    public void restoreAim(){
+        if (currAngleY >= -2 && currAngleY <= 2) {
+            Vector3f ninjaCenter = new Vector3f(model.transformPosition(new Vector3f(0.0f, 0f, 0.0f)));
+            translateObject(-ninjaCenter.x, -ninjaCenter.y, -ninjaCenter.z);
+
+            System.out.println("x " + ninjaCenter.x + " y " + ninjaCenter.y + " z " + ninjaCenter.z);
+
+            if (currAngleY > 180) {
+                rotateObject((float) Math.toRadians(2), 0.0f, 1.0f, 0.0f);
+                currAngleY += 2;
+            } else if (currAngleY > 0) {
+                rotateObject((float) Math.toRadians(-2), 0.0f, 1.0f, 0.0f);
+                currAngleY -= 2;
+            }
+
+
+            translateObject(ninjaCenter.x, ninjaCenter.y, ninjaCenter.z);
+
+            currAngleY = checkAngle(currAngleY);
+            System.out.println(currAngleY);
+        }
+    }
+
+    public float checkAngle(float angle) {
+        System.out.println("checked -- " + angle);
+        if (angle > 360) {
+            angle -= 360;
+        } else if (angle < 0) {
+            angle += 360;
+        }
+        return angle;
     }
 
     public void lookRightHead(){
@@ -294,7 +368,7 @@ public class NinjaMonkey extends Object {
         for (Object shur: shuriken) {
             shur.translateObject(0.0f, 0.0f, 0.1f);
         }
-        shuriken.removeIf(shur -> shur.getCenterPoint().get(2) >= 2);
+        shuriken.removeIf(shur -> shur.getCenterPoint().get(2) >= 5);
     }
 
     public void spawnShuriken() {

@@ -204,9 +204,11 @@ public class Main {
                 engineerMonkey.get(0).aiming(true);
 //                System.out.println("normal");
             }
-
-//            System.out.println();
         }
+        if (window.isKeyPressed(GLFW_KEY_I)){
+
+        }
+
 
 //        ======================= key for dart Monkey =============================
 
@@ -263,21 +265,18 @@ public class Main {
             input();
 
             //code
-            dartMonkey.get(0).look();
-            dartMonkey.get(0).scratch();
-            dartMonkey.get(0).dartThrow();
-
-            for(Object object: dartMonkey){
-                object.draw(camera,projection);
-            }
+//            dartMonkey.get(0).look();
+//            dartMonkey.get(0).scratch();
+//            dartMonkey.get(0).dartThrow();
+//
+//            for(Object object: dartMonkey){
+//                object.draw(camera,projection);
+//            }
 
             for(Object object: engineerMonkey){
                 object.draw(camera,projection);
             }
 //
-//            if (engineerMonkey.get(0).getBulletList().size() > 0) {
-//                engineerMonkey.get(0).shootBullet();
-//            }
 //            engineerMonkey.get(0).aiming(true);
 //
 

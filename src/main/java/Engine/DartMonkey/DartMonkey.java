@@ -17,23 +17,21 @@ public class DartMonkey extends Object {
     float radiusX, radiusY, radiusZ;
     int sectorCount, stackCount;
     float offsetX, offsetY, offsetZ;
-    int lookTime, scratchTime, throwTime;
+    int lookTime, throwTime;
     float animDebug;
+
 
     public void setLookTime(int lookTime) {
         this.lookTime = lookTime;
     }
 
-    public void setScratchTime(int scratchTime) {
-        this.scratchTime = scratchTime;
-    }
 
     public void setThrowTime(int throwTime) {
         this.throwTime = throwTime;
     }
 
     public int getTotalTime() {
-        return lookTime+scratchTime+throwTime;
+        return lookTime+throwTime;
     }
 
     public DartMonkey(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
@@ -53,9 +51,9 @@ public class DartMonkey extends Object {
         translateObject(offsetX, offsetY, offsetZ);
 
         lookTime = -1;
-        scratchTime = -1;
         throwTime = -1;
         animDebug = 0;
+
     }
 
     public void generate(){
@@ -216,37 +214,26 @@ public class DartMonkey extends Object {
             translateObject(offsetX, offsetY, offsetZ);
 
             lookTime = -1;
-            scratchTime = -1;
             throwTime = -1;
             animDebug = 0;
+
+            if(childObject.size() == 7){
+                childObject.add(new DartMonkeyBalloon(
+                        Arrays.asList(
+                                new ShaderModuleData
+                                        ("resources/shaders/scene.vert"
+                                                , GL_VERTEX_SHADER),
+                                new ShaderModuleData
+                                        ("resources/shaders/scene.frag"
+                                                , GL_FRAGMENT_SHADER)
+                        ),
+                        new ArrayList<>(),
+                        new Vector4f(0.84f,0.2f,0.15f,1.0f)
+                ));
+            }
         }
 
         lookTime--;
-    }
-    public void scratch(){
-        if (scratchTime<0) return;
-//        System.out.println("scratch"+scratchTime);
-        Object belly = childObject.get(0);
-        Object head = childObject.get(1);
-        Object arm1 = childObject.get(2);
-        Object arm2 = childObject.get(3);
-
-        if (scratchTime == 0) {//BRUTE FORCE REMAKE THE OBJECT HAHAHAHAH
-            model = new Matrix4f().identity();
-            childObject = new ArrayList<>();
-            centerPoint = Arrays.asList(0f,0f,0f);
-            vertices.clear();
-
-            generate();
-            setupVAOVBO();
-            translateObject(offsetX, offsetY, offsetZ);
-
-            lookTime = -1;
-            scratchTime = -1;
-            throwTime = -1;
-            animDebug = 0;
-        }
-        scratchTime--;
     }
 
     public void dartThrow(){
@@ -288,14 +275,22 @@ public class DartMonkey extends Object {
             hand1.childObject.get(1).rotateObject(1.0f,0.0f,0.0f,0.0f);
         }
         else {
+
             arm1.rotateFromBody(-0.04f,1.0f,0.0f,0.0f,offsetX,offsetY,offsetZ);
             rotateObject(-0.01f,1.0f,0.0f,0.0f);
             head.rotateFromBody(-0.01f, 1.0f, 0.0f, 0.0f,offsetX,offsetY,offsetZ);
 
             if (throwTime == 8){
-                DartProjectile temp= (DartProjectile) hand1.childObject.get(0);
+                DartProjectile temp = (DartProjectile) hand1.childObject.get(0);
                 temp.setSeen(1);
                 hand1.childObject.remove(1);
+
+            }
+
+            if (throwTime<=8 && childObject.size()==8){
+                DartMonkeyBalloon balloon = (DartMonkeyBalloon) childObject.get(7);
+                balloon.scaleObject(1.2f,1.2f,1.2f);
+                if (throwTime == 3) childObject.remove(7);
             }
         }
         if (throwTime == 0){ //BRUTE FORCE REMAKE THE OBJECT HAHAHAHAH
@@ -309,10 +304,10 @@ public class DartMonkey extends Object {
             translateObject(offsetX, offsetY, offsetZ);
 
             lookTime = -1;
-            scratchTime = -1;
             throwTime = -1;
             animDebug = 0;
         }
         throwTime--;
     }
+
 }

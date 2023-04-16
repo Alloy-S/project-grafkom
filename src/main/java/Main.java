@@ -214,11 +214,8 @@ public class Main {
 
         // THIS IS FRAME BASED BUT OPENGL ISNT
         // JANGAN SPAM/TAHAN PLEASE
-        if (window.isKeyPressed(GLFW_KEY_H) && dartMonkey.get(0).getTotalTime() < 0) {
-            dartMonkey.get(0).setLookTime(80);
-        }
         if (window.isKeyPressed(GLFW_KEY_J) && dartMonkey.get(0).getTotalTime() < 0) {
-            dartMonkey.get(0).setScratchTime(80);
+            dartMonkey.get(0).setLookTime(80);
         }
         if (window.isKeyPressed(GLFW_KEY_K) && dartMonkey.get(0).getTotalTime() < 0) {
             dartMonkey.get(0).setThrowTime(80);
@@ -265,13 +262,12 @@ public class Main {
             input();
 
             //code
-//            dartMonkey.get(0).look();
-//            dartMonkey.get(0).scratch();
-//            dartMonkey.get(0).dartThrow();
-//
-//            for(Object object: dartMonkey){
-//                object.draw(camera,projection);
-//            }
+            dartMonkey.get(0).look();
+            dartMonkey.get(0).dartThrow();
+
+            for(Object object: dartMonkey){
+                object.draw(camera,projection);
+            }
 
             for(Object object: engineerMonkey){
                 object.draw(camera,projection);

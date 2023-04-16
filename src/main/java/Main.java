@@ -27,7 +27,7 @@ public class Main {
 
     private boolean leftMouseButton = false;
     long lastTime = 0;
-    long lastTimeShuriken = 0;
+    boolean animating = false;
     private MouseInput mouseInput;
     Projection projection = new Projection(window.getWidth(), window.getHeight());
     Camera camera = new Camera();
@@ -222,15 +222,17 @@ public class Main {
         }
 
 //       ======================= key for ninja Monkey =============================
-        if (window.isKeyPressed(GLFW_KEY_5)) {
-            ninjaMonkey.get(0).rotateObject(0.1f, 0.0f, 1.0f, 0.0f);
+        if (window.isKeyPressed(GLFW_KEY_F10)) {
+            ninjaMonkey.get(0).lookLeftEye();
         }
-
+        if (window.isKeyPressed(GLFW_KEY_F9)) {
+            ninjaMonkey.get(0).lookRightEye();
+        }
         //Shuriken
         if (window.isKeyPressed(GLFW_KEY_6)) {
-            if (System.currentTimeMillis() > lastTimeShuriken) {
-                ninjaMonkey.get(0).spawnShuriken();
-                lastTimeShuriken = System.currentTimeMillis() + 500;
+            if (!animating) {
+                ninjaMonkey.get(0).setAnimTime(80);
+                animating = true;
             }
         }
         //Look Right
@@ -284,9 +286,16 @@ public class Main {
                 object.draw(camera,projection);
             }
 
-            if (ninjaMonkey.get(0).getShurikenList().size() > 0) {
+            if (ninjaMonkey.get(0).getShurikenList().size()>0){
                 ninjaMonkey.get(0).throwShuriken();
             }
+
+            ninjaMonkey.get(0).handThrowAnim();
+
+            if (ninjaMonkey.get(0).getAnimTime() == 0){
+                animating = false;
+            }
+
 
             // Restore state
             glDisableVertexAttribArray(0);

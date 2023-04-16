@@ -280,6 +280,7 @@ public class Main {
 //            camera.addRotation(0.0f, -0.01f);
 
             engineerMonkey.get(0).shakingHeadUpDown();
+            engineerMonkey.get(0).destroyBalloon();
 
             for(Object object: engineerMonkey){
                 object.draw(camera,projection);

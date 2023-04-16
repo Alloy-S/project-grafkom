@@ -20,7 +20,7 @@ public class EngineerMonkey extends Object{
     float legRotation = 0.3f;
     float armRotation = 0.8f;
     Vector3f monkeySpawnPos;
-    public int shakingTime1;
+    public int shakingTime1, destroyBalloon;
 //    public float offsetX, offsetY, offsetZ;
     public EngineerMonkey(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
         super(shaderModuleDataList, vertices, color);
@@ -249,6 +249,8 @@ public class EngineerMonkey extends Object{
 
     }
 
+
+
     public void aiming(boolean reverse) {
         if (currAngleY >= -2 && currAngleY <= 2) {
 
@@ -307,7 +309,8 @@ public class EngineerMonkey extends Object{
             bullet.translateObject(0f, 0f, 0.1f);
             System.out.println(bullet.getCenterPoint());
             if (bullet.getCenterPoint().get(2) > 6 && getChildObject().get(7).getChildObject().size() > 0) {
-                getChildObject().get(7).getChildObject().remove(0);
+//                getChildObject().get(7).getChildObject().remove(0);
+                setDestroyBalloon(15);
             }
         }
 
@@ -389,6 +392,10 @@ public class EngineerMonkey extends Object{
         this.shakingTime1 = shakingTime1;
     }
 
+    public void setDestroyBalloon(int destroyBalloon) {
+        this.destroyBalloon = destroyBalloon;
+    }
+
     public void shakingHeadUpDown() {
         if (shakingTime1 < 0) return;
             Vector3f head = new Vector3f(getChildObject().get(1).model.transformPosition(new Vector3f(0.0f, 0f, 0.0f)));
@@ -413,6 +420,22 @@ public class EngineerMonkey extends Object{
 
         shakingTime1--;
         System.out.println(shakingTime1);
+    }
+
+    public void destroyBalloon() {
+        if (destroyBalloon < 0) return;
+        if (getChildObject().get(7).getChildObject().size() > 0) {
+            Object balloon = getChildObject().get(7).getChildObject().get(0);
+
+            if (destroyBalloon == 10) {
+                balloon.scaleObject(1.25f, 1.25f, 1.25f);
+            }
+
+            if (destroyBalloon == 5) {
+                getChildObject().get(7).getChildObject().remove(0);
+            }
+        }
+        destroyBalloon--;
     }
 
     public float checkAngle(float angle) {

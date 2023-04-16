@@ -27,6 +27,8 @@ public class Main {
 
     private boolean leftMouseButton = false;
 
+    float currAngle = 0;
+    float angleDegree;
     long lastTime = 0;
     private MouseInput mouseInput;
     Projection projection = new Projection(window.getWidth(), window.getHeight());
@@ -221,6 +223,7 @@ public class Main {
             dartMonkey.get(0).setThrowTime(80);
         }
 
+//       ======================= key for ninja Monkey =============================
         if (window.isKeyPressed(GLFW_KEY_5)) {
             ninjaMonkey.get(0).rotateObject(0.1f, 0.0f, 1.0f, 0.0f);
         }
@@ -229,77 +232,74 @@ public class Main {
             ninjaMonkey.get(0).getChildObject().get(3).getChildObject().get(0).rotateShuriken();
         }
 
-
-
-//
-//        if (window.isKeyPressed(GLFW_KEY_L)) {
-//            System.out.print(currAngle);
-//            angleDegree = 90f;
-//            while (currAngle < angleDegree) {
-//                ninjaMonkey.get(0).rotateObject((float) Math.toRadians(1), 0.0f, 1.0f, 0.0f);
-//                currAngle += 1f;
-//                if (currAngle >= angleDegree) {
-//                    System.out.print(currAngle);
-//                    break;
-//                }
-//            }
-//        }
-//        if (window.isKeyPressed(GLFW_KEY_J)) {
-//            angleDegree = -90f;
-//            System.out.print(currAngle);
-//            while (currAngle > angleDegree) {
-//                ninjaMonkey.get(0).rotateObject((float) Math.toRadians(-1), 0.0f, 1.0f, 0.0f);
-//                currAngle -= 1f;
-//                if (currAngle <= angleDegree) {
-//                    System.out.print(currAngle);
-//                    break;
-//                }
-//            }
-//        }
-//        if (window.isKeyPressed(GLFW_KEY_K)) {
-//            angleDegree = 0;
-//            while (currAngle < angleDegree || currAngle > angleDegree) {
-//                if (currAngle > angleDegree) {
-//                    ninjaMonkey.get(0).rotateObject((float) Math.toRadians(-1), 0.0f, 1.0f, 0.0f);
-//                    currAngle -= 1f;
-//                    if (currAngle <= angleDegree) {
-//                        System.out.print(currAngle);
-//                        break;
-//                    }
-//                }
-//                else {
-//                    ninjaMonkey.get(0).rotateObject((float) Math.toRadians(1), 0.0f, 1.0f, 0.0f);
-//                    currAngle += 1f;
-//                    if (currAngle >= angleDegree) {
-//                        System.out.print(currAngle);
-//                        break;
-//                    }
-//                }
-//            }
-//        }
-//        if (window.isKeyPressed(GLFW_KEY_I)) {
-//            angleDegree = 180;
-//            System.out.print(currAngle);
-//            while (currAngle < angleDegree || currAngle > angleDegree) {
-//                if (currAngle > angleDegree) {
-//                    ninjaMonkey.get(0).rotateObject((float) Math.toRadians(1), 0.0f, -1.0f, 0.0f);
-//                    currAngle -= 1f;
-//                    if (currAngle <= angleDegree) {
-//                        System.out.print(currAngle);
-//                        break;
-//                    }
-//                }
-//                else {
-//                    ninjaMonkey.get(0).rotateObject((float) Math.toRadians(-1), 0.0f, -1.0f, 0.0f);
-//                    currAngle += 1f;
-//                    if (currAngle >= angleDegree) {
-//                        System.out.print(currAngle);
-//                        break;
-//                    }
-//                }
-//            }
-//        }
-
+        if (window.isKeyPressed(GLFW_KEY_7)) {
+            System.out.print(currAngle);
+            angleDegree = 90f;
+            while (currAngle < angleDegree) {
+                ninjaMonkey.get(0).rotateObject((float) Math.toRadians(1), 0.0f, 1.0f, 0.0f);
+                currAngle += 1f;
+                if (currAngle >= angleDegree) {
+                    System.out.print(currAngle);
+                    break;
+                }
+            }
+        }
+        if (window.isKeyPressed(GLFW_KEY_8)) {
+            angleDegree = -90f;
+            System.out.print(currAngle);
+            while (currAngle > angleDegree) {
+                ninjaMonkey.get(0).rotateObject((float) Math.toRadians(-1), 0.0f, 1.0f, 0.0f);
+                currAngle -= 1f;
+                if (currAngle <= angleDegree) {
+                    System.out.print(currAngle);
+                    break;
+                }
+            }
+        }
+        if (window.isKeyPressed(GLFW_KEY_9)) {
+            angleDegree = 0;
+            while (currAngle < angleDegree || currAngle > angleDegree) {
+                if (currAngle > angleDegree) {
+                    ninjaMonkey.get(0).rotateObject((float) Math.toRadians(-1), 0.0f, 1.0f, 0.0f);
+                    currAngle -= 1f;
+                    if (currAngle <= angleDegree) {
+                        System.out.print(currAngle);
+                        break;
+                    }
+                }
+                else {
+                    ninjaMonkey.get(0).rotateObject((float) Math.toRadians(1), 0.0f, 1.0f, 0.0f);
+                    currAngle += 1f;
+                    if (currAngle >= angleDegree) {
+                        System.out.print(currAngle);
+                        break;
+                    }
+                }
+            }
+        }
+        if (window.isKeyPressed(GLFW_KEY_0)) {
+            angleDegree = 180;
+            System.out.print(currAngle);
+            while (currAngle < angleDegree || currAngle > angleDegree) {
+                if (currAngle > angleDegree) {
+                    ninjaMonkey.get(0).rotateObject((float) Math.toRadians(1), 0.0f, -1.0f, 0.0f);
+                    currAngle -= 1f;
+                    if (currAngle <= angleDegree) {
+                        System.out.print(currAngle);
+                        break;
+                    }
+                }
+                else {
+                    ninjaMonkey.get(0).rotateObject((float) Math.toRadians(-1), 0.0f, -1.0f, 0.0f);
+                    currAngle += 1f;
+                    if (currAngle >= angleDegree) {
+                        System.out.print(currAngle);
+                        break;
+                    }
+                }
+            }
+        }
+//       ======================= key for ninja Monkey =============================
     }
 
     public void loop(){
@@ -320,19 +320,19 @@ public class Main {
 //                object.draw(camera,projection);
 //            }
 
-            for(Object object: engineerMonkey){
-                object.draw(camera,projection);
-            }
-
-            if (engineerMonkey.get(0).getBulletList().size() > 0) {
-                engineerMonkey.get(0).shootBullet();
-            }
+//            for(Object object: engineerMonkey){
+//                object.draw(camera,projection);
+//            }
+//
+//            if (engineerMonkey.get(0).getBulletList().size() > 0) {
+//                engineerMonkey.get(0).shootBullet();
+//            }
 //            engineerMonkey.get(0).aiming(true);
 //
 
-//            for(Object object: ninjaMonkey){
-//                object.draw(camera,projection);
-//            }
+            for(Object object: ninjaMonkey){
+                object.draw(camera,projection);
+            }
 
             // Restore state
             glDisableVertexAttribArray(0);

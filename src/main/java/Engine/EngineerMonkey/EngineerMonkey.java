@@ -222,7 +222,7 @@ public class EngineerMonkey extends Object{
                     armRotation = -0.8f;
                 }
 
-                if (!(arm2.currAngleX + armRotation >= -45 && arm2.currAngleX + armRotation < 0)) {
+                if (!(arm2.currAngleX >= 314.4 && arm2.currAngleX <= 360)) {
                     if (arm2.currAngleX + armRotation >= 45 || arm2.currAngleX + armRotation <= 0)
                         armRotation = 0f;
                 }

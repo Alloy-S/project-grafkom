@@ -204,19 +204,18 @@ public class Main {
                 engineerMonkey.get(0).aiming(true);
 //                System.out.println("normal");
             }
-
-//            System.out.println();
         }
+        if (window.isKeyPressed(GLFW_KEY_I)){
+
+        }
+
 
 //        ======================= key for dart Monkey =============================
 
         // THIS IS FRAME BASED BUT OPENGL ISNT
-        // JANGAN LEBIH DARI 2x PER RUN
-        if (window.isKeyPressed(GLFW_KEY_H) && dartMonkey.get(0).getTotalTime() < 0) {
-            dartMonkey.get(0).setLookTime(80);
-        }
+        // JANGAN SPAM/TAHAN PLEASE
         if (window.isKeyPressed(GLFW_KEY_J) && dartMonkey.get(0).getTotalTime() < 0) {
-            dartMonkey.get(0).setScratchTime(80);
+            dartMonkey.get(0).setLookTime(80);
         }
         if (window.isKeyPressed(GLFW_KEY_K) && dartMonkey.get(0).getTotalTime() < 0) {
             dartMonkey.get(0).setThrowTime(80);
@@ -264,7 +263,6 @@ public class Main {
 
             //code
             dartMonkey.get(0).look();
-            dartMonkey.get(0).scratch();
             dartMonkey.get(0).dartThrow();
 
             for(Object object: dartMonkey){
@@ -275,9 +273,6 @@ public class Main {
                 object.draw(camera,projection);
             }
 //
-//            if (engineerMonkey.get(0).getBulletList().size() > 0) {
-//                engineerMonkey.get(0).shootBullet();
-//            }
 //            engineerMonkey.get(0).aiming(true);
 //
 

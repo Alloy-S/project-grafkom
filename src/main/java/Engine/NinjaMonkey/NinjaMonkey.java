@@ -1,4 +1,5 @@
 package Engine.NinjaMonkey;
+import Engine.DartMonkey.*;
 import Engine.Object;
 import Engine.Pipe;
 import Engine.ShaderProgram;
@@ -15,7 +16,7 @@ import static org.lwjgl.opengl.GL20.GL_VERTEX_SHADER;
 
 public class NinjaMonkey extends Object {
     float radiusX, radiusY, radiusZ, angleDegree;
-    int sectorCount, stackCount;
+    int sectorCount, stackCount, animTime;
     public float offsetX, offsetY, offsetZ;
 
     public NinjaMonkey(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
@@ -33,6 +34,14 @@ public class NinjaMonkey extends Object {
         this.offsetY = 0.0f;
         this.offsetZ = -3.0f;
         translateObject(offsetX, offsetY, offsetZ);
+    }
+
+    public int getAnimTime() {
+        return animTime;
+    }
+
+    public void setAnimTime(int animTime) {
+        this.animTime = animTime;
     }
 
     public void generate(){
@@ -230,22 +239,61 @@ public class NinjaMonkey extends Object {
 
     }
 
+    //f10
+    public void lookLeftEye(){
+        Object eye1 = childObject.get(1).getChildObject().get(0).getChildObject().get(0).getChildObject().get(0);
+        Object eye2 = childObject.get(1).getChildObject().get(0).getChildObject().get(1).getChildObject().get(0);
+        eye1.translateObject(-offsetX, -offsetY, -offsetZ);
+        eye2.translateObject(-offsetX, -offsetY, -offsetZ);
+        if (eye2.offsetY <= 0.7 && eye1.offsetY <= 0.25f) {
+            if (eye1.offsetY < 0.7) {
+                eye1.translateObject(-0.01f, 0.0f, 0.0f);
+            }
+            if (eye2.offsetY <= 0.3) {
+                eye2.translateObject(-0.01f, 0.0f, 0.0f);
+            }
+            eye1.offsetY += 0.05;
+            eye2.offsetY += 0.05;
+        }
+        eye1.translateObject(offsetX, offsetY, offsetZ);
+        eye2.translateObject(offsetX, offsetY, offsetZ);
+    }
+    //f9
+    public void lookRightEye(){
+        Object eye1 = childObject.get(1).getChildObject().get(0).getChildObject().get(0).getChildObject().get(0);
+        Object eye2 = childObject.get(1).getChildObject().get(0).getChildObject().get(1).getChildObject().get(0);
+        eye1.translateObject(-offsetX, -offsetY, -offsetZ);
+        eye2.translateObject(-offsetX, -offsetY, -offsetZ);
+        if (eye1.offsetY >= -0.7 && eye2.offsetY >= -0.25f) {
+            if (eye1.offsetY >= -0.7) {
+                eye1.translateObject(0.01f, 0.0f, 0.0f);
+            }
+            if (eye2.offsetY >= -0.3f) {
+                eye2.translateObject(0.01f, 0.0f, 0.0f);
+            }
+
+            eye1.offsetY -= 0.05;
+            eye2.offsetY -= 0.05;
+        }
+
+        eye1.translateObject(offsetX, offsetY, offsetZ);
+        eye2.translateObject(offsetX, offsetY, offsetZ);
+    }
+
     public List<Object> getShurikenList() {
-        return getChildObject().get(3).getChildObject().get(0).getChildObject();
+        return getChildObject().get(2).getChildObject().get(0).getChildObject();
     }
 
     public Object getShuriken() {
-        return getChildObject().get(3).getChildObject().get(0);
+        return getChildObject().get(2).getChildObject().get(0);
     }
 
     public void throwShuriken(){
         List<Object> shuriken = getShurikenList();
-        this.getChildObject().get(3).getChildObject().get(0).rotateShuriken();
+        this.getChildObject().get(2).getChildObject().get(0).rotateShuriken();
         for (Object shur: shuriken) {
-            shur.translateObject(0.0f, 0.0f, 0.05f);
-            System.out.println(shur.getCenterPoint());
+            shur.translateObject(0.0f, 0.0f, 0.1f);
         }
-
         shuriken.removeIf(shur -> shur.getCenterPoint().get(2) >= 2);
     }
 
@@ -253,5 +301,24 @@ public class NinjaMonkey extends Object {
         Object shur = getShuriken();
         System.out.println(shur.getName());
         shur.generateShuriken();
+    }
+
+    public void handThrowAnim(){
+        if (animTime == 0) return;
+        NinjaMonkeyArm1 arm1 = (NinjaMonkeyArm1) childObject.get(2);
+        if (animTime > 70) {
+            arm1.rotateFromBody((float) Math.toRadians(3f), 0.0f, 1.0f, 0.0f, offsetX, offsetY, offsetZ);
+        }
+        else if (animTime >= 50) {}
+        else if (animTime >= 40) {
+            arm1.rotateFromBody((float) Math.toRadians(-3f), 0.0f, 1.0f, 0.0f, offsetX, offsetY, offsetZ);
+            if (animTime == 45){
+                spawnShuriken();
+            }
+        }
+
+        animTime--;
+        System.out.println(animTime);
+
     }
 }

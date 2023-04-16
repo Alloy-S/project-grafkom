@@ -245,10 +245,18 @@ public class Object extends ShaderProgram{
     }
 
     public void rotateShuriken(){
-        System.out.println(this.getClass().getName());
+        System.out.println("rotate" + this.getClass().getName());
     }
 
     public void generateShuriken() {
+        System.out.println("generate"+this.getClass().getName());
+    }
+    public void spawnShuriken() {
+        System.out.println("spawn"+this.getClass().getName());
+    }
+
+    public void throwShuriken() {
+        System.out.println("throw"+this.getClass().getName());
     }
 
 

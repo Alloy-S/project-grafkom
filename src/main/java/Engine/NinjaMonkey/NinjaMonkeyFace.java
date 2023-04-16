@@ -61,8 +61,7 @@ public class NinjaMonkeyFace extends Object {
 //        vertices.clear();
 
         // bikin anak di sini
-        List<Object> children = new ArrayList<>();
-        children.add(new NinjaMonkeyEye1(
+        getChildObject().add(new NinjaMonkeyEye1(
                 Arrays.asList(
                         new ShaderModuleData
                                 ("resources/shaders/scene.vert"
@@ -74,7 +73,7 @@ public class NinjaMonkeyFace extends Object {
                 new ArrayList<>(),
                 new Vector4f(0.77f,0.77f,0.77f,1.0f)
         ));
-        children.add(new NinjaMonkeyEye2(
+        getChildObject().add(new NinjaMonkeyEye2(
                 Arrays.asList(
                         new ShaderModuleData
                                 ("resources/shaders/scene.vert"
@@ -88,7 +87,6 @@ public class NinjaMonkeyFace extends Object {
         ));
 
 
-        setChildObject(children);
     }
     public void rotateObject(Float degree, Float x,Float y,Float z) {
         model = new Matrix4f().rotate(degree, x, y, z).mul(new Matrix4f(model));

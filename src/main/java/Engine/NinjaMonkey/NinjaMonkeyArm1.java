@@ -3,6 +3,7 @@ package Engine.NinjaMonkey;
 import Engine.Camera;
 import Engine.Object;
 import Engine.Projection;
+import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
@@ -181,5 +182,17 @@ public class NinjaMonkeyArm1 extends Object {
         glLineWidth(10); //ketebalan garis
         glPointSize(10); //besar kecil vertex
         glDrawArrays(GL_POLYGON, 0, vertices.size());
+    }
+
+    public void rotateFromBody(Float degree, Float x, Float y, Float z, Float bodyOffsetX, Float bodyOffsetY, Float bodyOffsetZ) {
+        translateObject(-offsetX-bodyOffsetX, -offsetY-bodyOffsetY, -offsetZ-bodyOffsetZ);
+        model = new Matrix4f().rotate(degree,x,y,z).mul(new Matrix4f(model));
+        updateCenterPoint();
+        translateObject(offsetX+bodyOffsetX, offsetY+bodyOffsetY, offsetZ+bodyOffsetZ);
+        for(Object child:childObject){
+            child.translateObject(-offsetX-bodyOffsetX, -offsetY-bodyOffsetY, -offsetZ-bodyOffsetZ);
+            child.rotateObject(degree,x,y,z);
+            child.translateObject(offsetX+bodyOffsetX, offsetY+bodyOffsetY, offsetZ+bodyOffsetZ);
+        }
     }
 }

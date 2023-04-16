@@ -231,6 +231,10 @@ public class Object extends ShaderProgram{
         return 0;
     }
 
+    public List<Object> getBulletList() {
+        return new ArrayList<>();
+    }
+
     public void generateBullet() {}
 
     public void reload() {}

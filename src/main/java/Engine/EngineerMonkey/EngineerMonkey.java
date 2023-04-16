@@ -218,22 +218,21 @@ public class EngineerMonkey extends Object{
         Vector3f Arm2 = new Vector3f(arm2.model.transformPosition(new Vector3f(0.0f, 0f, 0.0f)));
 
         if (reverse) {
-            armRotation = -0.8f;
-        } else {
             armRotation = 0.8f;
+        } else {
+            armRotation = -0.8f;
         }
 
-        if ((int)arm2.currAngle + armRotation <= -45 || (int)arm2.currAngle +armRotation >= 0 ) armRotation = 0f;
-//        if (arm2.currAngle <= -45) shootBullet();
-//        System.out.println(armRotation);
-//        if (arm2.currAngle <= 45 && arm2.currAngle >= 0 ) {
-            arm2.translateObject(-Arm2.x, -Arm2.y, -Arm2.z);
-            arm2.rotateObject((float) Math.toRadians(armRotation), 1f, 0f, 0f);
-            arm2.translateObject(Arm2.x, Arm2.y, Arm2.z);
-        arm2.currAngle += armRotation;
-//        }
+        if ((int)arm2.currAngle + armRotation >= 45 || (int)arm2.currAngle + armRotation <= -45 ) armRotation = 0f;
 
-//        System.out.println(arm2.currAngle);
+            arm2.translateObject(-Arm2.x, -Arm2.y, -Arm2.z);
+            arm2.rotateObject((float) Math.toRadians(-armRotation), 1f, 0f, 0f);
+            arm2.translateObject(Arm2.x, Arm2.y, Arm2.z);
+            arm2.currAngle += armRotation;
+            if (arm2.currAngle > 360.0) arm2.currAngle = 0;
+
+
+        System.out.println("aiming - " + arm2.currAngle);
     }
 
     public void shootBullet() {
@@ -241,8 +240,11 @@ public class EngineerMonkey extends Object{
 //        System.out.println(bullets.getClass().getName());
         for (Object bullet: bullets) {
             bullet.translateObject(0f, 0f, 0.1f);
+            System.out.println(bullet.getCenterPoint());
         }
-        System.out.println("shoot");
+
+        bullets.removeIf(bullet -> bullet.getCenterPoint().get(2) >= 3);
+
     }
 
     public List<Object> getBulletList() {
@@ -304,7 +306,8 @@ public class EngineerMonkey extends Object{
         arm2.rotateObject((float) Math.toRadians(-armRotation), 1f, 0f, 0f);
         arm2.translateObject(Arm2.x, Arm2.y, Arm2.z);
         arm1.currAngle += armRotation;
+        arm2.currAngle += armRotation;
 
-//        System.out.println("bisa");
+        System.out.println("walk - " + arm2.currAngle);
     }
 }

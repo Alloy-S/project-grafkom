@@ -159,8 +159,7 @@ public class Main {
         }
 
         if (window.getMouseInput().isLeftButtonPressed()){
-            if (!leftMouseButton && engineerMonkey.get(0).getArmCurrAngle() <= -45) {
-
+            if (!leftMouseButton && engineerMonkey.get(0).getArmCurrAngle() >= 45) {
                 engineerMonkey.get(0).reload();
                 System.out.println("reload mag");
             }
@@ -299,10 +298,10 @@ public class Main {
                 object.draw(camera,projection);
             }
 
-            if (engineerMonkey.get(0).getArmCurrAngle() <= -45) {
+            if (engineerMonkey.get(0).getBulletList().size() > 0) {
                 engineerMonkey.get(0).shootBullet();
             }
-            engineerMonkey.get(0).aiming(true);
+//            engineerMonkey.get(0).aiming(true);
 //
 
             for(Object object: ninjaMonkey){

@@ -241,7 +241,9 @@ public class Object extends ShaderProgram{
 
     public void shakingHeadUpDown() {}
 
-    public void spawnBall0on() {}
+    public void spawnBalloon() {}
+
+    public void destroyBalloon() {}
 //        engineer monkey end
 
     public String getName() {

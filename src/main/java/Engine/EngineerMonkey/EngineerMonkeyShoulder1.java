@@ -86,7 +86,7 @@ public class EngineerMonkeyShoulder1 extends Object {
 //        getChildObject().get(0).rotateObject((float) Math.toRadians(15), 0f, 0f, 1f);
         getChildObject().get(0).translateObject(0.19f, 0f, -0.15f);
 
-        getChildObject().get(0).getChildObject().add(new EngineerMonkeyElbow1(
+        getChildObject().get(0).getChildObject().add(new EngineerMonkeyArm1(
                 Arrays.asList(
                         new ShaderProgram.ShaderModuleData
                                 ("resources/shaders/scene.vert"
@@ -96,7 +96,7 @@ public class EngineerMonkeyShoulder1 extends Object {
                                         , GL_FRAGMENT_SHADER)
                 ),
                 new ArrayList<>(),
-                new Vector4f(0.44f,0.24f,0.12f,1.0f)
+                new Vector4f(0.890f, 0.743f, 0.400f,1.0f)
         ));
 
     }

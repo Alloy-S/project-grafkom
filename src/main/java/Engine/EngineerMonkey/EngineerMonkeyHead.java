@@ -77,24 +77,6 @@ public class EngineerMonkeyHead extends Object {
                 new ArrayList<>(),
                 new Vector4f(0.890f, 0.743f, 0.400f,1.0f)
         ));
-//
-//        getChildObject().add(new EngineerMonkeyFace(
-//                Arrays.asList(
-//                        new ShaderProgram.ShaderModuleData
-//                                ("resources/shaders/scene.vert"
-//                                        , GL_VERTEX_SHADER),
-//                        new ShaderProgram.ShaderModuleData
-//                                ("resources/shaders/scene.frag"
-//                                        , GL_FRAGMENT_SHADER)
-//                ),
-//                new ArrayList<>(),
-//                new Vector4f(0.890f, 0.743f, 0.400f,1.0f)
-//        ));
-//
-//        getChildObject().get(0).rotateObject(0.09f, 1f, 0f, 0f);
-//        getChildObject().get(1).rotateObject(0.09f, 1f, 0f, 0f);
-//        getChildObject().get(0).translateObject(-0.2f, -0.05f, 0.51f);
-//        getChildObject().get(1).translateObject(0.2f, -0.05f, 0.51f);
 
         getChildObject().add(new EngineerMonkeyHat(
                 Arrays.asList(
@@ -107,6 +89,32 @@ public class EngineerMonkeyHead extends Object {
                 ),
                 new ArrayList<>(),
                 new Vector4f(0.930f, 0.797f, 0.0465f,1.0f)
+        ));
+
+        getChildObject().add(new EngineerMonkeyEar1(
+                Arrays.asList(
+                        new ShaderProgram.ShaderModuleData
+                                ("resources/shaders/scene.vert"
+                                        , GL_VERTEX_SHADER),
+                        new ShaderProgram.ShaderModuleData
+                                ("resources/shaders/scene.frag"
+                                        , GL_FRAGMENT_SHADER)
+                ),
+                new ArrayList<>(),
+                new Vector4f(0.44f,0.24f,0.12f,1.0f)
+        ));
+
+        getChildObject().add(new EngineerMonkeyEar2(
+                Arrays.asList(
+                        new ShaderProgram.ShaderModuleData
+                                ("resources/shaders/scene.vert"
+                                        , GL_VERTEX_SHADER),
+                        new ShaderProgram.ShaderModuleData
+                                ("resources/shaders/scene.frag"
+                                        , GL_FRAGMENT_SHADER)
+                ),
+                new ArrayList<>(),
+                new Vector4f(0.44f,0.24f,0.12f,1.0f)
         ));
     }
 

@@ -23,7 +23,7 @@ public class Object extends ShaderProgram{
     public UniformsMap uniformsMap;
     public Vector4f color;
     public float offsetX, offsetY, offsetZ;
-    public float currAngle;
+    public float currAngleX, currAngleY, currAngleZ;
 
     public Matrix4f model;
 
@@ -220,9 +220,29 @@ public class Object extends ShaderProgram{
         return vertices.size();
     }
 
+//    engineer monkey start
     public void walk() {}
 
     public void aiming(boolean reverse) {}
+
+    public void shootBullet() {}
+
+    public float getArmCurrAngle() {
+        return 0;
+    }
+
+    public List<Object> getBulletList() {
+        return new ArrayList<>();
+    }
+
+    public void generateBullet() {}
+
+    public void reload() {}
+//        engineer monkey start
+
+    public String getName() {
+        return "object";
+    }
 
     public void rotateShuriken(){
     }
@@ -231,6 +251,7 @@ public class Object extends ShaderProgram{
         model = new Matrix4f().translate(offsetX,offsetY,offsetZ).mul(new Matrix4f(model));
         updateCenterPoint();
         for(Object child:childObject){
+//            child.updateCenterPoint();
             child.translateObject(offsetX,offsetY,offsetZ);
         }
     }
@@ -264,6 +285,7 @@ public class Object extends ShaderProgram{
     }
     public void scaleObject(Float scaleX,Float scaleY,Float scaleZ){
         model = new Matrix4f().scale(scaleX,scaleY,scaleZ).mul(new Matrix4f(model));
+        updateCenterPoint();
         for(Object child:childObject){
             child.scaleObject(scaleX,scaleY,scaleZ);
         }

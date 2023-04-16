@@ -1,7 +1,6 @@
 package Engine.EngineerMonkey;
 
 import Engine.Object;
-import Engine.Pipe;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
@@ -12,12 +11,12 @@ import java.util.List;
 import static org.lwjgl.opengl.GL20.GL_FRAGMENT_SHADER;
 import static org.lwjgl.opengl.GL20.GL_VERTEX_SHADER;
 
-public class EngineerMonkeyElbow1 extends Object {
+public class EngineerMonkeyArm2 extends Object {
     float radiusX, radiusY, radiusZ;
     int sectorCount, stackCount;
 //    float offsetX, offsetY, offsetZ;
 
-    public EngineerMonkeyElbow1(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
+    public EngineerMonkeyArm2(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
         super(shaderModuleDataList, vertices, color);
         vertices.clear();
 
@@ -28,7 +27,7 @@ public class EngineerMonkeyElbow1 extends Object {
         stackCount = 80;
         generate();
         setupVAOVBO();
-        this.offsetX = 0.36f;
+        this.offsetX = -0.36f;
         this.offsetY = 0f;
         this.offsetZ = -0.4f;
         scaleObject(0.6f, 0.6f, 0.6f);
@@ -82,5 +81,29 @@ public class EngineerMonkeyElbow1 extends Object {
 //        getChildObject().get(0).rotateObject((float) Math.toRadians(0), 0f, 1f, 0f);
 ////        getChildObject().get(0).rotateObject((float) Math.toRadians(15), 0f, 0f, 1f);
 //        getChildObject().get(0).translateObject(0.19f, 0f, -0.15f);
+
+        getChildObject().add(new EngineerMonkeyGun(
+                Arrays.asList(
+                        new ShaderModuleData
+                                ("resources/shaders/scene.vert"
+                                        , GL_VERTEX_SHADER),
+                        new ShaderModuleData
+                                ("resources/shaders/scene.frag"
+                                        , GL_FRAGMENT_SHADER)
+                ),
+                new ArrayList<>(),
+                new Vector4f(0.400f, 0.356f, 0.356f,1.0f),
+                new Vector3f(0f,0f,0f),
+                new Vector3f(0.5f, 0.2f, 0.7f)
+        ));
+
+        getChildObject().get(0).scaleObject(0.7f, 0.7f, 0.7f);
+        getChildObject().get(0).rotateObject((float) Math.toRadians(45), 1f, 0f, 0f);
+        getChildObject().get(0).translateObject(-0.1f, 0.1f, -0.4f);
+
+    }
+
+    public String getName() {
+        return "tangan 2";
     }
 }

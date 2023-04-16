@@ -31,7 +31,7 @@ public class DartMonkeyArm2 extends Object {
         vertices.add(new Vector3f(0.5f,-0.8f,0.0f));
         generate();
         setupVAOVBO();
-        this.offsetX = 0.0f;
+        this.offsetX = 0.1f;
         this.offsetY = 0.2f;
         this.offsetZ = 0.0f;
         translateObject(offsetX, offsetY, offsetZ);
@@ -182,15 +182,4 @@ public class DartMonkeyArm2 extends Object {
         glDrawArrays(GL_POLYGON, 0, vertices.size());
     }
 
-    public void rotateObject(Float degree, Float x,Float y,Float z){
-        translateObject(-offsetX, -offsetY, -offsetZ);
-        model = new Matrix4f().rotate(degree,x,y,z).mul(new Matrix4f(model));
-        updateCenterPoint();
-        translateObject(offsetX, offsetY, offsetZ);
-        for(Object child:childObject){
-//            child.translateObject(-offsetX, -offsetY, -offsetZ);
-            child.rotateObject(degree,x,y,z);
-//            child.translateObject(offsetX, offsetY, offsetZ);
-        }
-    }
 }

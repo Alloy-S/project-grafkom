@@ -138,12 +138,35 @@ public class DartMonkeyHead extends Object {
     }
 
     public void rotateObject(Float degree, Float x,Float y,Float z) {
+        translateObject(-offsetX,-offsetY,-offsetZ);
         model = new Matrix4f().rotate(degree, x, y, z).mul(new Matrix4f(model));
         updateCenterPoint();
+        translateObject(offsetX,offsetY,offsetZ);
         for (Object child : childObject) {
-            child.translateObject(-offsetX, -offsetY, -offsetZ);
+//            child.translateObject(-offsetX, -offsetY, -offsetZ);
             child.rotateObject(degree, x, y, z);
-            child.translateObject(offsetX, offsetY, offsetZ);
+//            child.translateObject(offsetX, offsetY, offsetZ);
+        }
+    }
+
+    public void rotateFromBody(Float degree, Float x, Float y, Float z, Float bodyOffsetX, Float bodyOffsetY, Float bodyOffsetZ) {
+//        translateObject(-offsetX-bodyOffsetX, -offsetY-bodyOffsetY, -offsetZ-bodyOffsetZ);
+        translateObject(-bodyOffsetX, -bodyOffsetY, -bodyOffsetZ);
+//        translateObject(-offsetX, -offsetY, -offsetZ);
+        model = new Matrix4f().rotate(degree,x,y,z).mul(new Matrix4f(model));
+        updateCenterPoint();
+//        translateObject(offsetX+bodyOffsetX, offsetY+bodyOffsetY, offsetZ+bodyOffsetZ);
+        translateObject(bodyOffsetX, bodyOffsetY, bodyOffsetZ);
+//        translateObject(offsetX, offsetY, offsetZ);
+
+        for(Object child:childObject){
+            child.translateObject(-offsetX-bodyOffsetX, -offsetY-bodyOffsetY, -offsetZ-bodyOffsetZ);
+//            child.translateObject(-offsetX, -offsetY, -offsetZ);
+//            child.translateObject(-bodyOffsetX, -bodyOffsetY, -bodyOffsetZ);
+            child.rotateObject(degree,x,y,z);
+            child.translateObject(offsetX+bodyOffsetX, offsetY+bodyOffsetY, offsetZ+bodyOffsetZ);
+//            child.translateObject(offsetX, offsetY, offsetZ);
+//            child.translateObject(bodyOffsetX, bodyOffsetY, bodyOffsetZ);
         }
     }
 }

@@ -210,9 +210,10 @@ public class Main {
 //            System.out.println();
         }
 
-//        ======================= key for engineer Monkey =============================
+//        ======================= key for dart Monkey =============================
 
-
+        // THIS IS FRAME BASED BUT OPENGL ISNT
+        // JANGAN LEBIH DARI 2x PER RUN
         if (window.isKeyPressed(GLFW_KEY_H) && dartMonkey.get(0).getTotalTime() < 0) {
             dartMonkey.get(0).setLookTime(80);
         }
@@ -316,13 +317,13 @@ public class Main {
             dartMonkey.get(0).scratch();
             dartMonkey.get(0).dartThrow();
 
-//            for(Object object: dartMonkey){
-//                object.draw(camera,projection);
-//            }
+            for(Object object: dartMonkey){
+                object.draw(camera,projection);
+            }
 
-//            for(Object object: engineerMonkey){
-//                object.draw(camera,projection);
-//            }
+            for(Object object: engineerMonkey){
+                object.draw(camera,projection);
+            }
 //
 //            if (engineerMonkey.get(0).getBulletList().size() > 0) {
 //                engineerMonkey.get(0).shootBullet();

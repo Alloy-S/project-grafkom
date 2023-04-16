@@ -184,15 +184,15 @@ public class DartMonkeyArm1 extends Object {
         glDrawArrays(GL_POLYGON, 0, vertices.size());
     }
 
-    public void rotateObject(Float degree, Float x,Float y,Float z){
-        translateObject(-offsetX, -offsetY, -offsetZ);
+    public void rotateFromBody(Float degree, Float x, Float y, Float z, Float bodyOffsetX, Float bodyOffsetY, Float bodyOffsetZ) {
+        translateObject(-offsetX-bodyOffsetX, -offsetY-bodyOffsetY, -offsetZ-bodyOffsetZ);
         model = new Matrix4f().rotate(degree,x,y,z).mul(new Matrix4f(model));
         updateCenterPoint();
-        translateObject(offsetX, offsetY, offsetZ);
+        translateObject(offsetX+bodyOffsetX, offsetY+bodyOffsetY, offsetZ+bodyOffsetZ);
         for(Object child:childObject){
-//            child.translateObject(-offsetX, -offsetY, -offsetZ);
+            child.translateObject(-offsetX-bodyOffsetX, -offsetY-bodyOffsetY, -offsetZ-bodyOffsetZ);
             child.rotateObject(degree,x,y,z);
-//            child.translateObject(offsetX, offsetY, offsetZ);
+            child.translateObject(offsetX+bodyOffsetX, offsetY+bodyOffsetY, offsetZ+bodyOffsetZ);
         }
     }
 }

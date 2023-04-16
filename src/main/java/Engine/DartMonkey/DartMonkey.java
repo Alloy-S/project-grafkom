@@ -1,6 +1,7 @@
 package Engine.DartMonkey;
 
 import Engine.Object;
+import Engine.ShaderProgram;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
@@ -53,7 +54,7 @@ public class DartMonkey extends Object {
 
         lookTime = -1;
         scratchTime = -1;
-        throwTime = 0;
+        throwTime = -1;
         animDebug = 0;
     }
 
@@ -204,6 +205,22 @@ public class DartMonkey extends Object {
         }
         translateObject(offsetX, offsetY, offsetZ);
 
+        if (lookTime == 0){ //BRUTE FORCE REMAKE THE OBJECT HAHAHAHAH
+            model = new Matrix4f().identity();
+            childObject = new ArrayList<>();
+            centerPoint = Arrays.asList(0f,0f,0f);
+            vertices.clear();
+
+            generate();
+            setupVAOVBO();
+            translateObject(offsetX, offsetY, offsetZ);
+
+            lookTime = -1;
+            scratchTime = -1;
+            throwTime = -1;
+            animDebug = 0;
+        }
+
         lookTime--;
     }
     public void scratch(){
@@ -213,6 +230,22 @@ public class DartMonkey extends Object {
         Object head = childObject.get(1);
         Object arm1 = childObject.get(2);
         Object arm2 = childObject.get(3);
+
+        if (scratchTime == 0) {//BRUTE FORCE REMAKE THE OBJECT HAHAHAHAH
+            model = new Matrix4f().identity();
+            childObject = new ArrayList<>();
+            centerPoint = Arrays.asList(0f,0f,0f);
+            vertices.clear();
+
+            generate();
+            setupVAOVBO();
+            translateObject(offsetX, offsetY, offsetZ);
+
+            lookTime = -1;
+            scratchTime = -1;
+            throwTime = -1;
+            animDebug = 0;
+        }
         scratchTime--;
     }
 
@@ -264,6 +297,21 @@ public class DartMonkey extends Object {
                 temp.setSeen(1);
                 hand1.childObject.remove(1);
             }
+        }
+        if (throwTime == 0){ //BRUTE FORCE REMAKE THE OBJECT HAHAHAHAH
+            model = new Matrix4f().identity();
+            childObject = new ArrayList<>();
+            centerPoint = Arrays.asList(0f,0f,0f);
+            vertices.clear();
+
+            generate();
+            setupVAOVBO();
+            translateObject(offsetX, offsetY, offsetZ);
+
+            lookTime = -1;
+            scratchTime = -1;
+            throwTime = -1;
+            animDebug = 0;
         }
         throwTime--;
     }

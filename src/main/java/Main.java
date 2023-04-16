@@ -211,7 +211,7 @@ public class Main {
 //        ======================= key for dart Monkey =============================
 
         // THIS IS FRAME BASED BUT OPENGL ISNT
-        // JANGAN LEBIH DARI 2x PER RUN
+        // JANGAN SPAM/TAHAN PLEASE
         if (window.isKeyPressed(GLFW_KEY_H) && dartMonkey.get(0).getTotalTime() < 0) {
             dartMonkey.get(0).setLookTime(80);
         }

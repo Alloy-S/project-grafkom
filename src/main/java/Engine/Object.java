@@ -221,7 +221,7 @@ public class Object extends ShaderProgram{
     }
 
 //    engineer monkey start
-    public void walk() {}
+    public void walk(boolean reverse) {}
 
     public void aiming(boolean reverse) {}
 

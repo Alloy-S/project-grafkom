@@ -143,7 +143,7 @@ public class Main {
             dartMonkey.get(0).rotateObject(0.1f, 0.0f, 1.0f, 0.0f);
         }
 
-//      ======================= key for engineer Monkey =============================
+//      ============================== key for engineer Monkey =============================
 
 //        bikin eror
         if (window.isKeyPressed(GLFW_KEY_Y)) {
@@ -171,9 +171,9 @@ public class Main {
         }
 
         if (window.isKeyPressed(GLFW_KEY_U)){
-            engineerMonkey.get(0).walk();
+            engineerMonkey.get(0).walk(false);
             engineerMonkey.get(0).translateObject(0f, 0f, 0.01f);
-            System.out.println(engineerMonkey.get(0).getCenterPoint());
+//            System.out.println(engineerMonkey.get(0).getCenterPoint());
         }
 
         if (window.getMouseInput().isLeftButtonPressed()){
@@ -210,7 +210,12 @@ public class Main {
 //            System.out.println();
         }
 
+<<<<<<< HEAD
 //        ======================= key for dart Monkey =============================
+=======
+//        ============================ key for engineer Monkey =============================
+
+>>>>>>> 691c08c3e2ce2525a4006a69afbb32df322279d5
 
         // THIS IS FRAME BASED BUT OPENGL ISNT
         // JANGAN LEBIH DARI 2x PER RUN
@@ -324,12 +329,20 @@ public class Main {
             for(Object object: engineerMonkey){
                 object.draw(camera,projection);
             }
+<<<<<<< HEAD
 //
 //            if (engineerMonkey.get(0).getBulletList().size() > 0) {
 //                engineerMonkey.get(0).shootBullet();
 //            }
 //            engineerMonkey.get(0).aiming(true);
 //
+=======
+
+            if (engineerMonkey.get(0).getBulletList().size() > 0) {
+                engineerMonkey.get(0).shootBullet();
+            }
+
+>>>>>>> 691c08c3e2ce2525a4006a69afbb32df322279d5
 
             for(Object object: ninjaMonkey){
                 object.draw(camera,projection);

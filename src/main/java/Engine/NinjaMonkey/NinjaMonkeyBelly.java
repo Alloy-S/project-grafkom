@@ -75,7 +75,7 @@ public class NinjaMonkeyBelly extends Object {
                 new Vector4f(0.910f, 0.697f, 0.564f,1.0f),
                 new Vector3f(0f,0f,0f),
                 new Vector3f(0.7f, 0.56f, 0.5f),
-                0.2f,
+                0.14f,
                 0.05f,
                 360f
         ));
@@ -83,7 +83,7 @@ public class NinjaMonkeyBelly extends Object {
         getChildObject().get(0).rotateObject((float) Math.toRadians(-90), 1f, 0f, 0f);
         getChildObject().get(0).translateObject(0.0f, 0.0f, -0.1f);
 
-        getChildObject().add(new NinjaMonkeyBeltEdge1(
+        getChildObject().add(new NinjaMonkeyBeltCurve1(
                 Arrays.asList(
                         new ShaderProgram.ShaderModuleData
                                 ("resources/shaders/scene.vert"
@@ -93,9 +93,9 @@ public class NinjaMonkeyBelly extends Object {
                                         , GL_FRAGMENT_SHADER)
                 ),
                 new ArrayList<>(),
-                new Vector4f(0.740f, 0.562f, 0.562f,1.0f)
+                new Vector4f(0.910f, 0.697f, 0.564f,1.0f)
         ));
-        getChildObject().add(new NinjaMonkeyBeltEdge2(
+        getChildObject().add(new NinjaMonkeyBeltCurve2(
                 Arrays.asList(
                         new ShaderProgram.ShaderModuleData
                                 ("resources/shaders/scene.vert"
@@ -105,7 +105,7 @@ public class NinjaMonkeyBelly extends Object {
                                         , GL_FRAGMENT_SHADER)
                 ),
                 new ArrayList<>(),
-                new Vector4f(0.740f, 0.562f, 0.562f,1.0f)
+                new Vector4f(0.910f, 0.697f, 0.564f,1.0f)
         ));
     }
     public void rotateObject(Float degree, Float x,Float y,Float z) {

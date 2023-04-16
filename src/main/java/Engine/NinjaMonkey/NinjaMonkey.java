@@ -1,7 +1,6 @@
 package Engine.NinjaMonkey;
 import Engine.Balloon;
-import Engine.DartMonkey.*;
-import Engine.EngineerMonkey.EngineerMonkeyBalloonList;
+import Engine.DartMonkey.DartMonkeyBalloon;
 import Engine.Object;
 import Engine.Pipe;
 import Engine.ShaderProgram;
@@ -19,6 +18,8 @@ import static org.lwjgl.opengl.GL20.GL_VERTEX_SHADER;
 public class NinjaMonkey extends Object {
     float radiusX, radiusY, radiusZ;
     int sectorCount, stackCount, animTime;
+    public int TimedestroyBalloon;
+
     public float offsetX, offsetY, offsetZ;
 
     public NinjaMonkey(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
@@ -44,6 +45,14 @@ public class NinjaMonkey extends Object {
 
     public void setAnimTime(int animTime) {
         this.animTime = animTime;
+    }
+
+    public int getTimedestroyBalloon() {
+        return TimedestroyBalloon;
+    }
+
+    public void setTimedestroyBalloon(int timedestroyBalloon) {
+        this.TimedestroyBalloon = timedestroyBalloon;
     }
 
     public void generate(){
@@ -253,19 +262,14 @@ public class NinjaMonkey extends Object {
         System.out.println(ballonCenter);
         Object ballon = getChildObject().get(7).getChildObject().get(ballonCount - 1);
 
-        ballon.scaleObject(0.6f, 0.6f, 0.6f);
+        ballon.scaleObject(0.9f, 0.9f, 0.9f);
         ballon.translateObject(-3.4f, -0.2f, 0f);
-
-
     }
 
     public void restoreAim(){
         if (currAngleY >= -2 && currAngleY <= 2) {
             Vector3f ninjaCenter = new Vector3f(model.transformPosition(new Vector3f(0.0f, 0f, 0.0f)));
             translateObject(-ninjaCenter.x, -ninjaCenter.y, -ninjaCenter.z);
-
-            System.out.println("x " + ninjaCenter.x + " y " + ninjaCenter.y + " z " + ninjaCenter.z);
-
             if (currAngleY > 180) {
                 rotateObject((float) Math.toRadians(2), 0.0f, 1.0f, 0.0f);
                 currAngleY += 2;
@@ -367,13 +371,34 @@ public class NinjaMonkey extends Object {
         this.getChildObject().get(2).getChildObject().get(0).rotateShuriken();
         for (Object shur: shuriken) {
             shur.translateObject(0.0f, 0.0f, 0.1f);
+            System.out.println("z" + shur.getCenterPoint().get(2));
+            if (shur.getCenterPoint().get(2) > 4 && getChildObject().get(7).getChildObject().size() > 0) {
+//                getChildObject().get(7).getChildObject().remove(0);
+                setTimedestroyBalloon(15);
+            }
         }
         shuriken.removeIf(shur -> shur.getCenterPoint().get(2) >= 5);
     }
 
+    public void destroyBalloon() {
+        if (TimedestroyBalloon < 0) return;
+        if (getChildObject().get(7).getChildObject().size() > 0) {
+            NinjaMonkeyBalloon balloon = (NinjaMonkeyBalloon) childObject.get(7);
+
+            if (TimedestroyBalloon <= 10) {
+                balloon.scaleObject(1.2f,1.2f,1.2f);
+            }
+
+            if (TimedestroyBalloon == 5) {
+                getChildObject().get(7).getChildObject().remove(0);
+            }
+        }
+        TimedestroyBalloon--;
+        System.out.println(TimedestroyBalloon);
+    }
+
     public void spawnShuriken() {
         Object shur = getShuriken();
-        System.out.println(shur.getName());
         shur.generateShuriken();
     }
 
@@ -392,7 +417,5 @@ public class NinjaMonkey extends Object {
         }
 
         animTime--;
-        System.out.println(animTime);
-
     }
 }

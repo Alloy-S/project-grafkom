@@ -11,24 +11,24 @@ import java.util.List;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public class NinjaMonkeyTail extends Object {
+public class NinjaMonkeyHeadbandCurve2 extends Object {
     float radius;
     float offsetX, offsetY, offsetZ;
 
     List<List<Vector3f>> totalVertices = new ArrayList<>();
-    public NinjaMonkeyTail(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
+    public NinjaMonkeyHeadbandCurve2(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
         super(shaderModuleDataList, vertices, color);
         vertices.clear();
 
         radius = 0.034f;
-        vertices.add(new Vector3f(0.0f,0.0f,0.0f));
-        vertices.add(new Vector3f(0.0f,-0.1f,-1.0f));
-        vertices.add(new Vector3f(0.8f,-0.2f,-0.5f));
+        vertices.add(new Vector3f(-0.2f,0.0f,0.1f));
+        vertices.add(new Vector3f(0.4f,-0.1f,-0.1f));
+        vertices.add(new Vector3f(0.6f,0.5f,-0.3f));
         generate();
         setupVAOVBO();
-        this.offsetX = -0.f;
-        this.offsetY = -0.1f;
-        this.offsetZ = -0.0f;
+        this.offsetX = 0.2f;
+        this.offsetY = 0.31f;
+        this.offsetZ = -0.6f;
         rotateObject((float) Math.toRadians(180f), 0.0f, 0.0f, 1.0f);
         translateObject(offsetX, offsetY, offsetZ);
     }
@@ -113,7 +113,7 @@ public class NinjaMonkeyTail extends Object {
             Vector3f b = new Vector3f();
             v3f.cross(pp.x, pp.y, pp.z, b);
 
-            for(float k = 0; k<360; k+=10){
+            for(float k = 0; k<360; k+=60){
                 double theta = Math.toRadians(k);
                 float x = p1.x + radius*(float)Math.cos(theta)*pp.x + radius*(float)Math.sin(theta)*b.x;
                 float y = p1.y + radius*(float)Math.cos(theta)*pp.y + radius*(float)Math.sin(theta)*b.y;
@@ -122,17 +122,14 @@ public class NinjaMonkeyTail extends Object {
             }
             List<Vector3f> orderedSegmentVertices = new ArrayList<>();
             int start = 0;
-            if(i>=4) start-=36;
-            if(i>=9) start-=18;
-            if(i>=12) start-=30;
-            if(i>=15) start-=12;
+            if(i>=9) start-=4;
+            if(i>=13) start-=3;
 
             start += 10*segmentVertices.size();
             start %= segmentVertices.size();
             orderedSegmentVertices.addAll(segmentVertices.subList(start, segmentVertices.size()));
             orderedSegmentVertices.addAll(segmentVertices.subList(0, start+1));
 
-//            if(14 <= i && i <= 15)
             totalVertices.add(orderedSegmentVertices);
         }
 

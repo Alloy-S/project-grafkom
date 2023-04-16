@@ -1,8 +1,7 @@
 package Engine.NinjaMonkey;
 
-import Engine.EngineerMonkey.EngineerMonkeyEar1;
-import Engine.EngineerMonkey.EngineerMonkeyEar2;
 import Engine.Object;
+import Engine.Pipe;
 import Engine.ShaderProgram;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
@@ -15,25 +14,24 @@ import java.util.List;
 import static org.lwjgl.opengl.GL20.GL_FRAGMENT_SHADER;
 import static org.lwjgl.opengl.GL20.GL_VERTEX_SHADER;
 
-public class NinjaMonkeyHead extends Object {
+public class NinjaMonkeyHeadBand extends Object {
     float radiusX, radiusY, radiusZ;
     int sectorCount, stackCount;
-    public float offsetX, offsetY, offsetZ;
-    public NinjaMonkeyHead(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
+    float offsetX, offsetY, offsetZ;
+    public NinjaMonkeyHeadBand(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
         super(shaderModuleDataList, vertices, color);
         vertices.clear();
 
-        radiusX = 0.7f;
-        radiusY = 0.65f;
-        radiusZ = 0.55f;
+        radiusX = 0.3f;
+        radiusY = 0.35f;
+        radiusZ = 0.1f;
         sectorCount = 80;
         stackCount = 80;
         generate();
         setupVAOVBO();
-        offsetX = 0.0f;
-        offsetY = 1.0f;
-        offsetZ = 0.0f;
-        scaleObject(0.9f,0.9f,0.9f);
+        this.offsetX = 0.0f;
+        this.offsetY = 0.0f;
+        this.offsetZ = 0.12f;
         translateObject(offsetX, offsetY, offsetZ);
     }
 
@@ -59,26 +57,46 @@ public class NinjaMonkeyHead extends Object {
                 temp_vector.x = centerPoint.get(0) + x * (float)Math.cos(sectorAngle);
                 temp_vector.y = centerPoint.get(1) + y * (float)Math.sin(sectorAngle);
                 temp_vector.z = centerPoint.get(2) + z;
-                vertices.add(temp_vector);
+                if(z>0.05f) vertices.add(temp_vector);
             }
         }
-//        vertices.clear();
 
         // bikin anak di sini
-        getChildObject().add(new NinjaMonkeyFace(
+        getChildObject().add(new Pipe(
                 Arrays.asList(
-                        new ShaderModuleData
+                        new ShaderProgram.ShaderModuleData
                                 ("resources/shaders/scene.vert"
                                         , GL_VERTEX_SHADER),
-                        new ShaderModuleData
+                        new ShaderProgram.ShaderModuleData
                                 ("resources/shaders/scene.frag"
                                         , GL_FRAGMENT_SHADER)
                 ),
                 new ArrayList<>(),
-                new Vector4f(0.62f,0.42f,0.2f,1.0f)
+                new Vector4f(0.910f, 0.697f, 0.564f,1.0f),
+                new Vector3f(0f,0f,0f),
+                new Vector3f(0.55f, 0.43f, 0.49f),
+                0.03f,
+                0.03f,
+                360f
+        ));
+        getChildObject().get(0).scaleObject(1.2f, 1.2f, 1.2f);
+        getChildObject().get(0).rotateObject((float) Math.toRadians(-90), 1f, 0f, 0f);
+        getChildObject().get(0).translateObject(0.0f, 0.3f, -0.1f);
+
+        getChildObject().add(new NinjaMonkeyHeadbandCurve1(
+                Arrays.asList(
+                        new ShaderProgram.ShaderModuleData
+                                ("resources/shaders/scene.vert"
+                                        , GL_VERTEX_SHADER),
+                        new ShaderProgram.ShaderModuleData
+                                ("resources/shaders/scene.frag"
+                                        , GL_FRAGMENT_SHADER)
+                ),
+                new ArrayList<>(),
+                new Vector4f(0.910f, 0.697f, 0.564f,1.0f)
         ));
 
-        getChildObject().add(new NinjaMonkeyEar1(
+        getChildObject().add(new NinjaMonkeyHeadbandCurve2(
                 Arrays.asList(
                         new ShaderProgram.ShaderModuleData
                                 ("resources/shaders/scene.vert"
@@ -88,43 +106,14 @@ public class NinjaMonkeyHead extends Object {
                                         , GL_FRAGMENT_SHADER)
                 ),
                 new ArrayList<>(),
-                new Vector4f(245f,0.0f,0.0f,1.0f)
-        ));
-
-        getChildObject().add(new NinjaMonkeyEar2(
-                Arrays.asList(
-                        new ShaderProgram.ShaderModuleData
-                                ("resources/shaders/scene.vert"
-                                        , GL_VERTEX_SHADER),
-                        new ShaderProgram.ShaderModuleData
-                                ("resources/shaders/scene.frag"
-                                        , GL_FRAGMENT_SHADER)
-                ),
-                new ArrayList<>(),
-                new Vector4f(245f,0.0f,0.0f,1.0f)
-        ));
-
-        getChildObject().add(new NinjaMonkeyHeadBand(
-                Arrays.asList(
-                        new ShaderProgram.ShaderModuleData
-                                ("resources/shaders/scene.vert"
-                                        , GL_VERTEX_SHADER),
-                        new ShaderProgram.ShaderModuleData
-                                ("resources/shaders/scene.frag"
-                                        , GL_FRAGMENT_SHADER)
-                ),
-                new ArrayList<>(),
-                new Vector4f(245f,1.0f,1.0f,1.0f)
-        ));
+                new Vector4f(0.910f, 0.697f, 0.564f,1.0f)
+                ));
     }
-
     public void rotateObject(Float degree, Float x,Float y,Float z) {
         model = new Matrix4f().rotate(degree, x, y, z).mul(new Matrix4f(model));
         updateCenterPoint();
         for (Object child : childObject) {
-            child.translateObject(-offsetX, -offsetY, -offsetZ);
             child.rotateObject(degree, x, y, z);
-            child.translateObject(offsetX, offsetY, offsetZ);
         }
     }
 }

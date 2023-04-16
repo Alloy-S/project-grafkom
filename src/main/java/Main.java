@@ -174,7 +174,7 @@ public class Main {
 
         if (window.getMouseInput().isLeftButtonPressed()){
 //            Date date = new Date();
-            System.out.println(System.currentTimeMillis() + " -- " + lastTime);
+//            System.out.println(System.currentTimeMillis() + " -- " + lastTime);
             if (System.currentTimeMillis() > lastTime) {
                 if (!leftMouseButton && engineerMonkey.get(0).getArmCurrAngle() >= 44) {
                     if (engineerMonkey.get(0).currAngleY >= -2 && engineerMonkey.get(0).currAngleY <= 2) {
@@ -235,6 +235,9 @@ public class Main {
         if (window.isKeyPressed(GLFW_KEY_F9)) {
             ninjaMonkey.get(0).lookRightEye();
         }
+//        if (window.isKeyPressed(GLFW_KEY_F8)) {
+//            ninjaMonkey.get(0).spawnBalloon();
+//        }
         //Shuriken
         if (window.isKeyPressed(GLFW_KEY_6)) {
             if (!animating) {
@@ -274,9 +277,9 @@ public class Main {
             dartMonkey.get(0).look();
             dartMonkey.get(0).dartThrow();
 
-            for(Object object: dartMonkey){
-                object.draw(camera,projection);
-            }
+//            for(Object object: dartMonkey){
+//                object.draw(camera,projection);
+//            }
 
 //            camera.moveRight(0.09f);
 //            camera.addRotation(0.0f, -0.01f);
@@ -285,9 +288,9 @@ public class Main {
             engineerMonkey.get(0).destroyBalloon();
 
 //            System.out.println(engineerMonkey.get(0).getCenterPoint());
-            for(Object object: engineerMonkey){
-                object.draw(camera,projection);
-            }
+//            for(Object object: engineerMonkey){
+//                object.draw(camera,projection);
+//            }
 //
 //            engineerMonkey.get(0).aiming(true);
 //
@@ -305,6 +308,7 @@ public class Main {
             }
 
             ninjaMonkey.get(0).handThrowAnim();
+            ninjaMonkey.get(0).destroyBalloon();
 
             if (ninjaMonkey.get(0).getAnimTime() == 0){
                 animating = false;

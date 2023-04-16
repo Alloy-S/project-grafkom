@@ -178,10 +178,12 @@ public class Main {
             if (System.currentTimeMillis() > lastTime) {
                 if (!leftMouseButton && engineerMonkey.get(0).getArmCurrAngle() >= 44) {
                     if (engineerMonkey.get(0).currAngleY >= -2 && engineerMonkey.get(0).currAngleY <= 2) {
-                        engineerMonkey.get(0).reload();
-                        lastTime = System.currentTimeMillis() + 250;
+                        if (engineerMonkey.get(0).getCenterPoint().get(2) < -2.9f && engineerMonkey.get(0).getCenterPoint().get(2) > -3.1f) {
+                            engineerMonkey.get(0).reload();
+                            lastTime = System.currentTimeMillis() + 250;
 
-                        System.out.println("reload mag");
+                            System.out.println("reload mag");
+                        }
                     }
                 }
             }
@@ -282,6 +284,7 @@ public class Main {
             engineerMonkey.get(0).shakingHeadUpDown();
             engineerMonkey.get(0).destroyBalloon();
 
+//            System.out.println(engineerMonkey.get(0).getCenterPoint());
             for(Object object: engineerMonkey){
                 object.draw(camera,projection);
             }

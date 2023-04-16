@@ -1,5 +1,6 @@
 package Engine.EngineerMonkey;
 
+import Engine.Balloon;
 import Engine.Object;
 import Engine.Pipe;
 import Engine.ShaderProgram;
@@ -19,6 +20,7 @@ public class EngineerMonkey extends Object{
     float legRotation = 0.3f;
     float armRotation = 0.8f;
     Vector3f monkeySpawnPos;
+    public int shakingTime1;
 //    public float offsetX, offsetY, offsetZ;
     public EngineerMonkey(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
         super(shaderModuleDataList, vertices, color);
@@ -202,10 +204,49 @@ public class EngineerMonkey extends Object{
                 new Vector4f(0.4f,0.2f,0.08f,1.0f)
         ));
 
+        getChildObject().add(new EngineerMonkeyBalloonList(
+                Arrays.asList(
+                        new ShaderModuleData
+                                ("resources/shaders/scene.vert"
+                                        , GL_VERTEX_SHADER),
+                        new ShaderModuleData
+                                ("resources/shaders/scene.frag"
+                                        , GL_FRAGMENT_SHADER)
+                ),
+                new ArrayList<>(),
+                new Vector4f(0.84f,0.2f,0.15f,1.0f)
+        ));
+
     }
 
     public float getArmCurrAngle() {
         return getChildObject().get(5).currAngleX;
+    }
+
+    public void spawnBalloon() {
+
+        getChildObject().get(7).getChildObject().add(new Balloon(
+                Arrays.asList(
+                        new ShaderModuleData
+                                ("resources/shaders/scene.vert"
+                                        , GL_VERTEX_SHADER),
+                        new ShaderModuleData
+                                ("resources/shaders/scene.frag"
+                                        , GL_FRAGMENT_SHADER)
+                ),
+                new ArrayList<>(),
+                new Vector4f(0.84f,0.2f,0.15f,1.0f)
+        ));
+
+        int ballonCount = getChildObject().get(7).getChildObject().size();
+        Vector3f ballonCenter = new Vector3f(getChildObject().get(7).getChildObject().get(ballonCount - 1).model.transformPosition(new Vector3f(0.0f, 0f, 0.0f)));
+        System.out.println(ballonCenter);
+        Object ballon = getChildObject().get(7).getChildObject().get(ballonCount - 1);
+
+        ballon.scaleObject(0.6f, 0.6f, 0.6f);
+        ballon.translateObject(-1.7f, -0.2f, 0f);
+
+
     }
 
     public void aiming(boolean reverse) {
@@ -265,9 +306,12 @@ public class EngineerMonkey extends Object{
         for (Object bullet: bullets) {
             bullet.translateObject(0f, 0f, 0.1f);
             System.out.println(bullet.getCenterPoint());
+            if (bullet.getCenterPoint().get(2) > 6 && getChildObject().get(7).getChildObject().size() > 0) {
+                getChildObject().get(7).getChildObject().remove(0);
+            }
         }
 
-        bullets.removeIf(bullet -> bullet.getCenterPoint().get(2) >= 3);
+        bullets.removeIf(bullet -> bullet.getCenterPoint().get(2) >= 6);
 
     }
 
@@ -339,6 +383,36 @@ public class EngineerMonkey extends Object{
 
 
 //        System.out.println("walk - " + arm2.currAngleX);
+    }
+
+    public void setShakingTime1(int shakingTime1) {
+        this.shakingTime1 = shakingTime1;
+    }
+
+    public void shakingHeadUpDown() {
+        if (shakingTime1 < 0) return;
+            Vector3f head = new Vector3f(getChildObject().get(1).model.transformPosition(new Vector3f(0.0f, 0f, 0.0f)));
+
+        if (shakingTime1 > 70) {
+            getChildObject().get(1).translateObject(-head.x, -head.y, -head.z);
+            getChildObject().get(1).rotateObject((float) Math.toRadians(1), 1f, 0f, 0f);
+            getChildObject().get(1).translateObject(head.x, head.y, head.z);
+        } else if (shakingTime1 > 40) {
+            getChildObject().get(1).translateObject(-head.x, -head.y, -head.z);
+            getChildObject().get(1).rotateObject((float) Math.toRadians(-1), 1f, 0f, 0f);
+            getChildObject().get(1).translateObject(head.x, head.y, head.z);
+        } else if (shakingTime1 > 20) {
+            getChildObject().get(1).translateObject(-head.x, -head.y, -head.z);
+            getChildObject().get(1).rotateObject((float) Math.toRadians(1), 1f, 0f, 0f);
+            getChildObject().get(1).translateObject(head.x, head.y, head.z);
+        } else {
+            getChildObject().get(1).translateObject(-head.x, -head.y, -head.z);
+            getChildObject().get(1).rotateObject((float) Math.toRadians(-1), 1f, 0f, 0f);
+            getChildObject().get(1).translateObject(head.x, head.y, head.z);
+        }
+
+        shakingTime1--;
+        System.out.println(shakingTime1);
     }
 
     public float checkAngle(float angle) {

@@ -238,7 +238,11 @@ public class Object extends ShaderProgram{
     public void generateBullet() {}
 
     public void reload() {}
-//        engineer monkey start
+
+    public void shakingHeadUpDown() {}
+
+    public void spawnBall0on() {}
+//        engineer monkey end
 
     public String getName() {
         return "object";

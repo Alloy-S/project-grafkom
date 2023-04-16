@@ -8,10 +8,8 @@ import org.joml.Vector3f;
 import org.joml.Vector4f;
 import org.lwjgl.opengl.GL;
 
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.glClearColor;
@@ -23,7 +21,7 @@ public class Main {
                     (1200, 1200, "Bloons TD Monkey");
     private ArrayList<DartMonkey> dartMonkey = new ArrayList<>();
     private ArrayList<NinjaMonkey> ninjaMonkey = new ArrayList<>();
-    private ArrayList<Object> engineerMonkey = new ArrayList<>();
+    private ArrayList<EngineerMonkey> engineerMonkey = new ArrayList<>();
 
     private boolean leftMouseButton = false;
     long lastTime = 0;
@@ -205,7 +203,14 @@ public class Main {
 //                System.out.println("normal");
             }
         }
-        if (window.isKeyPressed(GLFW_KEY_I)){
+        if (window.isKeyPressed(GLFW_KEY_O) && engineerMonkey.get(0).shakingTime1 < 0){
+            if (window.isKeyPressed(GLFW_KEY_LEFT_ALT) && engineerMonkey.get(0).getChildObject().get(7).getChildObject().size() <= 0) {
+                engineerMonkey.get(0).spawnBalloon();
+
+            } else {
+                engineerMonkey.get(0).setShakingTime1(100);
+            }
+
 
         }
 
@@ -270,6 +275,11 @@ public class Main {
             for(Object object: dartMonkey){
                 object.draw(camera,projection);
             }
+
+//            camera.moveRight(0.09f);
+//            camera.addRotation(0.0f, -0.01f);
+
+            engineerMonkey.get(0).shakingHeadUpDown();
 
             for(Object object: engineerMonkey){
                 object.draw(camera,projection);

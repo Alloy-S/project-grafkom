@@ -18,7 +18,7 @@ import static org.lwjgl.opengl.GL30.*;
 public class Main {
     private Window window =
             new Window
-                    (1200, 1200, "Hello World");
+                    (1200, 1200, "Bloons TD Monkey");
     private ArrayList<DartMonkey> dartMonkey = new ArrayList<>();
     private ArrayList<Object> ninjaMonkey = new ArrayList<>();
     private ArrayList<Object> engineerMonkey = new ArrayList<>();

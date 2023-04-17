@@ -427,7 +427,7 @@ public class EngineerMonkey extends Object{
         if (getChildObject().get(7).getChildObject().size() > 0) {
             Object balloon = getChildObject().get(7).getChildObject().get(0);
 
-            if (destroyBalloon == 10) {
+            if (destroyBalloon == 7) {
                 balloon.scaleObject(1.25f, 1.25f, 1.25f);
             }
 

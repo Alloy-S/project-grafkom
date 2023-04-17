@@ -25,7 +25,7 @@ public class Main {
 
     private boolean leftMouseButton = false;
     long lastTime = 0;
-    boolean animating = false;
+    boolean animating = false, restoring = false;
     private MouseInput mouseInput;
     Projection projection = new Projection(window.getWidth(), window.getHeight());
     Camera camera = new Camera();
@@ -238,21 +238,30 @@ public class Main {
 //        if (window.isKeyPressed(GLFW_KEY_F8)) {
 //            ninjaMonkey.get(0).spawnBalloon();
 //        }
+
+        if (window.isKeyPressed(GLFW_KEY_F7)){
+            ninjaMonkey.get(0).ninjaWalk(false);
+            ninjaMonkey.get(0).translateObject(0f, 0f, 0.01f);
+        }
+
         //Shuriken
-        if (window.isKeyPressed(GLFW_KEY_6)) {
-            if (!animating) {
-                ninjaMonkey.get(0).setAnimTime(80);
-                animating = true;
-            }
+        if (window.isKeyPressed(GLFW_KEY_5)) {
+            ninjaMonkey.get(0).restoreAim();
+        }
+
+        if (window.isKeyPressed(GLFW_KEY_6) && !animating && ninjaMonkey.get(0).getCenterPoint().get(2) < -2.9f) {
+            ninjaMonkey.get(0).setAnimTime(80);
+            ninjaMonkey.get(0).spawnBalloon();
+            animating = true;
         }
         //Look Right
-        if (window.isKeyPressed(GLFW_KEY_7)) {
-            ninjaMonkey.get(0).rotateObject((float) Math.toRadians(1), 0.0f, 1.0f, 0.0f);
-        }
-        //Look Left
-        if (window.isKeyPressed(GLFW_KEY_8)) {
-            ninjaMonkey.get(0).rotateObject((float) Math.toRadians(-1), 0.0f, 1.0f, 0.0f);
-        }
+//        if (window.isKeyPressed(GLFW_KEY_7)) {
+//            ninjaMonkey.get(0).rotateObject((float) Math.toRadians(1), 0.0f, 1.0f, 0.0f);
+//        }
+//        //Look Left
+//        if (window.isKeyPressed(GLFW_KEY_8)) {
+//            ninjaMonkey.get(0).rotateObject((float) Math.toRadians(-1), 0.0f, 1.0f, 0.0f);
+//        }
 
         //Head only
         if (window.isKeyPressed(GLFW_KEY_9)) {
@@ -277,9 +286,9 @@ public class Main {
             dartMonkey.get(0).look();
             dartMonkey.get(0).dartThrow();
 
-//            for(Object object: dartMonkey){
-//                object.draw(camera,projection);
-//            }
+            for(Object object: dartMonkey){
+                object.draw(camera,projection);
+            }
 
 //            camera.moveRight(0.09f);
 //            camera.addRotation(0.0f, -0.01f);
@@ -287,10 +296,9 @@ public class Main {
             engineerMonkey.get(0).shakingHeadUpDown();
             engineerMonkey.get(0).destroyBalloon();
 
-//            System.out.println(engineerMonkey.get(0).getCenterPoint());
-//            for(Object object: engineerMonkey){
-//                object.draw(camera,projection);
-//            }
+            for(Object object: engineerMonkey){
+                object.draw(camera,projection);
+            }
 //
 //            engineerMonkey.get(0).aiming(true);
 //

@@ -1,6 +1,5 @@
 package Engine.NinjaMonkey;
 import Engine.Balloon;
-import Engine.DartMonkey.DartMonkeyBalloon;
 import Engine.Object;
 import Engine.Pipe;
 import Engine.ShaderProgram;
@@ -21,6 +20,8 @@ public class NinjaMonkey extends Object {
     public int TimedestroyBalloon;
 
     public float offsetX, offsetY, offsetZ;
+    Vector3f ninjaSpawnPos;
+    float legRotation = 0.3f;
 
     public NinjaMonkey(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color) {
         super(shaderModuleDataList, vertices, color);
@@ -37,6 +38,7 @@ public class NinjaMonkey extends Object {
         this.offsetY = 0.0f;
         this.offsetZ = -3.0f;
         translateObject(offsetX, offsetY, offsetZ);
+        ninjaSpawnPos = new Vector3f(model.transformPosition(new Vector3f(0.0f, 0f, 0.0f)));
     }
 
     public int getAnimTime() {
@@ -243,6 +245,8 @@ public class NinjaMonkey extends Object {
 
     }
 
+
+
     public void spawnBalloon() {
         getChildObject().get(7).getChildObject().add(new Balloon(
                 Arrays.asList(
@@ -264,26 +268,6 @@ public class NinjaMonkey extends Object {
 
         ballon.scaleObject(0.9f, 0.9f, 0.9f);
         ballon.translateObject(-3.4f, -0.2f, 0f);
-    }
-
-    public void restoreAim(){
-        if (currAngleY >= -2 && currAngleY <= 2) {
-            Vector3f ninjaCenter = new Vector3f(model.transformPosition(new Vector3f(0.0f, 0f, 0.0f)));
-            translateObject(-ninjaCenter.x, -ninjaCenter.y, -ninjaCenter.z);
-            if (currAngleY > 180) {
-                rotateObject((float) Math.toRadians(2), 0.0f, 1.0f, 0.0f);
-                currAngleY += 2;
-            } else if (currAngleY > 0) {
-                rotateObject((float) Math.toRadians(-2), 0.0f, 1.0f, 0.0f);
-                currAngleY -= 2;
-            }
-
-
-            translateObject(ninjaCenter.x, ninjaCenter.y, ninjaCenter.z);
-
-            currAngleY = checkAngle(currAngleY);
-            System.out.println(currAngleY);
-        }
     }
 
     public float checkAngle(float angle) {
@@ -383,10 +367,10 @@ public class NinjaMonkey extends Object {
     public void destroyBalloon() {
         if (TimedestroyBalloon < 0) return;
         if (getChildObject().get(7).getChildObject().size() > 0) {
-            NinjaMonkeyBalloon balloon = (NinjaMonkeyBalloon) childObject.get(7);
+            Object balloon = getChildObject().get(7).getChildObject().get(0);
 
-            if (TimedestroyBalloon <= 10) {
-                balloon.scaleObject(1.2f,1.2f,1.2f);
+            if (TimedestroyBalloon == 10) {
+                balloon.scaleObject(1.5f,1.5f,1.5f);
             }
 
             if (TimedestroyBalloon == 5) {
@@ -417,5 +401,59 @@ public class NinjaMonkey extends Object {
         }
 
         animTime--;
+    }
+
+    public void ninjaWalk(boolean reverse) {
+        Object leg1 = getChildObject().get(4);
+        Object leg2 = getChildObject().get(5);
+
+        Vector3f Leg1 = new Vector3f(leg1.model.transformPosition(new Vector3f(0.0f, 0f, 0.0f)));
+        Vector3f Leg2= new Vector3f(leg2.model.transformPosition(new Vector3f(0.0f, 0f, 0.0f)));
+
+        if (leg1.currAngleX >= 352 && leg1.currAngleX <= 353) {
+
+            legRotation = 0.3f;
+        } else if (leg1.currAngleX >= 8 && leg1.currAngleX <= 9){
+
+            legRotation = -0.3f;
+        }
+
+        leg1.translateObject(-Leg1.x, -Leg1.y, -Leg1.z);
+        leg1.rotateObject((float) Math.toRadians(legRotation), 1f, 0f, 0f);
+        leg1.translateObject(Leg1.x, Leg1.y, Leg1.z);
+
+        leg2.translateObject(-Leg2.x, -Leg2.y, -Leg2.z);
+        leg2.rotateObject((float) Math.toRadians(-legRotation), 1f, 0f, 0f);
+        leg2.translateObject(Leg2.x, Leg2.y, Leg2.z);
+        leg1.currAngleX += legRotation;
+        leg2.currAngleX += legRotation;
+
+        leg1.currAngleX = checkAngle(leg1.currAngleX);
+        leg2.currAngleX = checkAngle(leg2.currAngleX);
+
+
+//        System.out.println("walk - " + arm2.currAngleX);
+    }
+
+    public void restoreAim() {
+        if (currAngleY >= -2 && currAngleY <= 2) {
+            if ((getCenterPoint().get(2) > ninjaSpawnPos.z)) {
+                ninjaWalk(true);
+                translateObject(0f, 0f, -0.01f);
+            }
+        } else {
+            Vector3f ninjaCenter = new Vector3f(model.transformPosition(new Vector3f(0.0f, 0f, 0.0f)));
+            translateObject(-ninjaCenter.x, -ninjaCenter.y, -ninjaCenter.z);
+            if (currAngleY > 180) {
+                rotateObject((float) Math.toRadians(2), 0.0f, 1.0f, 0.0f);
+                currAngleY += 2;
+            } else if (currAngleY > 0) {
+                rotateObject((float) Math.toRadians(-2), 0.0f, 1.0f, 0.0f);
+                currAngleY -= 2;
+            }
+            translateObject(ninjaCenter.x, ninjaCenter.y, ninjaCenter.z);
+
+            currAngleY = checkAngle(currAngleY);
+        }
     }
 }

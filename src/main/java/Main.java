@@ -258,9 +258,6 @@ public class Main {
         if (window.isKeyPressed(GLFW_KEY_F9)) {
             ninjaMonkey.get(0).lookRightEye();
         }
-//        if (window.isKeyPressed(GLFW_KEY_F8)) {
-//            ninjaMonkey.get(0).spawnBalloon();
-//        }
 
         if (window.isKeyPressed(GLFW_KEY_F7)){
             if (ninjaMonkey.get(0).currAngleY >= -2 && ninjaMonkey.get(0).currAngleY <= 2) {
@@ -321,8 +318,8 @@ public class Main {
     public void loop(){
         while (window.isOpen()) {
             window.update();
-            glClearColor(1.0f,
-                    1.0f, 1.0f,
+            glClearColor(.0f,
+                    .0f, 1.0f,
                     1.0f);
             GL.createCapabilities();
             input();

@@ -55,7 +55,7 @@ public class NinjaMonkeyPalm1 extends Object {
                 temp_vector.z = centerPoint.get(2) + z;
                 vertices.add(temp_vector);
             }
-        }
+        }   
     }
 
     public void generateShuriken(){

@@ -371,6 +371,7 @@ public class NinjaMonkey extends Object {
 
             if (TimedestroyBalloon == 10) {
                 balloon.scaleObject(1.5f,1.5f,1.5f);
+                balloon.translateObject(1.5f,0f,0f);
             }
 
             if (TimedestroyBalloon == 5) {

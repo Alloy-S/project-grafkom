@@ -429,7 +429,7 @@ public class EngineerMonkey extends Object{
 
             if (destroyBalloon == 7) {
                 balloon.scaleObject(1.5f, 1.5f, 1.5f);
-                balloon.translateObject(0.5f,0f,0f);
+                balloon.translateObject(0.8f,0f,0f);
             }
 
             if (destroyBalloon == 5) {

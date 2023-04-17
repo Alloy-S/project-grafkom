@@ -266,7 +266,7 @@ public class NinjaMonkey extends Object {
         System.out.println(ballonCenter);
         Object ballon = getChildObject().get(7).getChildObject().get(ballonCount - 1);
 
-        ballon.scaleObject(0.9f, 0.9f, 0.9f);
+        ballon.scaleObject(0.6f, 0.6f, 0.6f);
         ballon.translateObject(-3.4f, -0.2f, 0f);
     }
 
@@ -369,8 +369,9 @@ public class NinjaMonkey extends Object {
         if (getChildObject().get(7).getChildObject().size() > 0) {
             Object balloon = getChildObject().get(7).getChildObject().get(0);
 
-            if (TimedestroyBalloon == 10) {
+            if (TimedestroyBalloon == 7) {
                 balloon.scaleObject(1.5f,1.5f,1.5f);
+                balloon.translateObject(1.5f,0f,0f);
             }
 
             if (TimedestroyBalloon == 5) {
@@ -378,7 +379,6 @@ public class NinjaMonkey extends Object {
             }
         }
         TimedestroyBalloon--;
-        System.out.println(TimedestroyBalloon);
     }
 
     public void spawnShuriken() {
@@ -390,11 +390,11 @@ public class NinjaMonkey extends Object {
         if (animTime == 0) return;
         NinjaMonkeyArm1 arm1 = (NinjaMonkeyArm1) childObject.get(2);
         if (animTime > 70) {
-            arm1.rotateFromBody((float) Math.toRadians(3f), 0.0f, 1.0f, 0.0f, offsetX, offsetY, offsetZ);
+            arm1.rotateArm((float) Math.toRadians(3f), 0.0f, 1.0f, 0.0f, offsetX, offsetY, offsetZ);
         }
         else if (animTime >= 50) {}
         else if (animTime >= 40) {
-            arm1.rotateFromBody((float) Math.toRadians(-3f), 0.0f, 1.0f, 0.0f, offsetX, offsetY, offsetZ);
+            arm1.rotateArm((float) Math.toRadians(-3f), 0.0f, 1.0f, 0.0f, offsetX, offsetY, offsetZ);
             if (animTime == 45){
                 spawnShuriken();
             }

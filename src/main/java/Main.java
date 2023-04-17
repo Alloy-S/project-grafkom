@@ -22,6 +22,7 @@ public class Main {
     private ArrayList<DartMonkey> dartMonkey = new ArrayList<>();
     private ArrayList<NinjaMonkey> ninjaMonkey = new ArrayList<>();
     private ArrayList<EngineerMonkey> engineerMonkey = new ArrayList<>();
+    private ArrayList<Object> land = new ArrayList<>();
 
     private boolean leftMouseButton = false;
     long lastTime = 0;
@@ -74,6 +75,26 @@ public class Main {
                 ),
                 new ArrayList<>(),
                 new Vector4f(0.44f, 0.24f, 0.12f, 1.0f)
+        ));
+
+        land.add(new Object(
+                Arrays.asList(
+                        new ShaderProgram.ShaderModuleData
+                                ("resources/shaders/scene.vert"
+                                        , GL_VERTEX_SHADER),
+                        new ShaderProgram.ShaderModuleData
+                                ("resources/shaders/scene.frag"
+                                        , GL_FRAGMENT_SHADER)
+                ),
+                new ArrayList<>(
+                        Arrays.asList(
+                                new Vector3f(-20f, -0.955f, -20f),
+                                new Vector3f(20f, -0.955f, -20f),
+                                new Vector3f(20f, -0.955f, 20f),
+                                new Vector3f(-20f, -0.955f, 20f)
+                        )
+                ),
+                new Vector4f(0.400f, 0.800f, 0.0720f, 1.0f)
         ));
 
 
@@ -237,9 +258,6 @@ public class Main {
         if (window.isKeyPressed(GLFW_KEY_F9)) {
             ninjaMonkey.get(0).lookRightEye();
         }
-//        if (window.isKeyPressed(GLFW_KEY_F8)) {
-//            ninjaMonkey.get(0).spawnBalloon();
-//        }
 
         if (window.isKeyPressed(GLFW_KEY_F7)){
             if (ninjaMonkey.get(0).currAngleY >= -2 && ninjaMonkey.get(0).currAngleY <= 2) {
@@ -300,8 +318,8 @@ public class Main {
     public void loop(){
         while (window.isOpen()) {
             window.update();
-            glClearColor(1.0f,
-                    1.0f, 1.0f,
+            glClearColor(.0f,
+                    .0f, 1.0f,
                     1.0f);
             GL.createCapabilities();
             input();
@@ -347,6 +365,10 @@ public class Main {
 
             if (ninjaMonkey.get(0).getAnimTime() == 0){
                 animating = false;
+            }
+
+            for (Object object: land) {
+                object.draw(camera, projection);
             }
 
 

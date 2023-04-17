@@ -184,7 +184,7 @@ public class NinjaMonkeyArm1 extends Object {
         glDrawArrays(GL_POLYGON, 0, vertices.size());
     }
 
-    public void rotateFromBody(Float degree, Float x, Float y, Float z, Float bodyOffsetX, Float bodyOffsetY, Float bodyOffsetZ) {
+    public void rotateArm(Float degree, Float x, Float y, Float z, Float bodyOffsetX, Float bodyOffsetY, Float bodyOffsetZ) {
         translateObject(-offsetX-bodyOffsetX, -offsetY-bodyOffsetY, -offsetZ-bodyOffsetZ);
         model = new Matrix4f().rotate(degree,x,y,z).mul(new Matrix4f(model));
         updateCenterPoint();

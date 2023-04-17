@@ -308,12 +308,12 @@ public class Main {
 
             //code
 //            ========================= DART MONKEY ==========================
-//            dartMonkey.get(0).look();
-//            dartMonkey.get(0).dartThrow();
-//
-//            for(Object object: dartMonkey){
-//                object.draw(camera,projection);
-//            }
+            dartMonkey.get(0).look();
+            dartMonkey.get(0).dartThrow();
+
+            for(Object object: dartMonkey){
+                object.draw(camera,projection);
+            }
 
 //            =============================== ENGINEER MONKEY =====================================
 //            camera.moveRight(0.09f);
@@ -334,20 +334,20 @@ public class Main {
 
 //            =========================== NINjA MONKEY ====================================
 
-//            for(Object object: ninjaMonkey){
-//                object.draw(camera,projection);
-//            }
-//
-//            if (ninjaMonkey.get(0).getShurikenList().size()>0){
-//                ninjaMonkey.get(0).throwShuriken();
-//            }
-//
-//            ninjaMonkey.get(0).handThrowAnim();
-//            ninjaMonkey.get(0).destroyBalloon();
-//
-//            if (ninjaMonkey.get(0).getAnimTime() == 0){
-//                animating = false;
-//            }
+            for(Object object: ninjaMonkey){
+                object.draw(camera,projection);
+            }
+
+            if (ninjaMonkey.get(0).getShurikenList().size()>0){
+                ninjaMonkey.get(0).throwShuriken();
+            }
+
+            ninjaMonkey.get(0).handThrowAnim();
+            ninjaMonkey.get(0).destroyBalloon();
+
+            if (ninjaMonkey.get(0).getAnimTime() == 0){
+                animating = false;
+            }
 
 
             // Restore state

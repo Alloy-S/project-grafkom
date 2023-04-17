@@ -167,8 +167,10 @@ public class Main {
         }
 
         if (window.isKeyPressed(GLFW_KEY_U)){
-            engineerMonkey.get(0).walk(false);
-            engineerMonkey.get(0).translateObject(0f, 0f, 0.01f);
+            if (engineerMonkey.get(0).currAngleY >= -2 && engineerMonkey.get(0).currAngleY <= 2) {
+                engineerMonkey.get(0).walk(false);
+                engineerMonkey.get(0).translateObject(0f, 0f, 0.01f);
+            }
 //            System.out.println(engineerMonkey.get(0).getCenterPoint());
         }
 
@@ -240,8 +242,10 @@ public class Main {
 //        }
 
         if (window.isKeyPressed(GLFW_KEY_F7)){
-            ninjaMonkey.get(0).ninjaWalk(false);
-            ninjaMonkey.get(0).translateObject(0f, 0f, 0.01f);
+            if (ninjaMonkey.get(0).currAngleY >= -2 && ninjaMonkey.get(0).currAngleY <= 2) {
+                ninjaMonkey.get(0).ninjaWalk(false);
+                ninjaMonkey.get(0).translateObject(0f, 0f, 0.01f);
+            }
         }
 
         //Shuriken
@@ -250,18 +254,38 @@ public class Main {
         }
 
         if (window.isKeyPressed(GLFW_KEY_6) && !animating && ninjaMonkey.get(0).getCenterPoint().get(2) < -2.9f) {
-            ninjaMonkey.get(0).setAnimTime(80);
-            ninjaMonkey.get(0).spawnBalloon();
-            animating = true;
+            if (ninjaMonkey.get(0).currAngleY >= -2 && ninjaMonkey.get(0).currAngleY <= 2) {
+                ninjaMonkey.get(0).setAnimTime(80);
+                ninjaMonkey.get(0).spawnBalloon();
+                animating = true;
+            }
         }
         //Look Right
-//        if (window.isKeyPressed(GLFW_KEY_7)) {
-//            ninjaMonkey.get(0).rotateObject((float) Math.toRadians(1), 0.0f, 1.0f, 0.0f);
-//        }
-//        //Look Left
-//        if (window.isKeyPressed(GLFW_KEY_8)) {
-//            ninjaMonkey.get(0).rotateObject((float) Math.toRadians(-1), 0.0f, 1.0f, 0.0f);
-//        }
+
+        if (window.isKeyPressed(GLFW_KEY_7)) {
+            ninjaMonkey.get(0).rotateObject((float) Math.toRadians(1), 0.0f, 1.0f, 0.0f);
+            ninjaMonkey.get(0).currAngleY += 1;
+
+            if (ninjaMonkey.get(0).currAngleY > 360) {
+                ninjaMonkey.get(0).currAngleY -= 360;
+            } else if (ninjaMonkey.get(0).currAngleY < 0) {
+                ninjaMonkey.get(0).currAngleY += 360;
+            }
+            System.out.println(ninjaMonkey.get(0).currAngleY);
+        }
+        //Look Left
+        if (window.isKeyPressed(GLFW_KEY_8)) {
+            ninjaMonkey.get(0).rotateObject((float) Math.toRadians(-1), 0.0f, 1.0f, 0.0f);
+
+            ninjaMonkey.get(0).currAngleY += -1;
+
+            if (ninjaMonkey.get(0).currAngleY > 360) {
+                ninjaMonkey.get(0).currAngleY -= 360;
+            } else if (ninjaMonkey.get(0).currAngleY < 0) {
+                ninjaMonkey.get(0).currAngleY += 360;
+            }
+        }
+
 
         //Head only
         if (window.isKeyPressed(GLFW_KEY_9)) {
@@ -276,20 +300,22 @@ public class Main {
     public void loop(){
         while (window.isOpen()) {
             window.update();
-            glClearColor(0.0f,
-                    0.0f, 0.0f,
-                    0.0f);
+            glClearColor(1.0f,
+                    1.0f, 1.0f,
+                    1.0f);
             GL.createCapabilities();
             input();
 
             //code
-            dartMonkey.get(0).look();
-            dartMonkey.get(0).dartThrow();
+//            ========================= DART MONKEY ==========================
+//            dartMonkey.get(0).look();
+//            dartMonkey.get(0).dartThrow();
+//
+//            for(Object object: dartMonkey){
+//                object.draw(camera,projection);
+//            }
 
-            for(Object object: dartMonkey){
-                object.draw(camera,projection);
-            }
-
+//            =============================== ENGINEER MONKEY =====================================
 //            camera.moveRight(0.09f);
 //            camera.addRotation(0.0f, -0.01f);
 
@@ -299,28 +325,29 @@ public class Main {
             for(Object object: engineerMonkey){
                 object.draw(camera,projection);
             }
-//
 //            engineerMonkey.get(0).aiming(true);
-//
+
 
             if (engineerMonkey.get(0).getBulletList().size() > 0) {
                 engineerMonkey.get(0).shootBullet();
             }
 
-            for(Object object: ninjaMonkey){
-                object.draw(camera,projection);
-            }
+//            =========================== NINjA MONKEY ====================================
 
-            if (ninjaMonkey.get(0).getShurikenList().size()>0){
-                ninjaMonkey.get(0).throwShuriken();
-            }
-
-            ninjaMonkey.get(0).handThrowAnim();
-            ninjaMonkey.get(0).destroyBalloon();
-
-            if (ninjaMonkey.get(0).getAnimTime() == 0){
-                animating = false;
-            }
+//            for(Object object: ninjaMonkey){
+//                object.draw(camera,projection);
+//            }
+//
+//            if (ninjaMonkey.get(0).getShurikenList().size()>0){
+//                ninjaMonkey.get(0).throwShuriken();
+//            }
+//
+//            ninjaMonkey.get(0).handThrowAnim();
+//            ninjaMonkey.get(0).destroyBalloon();
+//
+//            if (ninjaMonkey.get(0).getAnimTime() == 0){
+//                animating = false;
+//            }
 
 
             // Restore state

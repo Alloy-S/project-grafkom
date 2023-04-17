@@ -440,10 +440,13 @@ public class NinjaMonkey extends Object {
             if ((getCenterPoint().get(2) > ninjaSpawnPos.z)) {
                 ninjaWalk(true);
                 translateObject(0f, 0f, -0.01f);
+                System.out.println("jalan " + currAngleY);
+
             }
+
         } else {
-            Vector3f ninjaCenter = new Vector3f(model.transformPosition(new Vector3f(0.0f, 0f, 0.0f)));
-            translateObject(-ninjaCenter.x, -ninjaCenter.y, -ninjaCenter.z);
+//            Vector3f ninjaCenter = new Vector3f(model.transformPosition(new Vector3f(0.0f, 0f, 0.0f)));
+//            translateObject(-ninjaCenter.x, -ninjaCenter.y, -ninjaCenter.z);
             if (currAngleY > 180) {
                 rotateObject((float) Math.toRadians(2), 0.0f, 1.0f, 0.0f);
                 currAngleY += 2;
@@ -451,7 +454,7 @@ public class NinjaMonkey extends Object {
                 rotateObject((float) Math.toRadians(-2), 0.0f, 1.0f, 0.0f);
                 currAngleY -= 2;
             }
-            translateObject(ninjaCenter.x, ninjaCenter.y, ninjaCenter.z);
+//            translateObject(ninjaCenter.x, ninjaCenter.y, ninjaCenter.z);
 
             currAngleY = checkAngle(currAngleY);
         }

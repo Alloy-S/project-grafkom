@@ -272,7 +272,7 @@ public class DartMonkey extends Object {
             }
         }
         else if (throwTime >= 30){
-            hand1.childObject.get(1).translateObject(0.0f,0.0f,0.1f);
+            hand1.childObject.get(1).rotateObject(1.0f,0.0f,0.0f,0.0f);
         }
         else {
 

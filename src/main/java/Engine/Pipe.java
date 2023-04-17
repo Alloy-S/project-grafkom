@@ -57,15 +57,12 @@ public class Pipe extends Object{
         // draw the vertices
         glLineWidth(1);
         glPointSize(0);
-<<<<<<< HEAD
         glDrawArrays(GL_POLYGON, 0, vertices.size());
 //        glDrawArrays(GL_LINE_LOOP, 0, vertices.size());
         System.out.println(vertices.size());
 
-=======
 //        glDrawArrays(GL_LINE_LOOP, 0, vertices.size());
         glDrawArrays(GL_POLYGON, 0, vertices.size());
->>>>>>> 96f4754d53ab7b47455879112e566ce30bf1a4f6
         for(Object child:childObject){
             child.draw(camera,projection);
         }

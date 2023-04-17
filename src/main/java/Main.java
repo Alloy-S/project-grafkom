@@ -325,7 +325,7 @@ public class Main {
             for(Object object: engineerMonkey){
                 object.draw(camera,projection);
             }
-//            engineerMonkey.get(0).aiming(true);
+            engineerMonkey.get(0).aiming(true);
 
 
             if (engineerMonkey.get(0).getBulletList().size() > 0) {

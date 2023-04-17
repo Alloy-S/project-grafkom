@@ -100,9 +100,4 @@ public class DartProjectileFly extends Object {
         if(seen==1) super.draw(camera, projection);
     }
 
-    @Override
-    public void rotateObject(Float degree, Float x, Float y, Float z) {
-        translateObject(0.0f,0.0f,0.1f);
-        //super.rotateObject(degree, x, y, z);
-    }
 }

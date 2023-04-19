@@ -29,7 +29,7 @@ public class Pipe extends Object{
     private void createSilinder() {
         vertices.clear();
 
-            for (float angle = 0; angle < putaran; angle += 1) {
+            for (float angle = 0; angle < putaran; angle += 0.1) {
 
 //                buat lingkaran luar
                 float x1 = (float) (radius.x * Math.cos(Math.toRadians(angle)) + center.x);
@@ -42,11 +42,9 @@ public class Pipe extends Object{
 //                lingkaran atas luar
                 vertices.add(new Vector3f(x1, y1, center.z + height));
 //                lingkaran bawah dalam
-                vertices.add(new Vector3f(x2, y2, center.z - height));
-//                lingkaran bawah dalam
                 vertices.add(new Vector3f(x2, y2, center.z + height));
-//                lingkaran bawah luar
-                vertices.add(new Vector3f(x1, y1, center.z - height));
+//                lingkaran bawah dalam
+                vertices.add(new Vector3f(x2, y2, center.z - height));
 
 
         }
@@ -57,12 +55,9 @@ public class Pipe extends Object{
         // draw the vertices
         glLineWidth(1);
         glPointSize(0);
-        glDrawArrays(GL_POLYGON, 0, vertices.size());
-//        glDrawArrays(GL_LINE_LOOP, 0, vertices.size());
-        System.out.println(vertices.size());
-
-//        glDrawArrays(GL_LINE_LOOP, 0, vertices.size());
-        glDrawArrays(GL_POLYGON, 0, vertices.size());
+        glDrawArrays(GL_LINE_LOOP, 0, vertices.size());
+//        glDrawArrays(GL_POLYGON, 0, vertices.size());
+//        glDrawArrays(GL_TRIANGLE_FAN, 0, vertices.size());
         for(Object child:childObject){
             child.draw(camera,projection);
         }

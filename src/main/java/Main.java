@@ -155,10 +155,6 @@ public class Main {
             camera.addRotation(0.01f, 0.0f);
         }
 
-        if (window.isKeyPressed(GLFW_KEY_B)) {
-
-            dartMonkey.get(0).rotateObject(0.1f, 0.0f, 1.0f, 0.0f);
-        }
 
 //      ============================== key for engineer Monkey =============================
 

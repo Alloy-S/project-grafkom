@@ -59,7 +59,6 @@ public class Pipe extends Object{
         glPointSize(0);
         glDrawArrays(GL_POLYGON, 0, vertices.size());
 //        glDrawArrays(GL_LINE_LOOP, 0, vertices.size());
-        System.out.println(vertices.size());
 
 //        glDrawArrays(GL_LINE_LOOP, 0, vertices.size());
         glDrawArrays(GL_POLYGON, 0, vertices.size());

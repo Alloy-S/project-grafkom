@@ -336,11 +336,9 @@ public class Main {
             engineerMonkey.get(0).shakingHeadUpDown();
             engineerMonkey.get(0).destroyBalloon();
 
-            for(Object object: engineerMonkey){
-                object.draw(camera,projection);
+            for(Object object: engineerMonkey) {
+                object.draw(camera, projection);
             }
-            engineerMonkey.get(0).aiming(true);
-
 
             if (engineerMonkey.get(0).getBulletList().size() > 0) {
                 engineerMonkey.get(0).shootBullet();

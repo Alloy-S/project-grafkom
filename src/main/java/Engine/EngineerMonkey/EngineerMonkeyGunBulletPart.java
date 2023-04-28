@@ -101,13 +101,13 @@ public class EngineerMonkeyGunBulletPart extends Object {
 
 
 //        sisi bawah
-        vertices.add(tempVertices.get(1));
-        vertices.add(tempVertices.get(5));
-        vertices.add(tempVertices.get(6));
-
-        vertices.add(tempVertices.get(5));
-        vertices.add(tempVertices.get(6));
-        vertices.add(tempVertices.get(2));
+//        vertices.add(tempVertices.get(1));
+//        vertices.add(tempVertices.get(5));
+//        vertices.add(tempVertices.get(6));
+//
+//        vertices.add(tempVertices.get(5));
+//        vertices.add(tempVertices.get(6));
+//        vertices.add(tempVertices.get(2));
 
 //        sisi belakang
         vertices.add(tempVertices.get(0));
@@ -127,6 +127,15 @@ public class EngineerMonkeyGunBulletPart extends Object {
         vertices.add(tempVertices.get(1));
         vertices.add(tempVertices.get(0));
 
+        //        sisi depan
+        vertices.add(tempVertices.get(4));
+        vertices.add(tempVertices.get(5));
+        vertices.add(tempVertices.get(6));
+
+        vertices.add(tempVertices.get(6));
+        vertices.add(tempVertices.get(7));
+        vertices.add(tempVertices.get(4));
+
 //        sisi kanan
         vertices.add(tempVertices.get(7));
         vertices.add(tempVertices.get(6));
@@ -136,14 +145,7 @@ public class EngineerMonkeyGunBulletPart extends Object {
         vertices.add(tempVertices.get(3));
         vertices.add(tempVertices.get(7));
 
-//        sisi depan
-//        vertices.add(tempVertices.get(4));
-//        vertices.add(tempVertices.get(5));
-//        vertices.add(tempVertices.get(6));
-//
-//        vertices.add(tempVertices.get(6));
-//        vertices.add(tempVertices.get(7));
-//        vertices.add(tempVertices.get(4));
+
 
 
 

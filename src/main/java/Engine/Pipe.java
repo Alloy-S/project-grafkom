@@ -42,11 +42,9 @@ public class Pipe extends Object{
 //                lingkaran atas luar
                 vertices.add(new Vector3f(x1, y1, center.z + height));
 //                lingkaran bawah dalam
-                vertices.add(new Vector3f(x2, y2, center.z - height));
-//                lingkaran bawah dalam
                 vertices.add(new Vector3f(x2, y2, center.z + height));
-//                lingkaran bawah luar
-                vertices.add(new Vector3f(x1, y1, center.z - height));
+//                lingkaran bawah dalam
+                vertices.add(new Vector3f(x2, y2, center.z - height));
 
 
         }

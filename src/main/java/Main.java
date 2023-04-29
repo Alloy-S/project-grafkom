@@ -30,6 +30,7 @@ public class Main {
     private MouseInput mouseInput;
     Projection projection = new Projection(window.getWidth(), window.getHeight());
     Camera camera = new Camera();
+    boolean showNinja, showEngineer, showDart;
 
     public void init() {
         window.init();
@@ -97,11 +98,14 @@ public class Main {
                 new Vector4f(0.400f, 0.800f, 0.0720f, 1.0f)
         ));
 
+        showNinja = true;
+        showEngineer = true;
+        showDart = true;
 
     }
 
     public void input() {
-        float cameraSpeed = 0.04f;
+        float cameraSpeed = 0.03f;
 
         if (window.isKeyPressed(GLFW_KEY_D)) {
             camera.moveRight(cameraSpeed);
@@ -153,6 +157,15 @@ public class Main {
         }
         if (window.isKeyPressed(GLFW_KEY_DOWN)) {
             camera.addRotation(0.01f, 0.0f);
+        }
+        if (window.isKeyPressed(GLFW_KEY_B)) {
+            showNinja = !showNinja;
+        }
+        if (window.isKeyPressed(GLFW_KEY_N)) {
+            showEngineer = !showEngineer;
+        }
+        if (window.isKeyPressed(GLFW_KEY_M)) {
+            showDart = !showDart;
         }
 
 
@@ -325,8 +338,10 @@ public class Main {
             dartMonkey.get(0).look();
             dartMonkey.get(0).dartThrow();
 
-            for(Object object: dartMonkey){
-                object.draw(camera,projection);
+            if (showDart) {
+                for (Object object : dartMonkey) {
+                    object.draw(camera, projection);
+                }
             }
 
 //            =============================== ENGINEER MONKEY =====================================
@@ -336,8 +351,10 @@ public class Main {
             engineerMonkey.get(0).shakingHeadUpDown();
             engineerMonkey.get(0).destroyBalloon();
 
-            for(Object object: engineerMonkey) {
-                object.draw(camera, projection);
+            if(showEngineer) {
+                for (Object object : engineerMonkey) {
+                    object.draw(camera, projection);
+                }
             }
 
             if (engineerMonkey.get(0).getBulletList().size() > 0) {
@@ -346,8 +363,10 @@ public class Main {
 
 //            =========================== NINjA MONKEY ====================================
 
-            for(Object object: ninjaMonkey){
-                object.draw(camera,projection);
+            if(showNinja) {
+                for (Object object : ninjaMonkey) {
+                    object.draw(camera, projection);
+                }
             }
 
             if (ninjaMonkey.get(0).getShurikenList().size()>0){
@@ -362,7 +381,7 @@ public class Main {
             }
 
             for (Object object: land) {
-                object.draw(camera, projection);
+                //object.draw(camera, projection);
             }
 
 
